@@ -8,7 +8,7 @@ import { label } from './ratios/labels.js';
  */
 const EXCLUDED = new Set(['totalCurrentAssets', 'totalAssets', 'totalCurrentLiabilities', 'totalLiabilities', 'totalEquity',
   'grossProfit', 'pbt', 'cashBegin', 'cashEnd', 'netChangeCash', 'netIncomeParent', 'retainedEarnings', 'equityParent',
-  'cfo', 'cfi', 'cff', 'dividendsPaid']);
+  'cfo', 'cfi', 'cff', 'dividendsPaid', 'fxEffect']);
 
 /** Materiality base per statement: total assets, revenue (or insurance revenue / NII), |CFO|. */
 function base(d, y, stmt) {

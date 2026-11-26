@@ -19,7 +19,7 @@ Read `src/engine/schema.js` (keys per sector) and `tests/fixtures/industrial.jso
   - `payables` = trade payables (+ related-party trade payables).
   - `shortTermDebt` = bank loans, facilities, overdrafts and current portion of long-term loans. `longTermDebt` = non-current interest-bearing loans. **Lease liabilities are NOT debt here** (they fall into "other").
   - `depreciation` = depreciation + amortisation add-backs from the cash-flow statement.
-  - `capex` = purchases of property, plant and equipment (+ intangibles if combined), as a positive number.
+  - `capex` = purchases of property, plant and equipment **+ payments for projects in progress / capital work in progress** when shown as a separate investing line (+ intangibles if combined), as a positive number; note the components.
   - `cashBegin` / `cashEnd` / `netChangeCash` = as in the cash-flow statement (`fxEffect` if shown).
   - `netIncome` = profit for the year; `netIncomeParent` = attributable to owners of the parent.
   - `shares` (per year, top-level next to bs/is/cf) = shares outstanding at year end (from equity/EPS note).
