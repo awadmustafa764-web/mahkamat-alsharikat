@@ -52,3 +52,6 @@ Numbers were read from the rendered page images and checked against the PDF's te
 - Management's note 44 says it sees no material uncertainty from the Gaza events. The auditor's MU paragraph is based on note 41 (accumulated losses and the working-capital deficit). The parent company (PADICO) states an intention to provide financial support (note 41).
 - Quotes use Western digits in place of the report's Arabic-Indic digits. One elision (…) in the going-concern quote removes «كما في 31 كانون الأول 2025».
 - `priorPriorTotalAssets` was omitted (the FY2024 report was not read).
+
+## تحديث 2026-11-24
+- الإنفاق الرأسمالي (`capex`) صار = شراء ممتلكات وآلات ومعدات + مشاريع تحت التنفيذ: 2025 = 21,091 + 2,468,011 = 2,489,102؛ 2024 = 6,867 + 750,231 = 757,098 (ص 31). هذا يلغي الملاحظة السابقة.
