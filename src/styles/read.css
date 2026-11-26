@@ -1,0 +1,8 @@
+.folio--read { max-width: none; }
+.read-title { margin: 0 0 var(--row); font: 700 clamp(2.2rem, 1.4rem + 3vw, 3.6rem) / 1.2 var(--f-hand); color: var(--ink); }
+.read-body { max-width: 68ch; }
+.read-body p, .read-body li { margin: 0 0 calc(var(--row) * 0.5); }
+.read-body ol, .read-body ul { padding-inline-start: 1.4rem; margin: 0 0 var(--row); }
+.read-body li::marker { color: var(--rule); font-family: var(--f-figures); }
+.read-body strong { font-weight: 600; color: var(--ink); }
+.disclaimer { border-block: 1.5px solid var(--close-red); padding-block: 0.5rem; color: var(--ink); }

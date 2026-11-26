@@ -1,0 +1,34 @@
+:root {
+  /* «ورق الأستاذ» — spec §7.2. Close-red is reserved for totals, strikes and the verdict. */
+  --paper: #E3EBD8;
+  --paper-deep: #D6E1C8;
+  --rule: #7FA58E;
+  --rule-faint: #7FA58E66;
+  --ink: #1F3B4D;
+  --ink-soft: #3A5566;
+  --close-red: #C2272D;
+  --pencil: #6E6E68;
+  --eraser: #E9B8B0;
+
+  --f-hand: 'Aref Ruqaa', serif;
+  --f-hand-ink: 'Aref Ruqaa Ink', 'Aref Ruqaa', serif;
+  --f-body: 'Noto Naskh Arabic', serif;
+  --f-figures: 'IBM Plex Sans Arabic', sans-serif;
+
+  --t-body: clamp(1rem, 0.94rem + 0.3vw, 1.15rem);
+  --t-small: clamp(0.86rem, 0.82rem + 0.2vw, 0.95rem);
+  --t-line: clamp(1.15rem, 1rem + 0.7vw, 1.6rem);
+  --t-display: clamp(3.4rem, 1.6rem + 7.6vw, 6rem);
+
+  --row: 2.6rem;               /* one ruled line of the folio */
+  --margin-col: clamp(4.5rem, 9vw, 8rem);
+
+  /* motion — spec §8 */
+  --u: 80ms;
+  --micro: 160ms;
+  --ui: 320ms;
+  --reveal: 640ms;
+  --stage: 1440ms;
+  --ease-ledger: cubic-bezier(0.7, 0, 0.2, 1);
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+}
