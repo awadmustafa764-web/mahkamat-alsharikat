@@ -13,6 +13,7 @@ Read `src/engine/schema.js` (keys per sector) and `tests/fixtures/industrial.jso
   - `otherNonCurrentAssets` = total assets − total current assets − ppeNet
   - `operatingIncome` (if not shown) = gross profit − selling, general, admin and other operating expenses (before finance costs, share of associates and tax)
   - `grossProfit` = revenue − cogs
+  - Banks: `nonInterestIncome` = total income (before ECL) − net interest income, when both are on the income statement
 - Definitions:
   - `receivables` = trade receivables net of ECL (include related-party trade receivables if shown separately; exclude prepayments and other receivables).
   - `payables` = trade payables (+ related-party trade payables).

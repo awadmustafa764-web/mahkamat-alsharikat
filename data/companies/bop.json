@@ -1,0 +1,314 @@
+{
+  "meta": {
+    "id": "bop",
+    "nameAr": "بنك فلسطين",
+    "nameEn": "Bank of Palestine",
+    "ticker": "BOP",
+    "exchange": "PEX",
+    "sector": "bank",
+    "activityAr": "خدمات مصرفية تجارية وإسلامية",
+    "currency": "USD",
+    "unit": "1",
+    "consolidated": true,
+    "framework": "IFRS",
+    "years": [
+      2025,
+      2024
+    ]
+  },
+  "years": {
+    "2024": {
+      "bs": {
+        "grossLoans": {
+          "v": 4188586938,
+          "src": {
+            "page": 166,
+            "doc": "bop-FY2025"
+          }
+        },
+        "allowanceLoans": {
+          "v": 324028640,
+          "src": {
+            "page": 166,
+            "doc": "bop-FY2025"
+          }
+        },
+        "netLoans": {
+          "v": 3842640449,
+          "src": {
+            "page": 128,
+            "doc": "bop-FY2025"
+          }
+        },
+        "npl": {
+          "v": 229918053,
+          "src": {
+            "page": 167,
+            "doc": "bop-FY2025"
+          }
+        },
+        "deposits": {
+          "v": 6746335093,
+          "src": {
+            "page": 128,
+            "doc": "bop-FY2025"
+          }
+        },
+        "totalAssets": {
+          "v": 8360073698,
+          "src": {
+            "page": 128,
+            "doc": "bop-FY2025"
+          }
+        },
+        "totalLiabilities": {
+          "v": 7786471305,
+          "src": {
+            "page": 128,
+            "doc": "bop-FY2025"
+          }
+        },
+        "totalEquity": {
+          "v": 573602393,
+          "src": {
+            "page": 128,
+            "doc": "bop-FY2025"
+          }
+        },
+        "equityParent": {
+          "v": 506578616,
+          "src": {
+            "page": 128,
+            "doc": "bop-FY2025"
+          }
+        },
+        "nci": {
+          "v": 67023777,
+          "src": {
+            "page": 128,
+            "doc": "bop-FY2025"
+          }
+        }
+      },
+      "is": {
+        "netInterestIncome": {
+          "v": 214786498,
+          "src": {
+            "page": 129,
+            "doc": "bop-FY2025"
+          }
+        },
+        "nonInterestIncome": {
+          "v": 139204283,
+          "src": {
+            "page": 129,
+            "doc": "bop-FY2025",
+            "note": "محسوب: إجمالي الدخل قبل مخصصات الخسائر الائتمانية المتوقعة وتعديلات وخسائر أخرى − صافي إيرادات الفوائد"
+          }
+        },
+        "operatingExpenses": {
+          "v": 172948762,
+          "src": {
+            "page": 129,
+            "doc": "bop-FY2025"
+          }
+        },
+        "provisionExpense": {
+          "v": 87661411,
+          "src": {
+            "page": 129,
+            "doc": "bop-FY2025"
+          }
+        },
+        "netIncome": {
+          "v": -27911456,
+          "src": {
+            "page": 129,
+            "doc": "bop-FY2025"
+          }
+        },
+        "netIncomeParent": {
+          "v": -28901957,
+          "src": {
+            "page": 129,
+            "doc": "bop-FY2025"
+          }
+        }
+      },
+      "cf": {},
+      "capitalAdequacy": {
+        "v": 0.153,
+        "src": {
+          "page": 247,
+          "doc": "bop-FY2025"
+        }
+      },
+      "shares": {
+        "v": 260559617,
+        "src": {
+          "page": 133,
+          "doc": "bop-FY2025"
+        }
+      }
+    },
+    "2025": {
+      "bs": {
+        "grossLoans": {
+          "v": 4464999733,
+          "src": {
+            "page": 166,
+            "doc": "bop-FY2025"
+          }
+        },
+        "allowanceLoans": {
+          "v": 417348775,
+          "src": {
+            "page": 166,
+            "doc": "bop-FY2025"
+          }
+        },
+        "netLoans": {
+          "v": 4012032827,
+          "src": {
+            "page": 128,
+            "doc": "bop-FY2025"
+          }
+        },
+        "npl": {
+          "v": 348169736,
+          "src": {
+            "page": 167,
+            "doc": "bop-FY2025"
+          }
+        },
+        "deposits": {
+          "v": 8773595388,
+          "src": {
+            "page": 128,
+            "doc": "bop-FY2025"
+          }
+        },
+        "totalAssets": {
+          "v": 10650923206,
+          "src": {
+            "page": 128,
+            "doc": "bop-FY2025"
+          }
+        },
+        "totalLiabilities": {
+          "v": 9980091041,
+          "src": {
+            "page": 128,
+            "doc": "bop-FY2025"
+          }
+        },
+        "totalEquity": {
+          "v": 670832165,
+          "src": {
+            "page": 128,
+            "doc": "bop-FY2025"
+          }
+        },
+        "equityParent": {
+          "v": 599735337,
+          "src": {
+            "page": 128,
+            "doc": "bop-FY2025"
+          }
+        },
+        "nci": {
+          "v": 71096828,
+          "src": {
+            "page": 128,
+            "doc": "bop-FY2025"
+          }
+        }
+      },
+      "is": {
+        "netInterestIncome": {
+          "v": 226537030,
+          "src": {
+            "page": 129,
+            "doc": "bop-FY2025"
+          }
+        },
+        "nonInterestIncome": {
+          "v": 162958890,
+          "src": {
+            "page": 129,
+            "doc": "bop-FY2025",
+            "note": "محسوب: إجمالي الدخل قبل مخصصات الخسائر الائتمانية المتوقعة وتعديلات وخسائر أخرى − صافي إيرادات الفوائد"
+          }
+        },
+        "operatingExpenses": {
+          "v": 193318127,
+          "src": {
+            "page": 129,
+            "doc": "bop-FY2025"
+          }
+        },
+        "provisionExpense": {
+          "v": 127214256,
+          "src": {
+            "page": 129,
+            "doc": "bop-FY2025"
+          }
+        },
+        "netIncome": {
+          "v": 57001220,
+          "src": {
+            "page": 129,
+            "doc": "bop-FY2025"
+          }
+        },
+        "netIncomeParent": {
+          "v": 53357766,
+          "src": {
+            "page": 129,
+            "doc": "bop-FY2025"
+          }
+        }
+      },
+      "cf": {},
+      "capitalAdequacy": {
+        "v": 0.1629,
+        "src": {
+          "page": 247,
+          "doc": "bop-FY2025"
+        }
+      },
+      "shares": {
+        "v": 268786067,
+        "src": {
+          "page": 133,
+          "doc": "bop-FY2025"
+        }
+      }
+    }
+  },
+  "disclosures": {
+    "auditor": {
+      "opinion": "qualified",
+      "firm": "إرنست ويونغ – الشرق الأوسط (فرع فلسطين)",
+      "reportDate": "2026-03-24",
+      "qualification": {
+        "quote": "لم نتمكن من الحصول على أدلة تدقيق كافية حول كفاية المخصصات المكونة مقابل تعرضات البنك في قطاع غزة",
+        "page": 124,
+        "note": "أساس الرأي المتحفظ: تعرضات البنك في قطاع غزة (إيضاح 55)، والتحفظ قائم أيضاً على تقرير سنة 2024"
+      },
+      "emphasis": null,
+      "goingConcern": "none",
+      "kams": [
+        {
+          "title": "كفاية مخصص الخسائر الائتمانية المتوقعة للتسهيلات والتمويلات الائتمانية",
+          "quote": "تعتبر عملية تقدير الخسائر الائتمانية المتوقعة للتسهيلات والتمويلات الائتمانية للعملاء وفقاً لمعيار التقارير المالية الدولي رقم (9) مهمة ومعقدة وتتطلب الكثير من الاجتهاد.",
+          "page": 125
+        }
+      ]
+    },
+    "relatedParties": [],
+    "contingencies": [],
+    "subsequentEvents": [],
+    "policyChanges": []
+  }
+}
