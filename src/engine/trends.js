@@ -1,8 +1,14 @@
 import { val, src, growth, cur, prior } from './get.js';
 import { label } from './ratios/labels.js';
 
+/**
+ * Not reported as anomalies: totals/subtotals, and lines that merely mirror another finding
+ * (parent-share profit duplicates net income; retained earnings move with profit; cash-flow totals are covered by the quality flags).
+ * They still appear in horizontalVertical().
+ */
 const EXCLUDED = new Set(['totalCurrentAssets', 'totalAssets', 'totalCurrentLiabilities', 'totalLiabilities', 'totalEquity',
-  'grossProfit', 'pbt', 'cashBegin', 'cashEnd', 'netChangeCash']);
+  'grossProfit', 'pbt', 'cashBegin', 'cashEnd', 'netChangeCash', 'netIncomeParent', 'retainedEarnings', 'equityParent',
+  'cfo', 'cfi', 'cff', 'dividendsPaid']);
 
 /** Materiality base per statement: total assets, revenue (or insurance revenue / NII), |CFO|. */
 function base(d, y, stmt) {
