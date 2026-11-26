@@ -5,7 +5,8 @@ import { RATIOS } from '../engine/index.js';
 import { fmt } from '../engine/texts.js';
 
 const STEPS = [
-  ['send', 'إرسال الملف إلى قارئ القوائم'],
+  ['trim', 'اقتطاع صفحات تقرير المدقق والقوائم والإيضاحات'],
+  ['send', 'إرسال الصفحات إلى قارئ القوائم'],
   ['read', 'قراءة القوائم والإيضاحات وتقرير المدقق (قد تأخذ حتى ثلاث دقائق)'],
   ['check', 'فحص سلامة القراءة'],
   ['analyze', 'تحديد القطاع وحساب ما يناسبه'],
@@ -73,10 +74,13 @@ export function mount(el, ctx) {
     guesses[g.closest('li').dataset.guess] = b.dataset.v === 'yes';
   }));
 
-  const mark = (id) => {
+  const mark = (id, note) => {
     let past = true;
     for (const li of el.querySelectorAll('[data-step]')) {
-      if (li.dataset.step === id) { li.classList.add('is-now'); past = false; } else if (past) { li.classList.replace('is-now', 'is-done') || li.classList.add('is-done'); }
+      if (li.dataset.step === id) {
+        li.classList.add('is-now'); past = false;
+        if (note && !li.querySelector('.step-note')) li.insertAdjacentHTML('beforeend', ` <span class="step-note">${note}</span>`);
+      } else if (past) { li.classList.replace('is-now', 'is-done') || li.classList.add('is-done'); }
     }
   };
 

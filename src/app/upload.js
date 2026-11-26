@@ -1,5 +1,6 @@
 import { EXTRACT_URL } from './config.js';
 import { toCompanyData } from './extracted.js';
+import { trimPdf, shiftPages } from './trim.js';
 import { validateCompany, runIntegrity, analyze } from '../engine/index.js';
 import { benchmarks, docket } from './cases.js';
 import KNOWN from '../../data/known-files.json';
@@ -32,15 +33,19 @@ export async function analyzeUpload(file, onStep = () => {}) {
   // A file we have already audited line by line opens instantly with the verified figures.
   const known = await knownCase(file);
   if (known) {
-    for (const s of ['send', 'read', 'check', 'analyze']) onStep(s);
+    for (const s of ['trim', 'send', 'read', 'check', 'analyze']) onStep(s);
     return { data: known.data, case: known.case, integrity: known.case.integrity, problems: [], verifiedMatch: true };
   }
+  // Long annual reports stall the free reader: send only the auditor's report, statements and notes.
+  onStep('trim');
+  const { file: toSend, cut } = await trimPdf(file);
+  onStep('trim', cut ? `الصفحات ${cut.from}–${cut.to} من ${cut.total}` : 'الملف صغير، يُرسل كاملاً');
   onStep('send');
   let res;
   // One request carries the upload and the reading; the upload is done within seconds, the rest is the reader working.
   const readingTimer = setTimeout(() => onStep('read'), 5000);
   try {
-    res = await fetch(EXTRACT_URL, { method: 'POST', headers: { 'Content-Type': 'application/pdf', 'X-File-Name': encodeURIComponent(file.name) }, body: file });
+    res = await fetch(EXTRACT_URL, { method: 'POST', headers: { 'Content-Type': 'application/pdf', 'X-File-Name': encodeURIComponent(file.name) }, body: toSend });
   } catch {
     throw new Error('تعذّر الاتصال بخدمة القراءة. تأكد من الاتصال بالإنترنت، أو افتح شركة جاهزة.');
   } finally {
@@ -51,7 +56,7 @@ export async function analyzeUpload(file, onStep = () => {}) {
   if (!res.ok) throw new Error(ERRORS[body.error] ?? 'حدث خطأ في خدمة القراءة.');
 
   onStep('check');
-  const data = toCompanyData(body.data, file.name);
+  const data = toCompanyData(shiftPages(body.data, cut ? cut.from - 1 : 0), file.name);
   const problems = [];
   if (!data.meta.isAnnualAudited) problems.push('الملف يبدو قوائم مرحلية أو غير مدققة؛ هذا السجل يقرأ القوائم السنوية المدققة.');
   if (data.disclosures.auditor.opinion === 'not-found') problems.push('لم نجد تقرير المدقق في الملف؛ الحكم مبني على الأرقام وحدها.');
@@ -61,5 +66,5 @@ export async function analyzeUpload(file, onStep = () => {}) {
 
   onStep('analyze');
   const c = v.ok ? analyze(data, benchmarks) : null;
-  return { data, case: c, integrity, problems };
+  return { data, case: c, integrity, problems, cut };
 }
