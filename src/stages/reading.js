@@ -124,6 +124,6 @@ export function mount(el, ctx) {
     const enter = el.querySelector('.enter');
     enter.hidden = false;
     enter.focus({ preventScroll: true });
-    enter.addEventListener('click', () => ctx.go('case', { result: { data: r.data, case: c, verifiedMatch: r.verifiedMatch, problems: r.problems, guesses } }), { once: true });
+    enter.addEventListener('click', () => ctx.go('exhibit', { result: { data: r.data, case: c, verifiedMatch: r.verifiedMatch, problems: r.problems, guesses } }), { once: true });
   }).catch((e) => { status.textContent = e.message; });
 }

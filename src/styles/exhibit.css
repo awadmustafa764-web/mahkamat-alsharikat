@@ -1,0 +1,99 @@
+.stage--exhibit { height: 100svh; overflow: hidden; }
+.exhibit { position: relative; height: 100svh; }
+.exhibit-canvas { position: absolute; inset: 0; }
+.exhibit-canvas canvas { display: block; width: 100%; height: 100%; cursor: crosshair; }
+
+.hud {
+  position: absolute; inset-inline: 1.2rem; inset-block-start: 1rem;
+  display: flex; align-items: baseline; gap: 1.4rem;
+  font-family: var(--f-hand); color: var(--ink); pointer-events: none;
+}
+.hud-case { font-size: var(--t-line); }
+.hud-hall { color: var(--ink-soft); }
+.hud-progress { flex: 1; height: 3px; background: var(--rule-faint); align-self: center; }
+.hud-progress span { display: block; height: 100%; background: var(--ink); transform: scaleX(0); transform-origin: right; transition: transform var(--stage) var(--ease-ledger); }
+
+.card {
+  position: absolute; inset-inline-start: clamp(0.8rem, 2vw, 1.6rem); inset-block: 4.2rem 5.2rem;
+  width: min(30rem, calc(100% - 1.6rem)); overflow-y: auto;
+  padding: 1.4rem 1.5rem 1.2rem;
+  background: #F4F7EF; color: var(--ink);
+  border: 1px solid var(--rule);
+  box-shadow: 0 18px 40px -18px #1F3B4D55, 0 2px 6px #1F3B4D1f;
+  background-image: repeating-linear-gradient(to bottom, transparent 0, transparent calc(2rem - 1px), var(--rule-faint) calc(2rem - 1px), var(--rule-faint) 2rem);
+  outline: none;
+}
+.card.card--far { inset-inline-start: auto; inset-inline-end: clamp(0.8rem, 2vw, 1.6rem); }
+.card-value .prior { color: var(--pencil); font-size: 0.7em; }
+.card--flat { position: static; width: auto; max-width: 46rem; margin-bottom: 1rem; box-shadow: none; }
+.card-hall { margin: 0; font-size: var(--t-small); color: var(--pencil); font-family: var(--f-hand); }
+.card-title { margin: 0.1rem 0 0.4rem; font: 700 clamp(1.5rem, 1.1rem + 1.2vw, 2.1rem) / 1.25 var(--f-hand); }
+.card-value { margin: 0 0 0.4rem; font-family: var(--f-figures); font-size: var(--t-line); }
+.card-value.is-alert { color: var(--close-red); }
+.card-grade { margin: 0 0 0.6rem; font-size: var(--t-small); color: var(--ink-soft); }
+.card-grade span { font: 700 1.4em var(--f-hand); color: var(--ink); padding-inline: 0.2rem; }
+.card-quote { margin: 0 0 0.7rem; padding: 0.4rem 0.9rem; border-inline-start: 0; background: #E9EFE0; font-size: var(--t-small); }
+.card-quote footer { margin-top: 0.3rem; color: var(--pencil); }
+.card-meaning { margin: 0 0 0.6rem; }
+.card-pro strong { color: var(--close-red); font-weight: 600; }
+.card-def strong { color: var(--ink); font-weight: 600; }
+.card-pro, .card-def { margin: 0 0 0.4rem; font-size: var(--t-small); }
+.card-calc { margin: 0.6rem 0 0.9rem; font-size: var(--t-small); }
+.card-calc summary { cursor: pointer; font-family: var(--f-hand); font-size: var(--t-body); color: var(--ink); }
+.card-calc .formula { font-weight: 600; }
+.card-calc .basis { color: var(--pencil); }
+.inputs { list-style: none; padding: 0; margin: 0.4rem 0 0; }
+.inputs li { display: flex; flex-wrap: wrap; gap: 0.2rem 0.8rem; justify-content: space-between; padding-block: 0.25rem; border-block-end: 1px solid var(--rule-faint); }
+.inputs .src { color: var(--pencil); font-size: 0.9em; }
+.inputs .reason { flex-basis: 100%; margin: 0; color: var(--ink-soft); }
+
+.card-vote { display: flex; gap: 0.8rem; }
+.card-vote button { flex: 1; padding: 0.55rem 0; font: 700 var(--t-body) var(--f-hand); border: 1.5px solid var(--ink); color: var(--ink); }
+.card-vote [data-vote="unconvincing"] { border-color: var(--close-red); color: var(--close-red); }
+.card-vote [aria-pressed="true"][data-vote="convincing"] { background: var(--ink); color: var(--paper); }
+.card-vote [aria-pressed="true"][data-vote="unconvincing"] { background: var(--close-red); color: #fff; }
+
+.controls {
+  position: absolute; inset-inline: 0; inset-block-end: 0;
+  display: flex; flex-wrap: wrap; gap: 0.5rem 1.4rem; align-items: center; justify-content: center;
+  padding: 0.8rem 1rem; background: #E3EBD8e6; border-block-start: 1px solid var(--rule);
+}
+.controls button { font-family: var(--f-hand); font-size: var(--t-body); color: var(--ink); text-decoration: underline; text-decoration-color: var(--rule); text-underline-offset: 0.4em; }
+.controls [data-act="verdict"] { color: var(--close-red); }
+.controls .keys { color: var(--pencil); font-size: var(--t-small); }
+
+.list2d { position: absolute; inset: 3.5rem 0 4.5rem; overflow-y: auto; padding: 1rem clamp(1rem, 4vw, 4rem); }
+.list2d h2 { font: 700 var(--t-line) var(--f-hand); }
+
+/* ---------- deed ---------- */
+.deed { max-width: 50rem; }
+.deed-kind { margin: 0; color: var(--pencil); font-family: var(--f-hand); }
+.deed h1 { margin: 0.2rem 0; font: 700 clamp(2rem, 1.3rem + 2.6vw, 3.2rem) / 1.2 var(--f-hand); }
+.deed-meta { margin: 0 0 var(--row); color: var(--ink-soft); }
+.deed-verdicts { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; }
+.deed-label { margin: 0; color: var(--pencil); font-size: var(--t-small); }
+.deed-verdict { margin: 0.1rem 0; font: 700 clamp(2rem, 1.4rem + 2vw, 3rem) / 1.2 var(--f-hand); color: var(--close-red); }
+.deed-verdict--judge { color: var(--ink); }
+.deed-reason { margin: 0; }
+.deed-diff { padding-inline-start: 1.2rem; font-size: var(--t-small); }
+.deed-rule { display: block; height: 7px; margin: 1.2rem 0; border-block: 2px solid var(--close-red); transform-origin: right; }
+.deed-axes { border-collapse: collapse; margin-bottom: var(--row); min-width: 22rem; }
+.deed-axes th, .deed-axes td { padding: 0.3rem 1rem; border-block-end: 1px solid var(--rule); text-align: start; }
+.deed-axes td { font-family: var(--f-hand); font-size: 1.2em; }
+.deed-cols { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; }
+.deed h2 { font: 700 var(--t-line) var(--f-hand); margin: var(--row) 0 0.3rem; }
+.deed-confidence { color: var(--ink-soft); }
+.deed-actions { display: flex; gap: 2rem; align-items: center; margin-top: var(--row); }
+
+@media (max-width: 760px) {
+  .deed-verdicts, .deed-cols { grid-template-columns: 1fr; }
+  .controls .keys { display: none; }
+  .card { inset-block: auto 4.6rem; max-height: 55svh; }
+}
+
+@media print {
+  .folio-rules, .deed-actions, .folio-foot { display: none !important; }
+  .folio { padding: 0 !important; }
+  .deed { max-width: none; }
+  @page { size: A4; margin: 16mm; }
+}

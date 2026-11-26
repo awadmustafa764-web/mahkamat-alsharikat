@@ -16,9 +16,9 @@ import { DISCLAIMER, HALLS } from './constants.js';
 
 const sevFromGrade = (g) => (g === 'E' ? 'alert' : g === 'D' ? 'watch' : 'info');
 
-function basisText(b) {
+function basisText(b, unitAr) {
   if (!b || !b.grade) return '';
-  return b.basis === 'sector' ? `وسيط القطاع ${b.median !== null ? b.median.toFixed(3) : ''} (عدد الشركات ${b.n})` : 'الحدود المرجعية المعتادة';
+  return b.basis === 'sector' ? `وسيط القطاع ${b.median !== null ? fmt(b.median, unitAr) : ''} (عدد الشركات ${b.n})` : 'الحدود المرجعية المعتادة';
 }
 
 function ratioEvidence(d, id, bench) {
@@ -37,8 +37,8 @@ function ratioEvidence(d, id, bench) {
     displayAr: `${fmt(r.value, def.unitAr)}${rp.value !== null ? ` (السنة السابقة ${fmt(rp.value, def.unitAr)})` : ''}`,
     formulaAr: def.formulaAr, basisAr: r.basisAr, inputs: r.inputs, benchmark: benchmark.grade ? benchmark : null,
     severity: sevFromGrade(benchmark.grade), meaningAr: MEANING[id] ?? '',
-    prosecutionAr: weak ? `${def.labelAr} أضعف من ${basisText(benchmark)}.` : improved === false ? `${def.labelAr} تراجع عن السنة السابقة.` : '',
-    defenseAr: strong ? `${def.labelAr} أفضل من ${basisText(benchmark)}.` : improved ? `${def.labelAr} تحسّن عن السنة السابقة.` : '',
+    prosecutionAr: weak ? `${def.labelAr} أضعف من ${basisText(benchmark, def.unitAr)}.` : improved === false ? `${def.labelAr} تراجع عن السنة السابقة.` : '',
+    defenseAr: strong ? `${def.labelAr} أفضل من ${basisText(benchmark, def.unitAr)}.` : improved ? `${def.labelAr} تحسّن عن السنة السابقة.` : '',
   });
 }
 
