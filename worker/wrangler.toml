@@ -1,6 +1,8 @@
 name = "mahkamat-extract"
 main = "index.js"
 compatibility_date = "2026-11-01"
+workers_dev = true
+preview_urls = false
 
 [vars]
 # Comma-separated origins allowed to call the Worker (GitHub Pages URL goes here after publishing).

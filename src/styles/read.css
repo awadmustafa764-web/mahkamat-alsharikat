@@ -5,4 +5,10 @@
 .read-body ol, .read-body ul { padding-inline-start: 1.4rem; margin: 0 0 var(--row); }
 .read-body li::marker { color: var(--rule); font-family: var(--f-figures); }
 .read-body strong { font-weight: 600; color: var(--ink); }
+.steps { list-style: none; padding: 0; }
+.steps li { color: var(--pencil); padding-block: 0.2rem; }
+.steps li.is-now { color: var(--ink); font-weight: 600; }
+.steps li.is-done { color: var(--ink-soft); text-decoration: line-through; text-decoration-color: var(--rule); }
+.verdict-line strong { font-family: var(--f-hand); font-size: 1.4em; color: var(--close-red); }
+.questions li { margin-bottom: 0.4rem; }
 .disclaimer { border-block: 1.5px solid var(--close-red); padding-block: 0.5rem; color: var(--ink); }
