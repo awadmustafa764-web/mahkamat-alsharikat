@@ -62,18 +62,18 @@ async function modelCandidates(env) {
 const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
 
 async function extract(env, file) {
-  let last = 'no-model';
+  const tried = [];
   for (const model of await modelCandidates(env)) {
     for (let attempt = 0; attempt < 2; attempt++) {
       // Default thinking on purpose: a low-thinking test read 3 lines wrong and flipped the verdict (2026-11-25).
       const res = await generate(env, file, model, false);
       if (res.ok) { resolvedModel = model; return res.data; }
-      last = `generate ${res.status} ${model}`;
+      tried.push(`${model}:${res.status}`);
       if (res.status !== 503 && res.status !== 429 && res.status !== 500) break; // not transient → next model
       await sleep(2500 * (attempt + 1));
     }
   }
-  throw new Error(last);
+  throw new Error(`generate ${tried.join(' ') || 'no-model'}`);
 }
 
 async function generate(env, file, model, lowThinking) {
