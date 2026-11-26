@@ -127,3 +127,14 @@ describe('financial sectors run end-to-end', () => {
     }
   });
 });
+
+describe('investment verdict', () => {
+  it('every rating carries an invest / do-not-invest verdict matching its label', async () => {
+    const { RATING_LABELS, VERDICTS } = await import('../../src/engine/constants.js');
+    const c = analyze(fixture('industrial'), {});
+    expect(c.rating.verdict).toEqual(VERDICTS[RATING_LABELS.indexOf(c.rating.label)]);
+    const d = fixture('industrial');
+    d.disclosures.auditor.opinion = 'adverse';
+    expect(analyze(d, {}).rating.verdict.decision).toBe('avoid');
+  });
+});

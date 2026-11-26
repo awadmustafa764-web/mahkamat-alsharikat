@@ -1,4 +1,4 @@
-import { AXES, RATING_LABELS } from './constants.js';
+import { AXES, RATING_LABELS, VERDICTS } from './constants.js';
 import { AXIS_LABELS } from './texts.js';
 
 const gradeFromPoints = (p) => (p >= 3.5 ? 'A' : p >= 2.5 ? 'B' : p >= 1.5 ? 'C' : p >= 0.5 ? 'D' : 'E');
@@ -26,7 +26,7 @@ export function aggregate(evidence) {
   if (has('altman', (e) => e.zone === 'distress')) { idx = Math.min(3, idx + 1); downgrades.push('مؤشر Altman في منطقة التعثر: خُفّض التصنيف درجة.'); }
   if (has('goingConcern') && idx < 2) { idx = 2; downgrades.push('شك جوهري في الاستمرارية: الحد الأعلى للتصنيف «تحت المراقبة».'); }
   if ((has('adverseOpinion') || has('disclaimerOpinion')) && idx < 3) { idx = 3; downgrades.push('رأي معاكس أو امتناع عن الرأي: التصنيف «ضعيف».'); }
-  return { label: RATING_LABELS[idx], points, axes, downgrades };
+  return { label: RATING_LABELS[idx], verdict: VERDICTS[idx], points, axes, downgrades };
 }
 
 /** A verdict resting on fewer graded measures than this is reported with low confidence. */
@@ -56,6 +56,6 @@ export function judgeRating(caseObj, votes) {
     const m = caseObj.rating.axes[axis]?.grade, g = j.axes[axis]?.grade;
     if (m !== g) diffAr.push(`${AXIS_LABELS[axis]}: النموذج ${m ?? '—'}، والقاضي ${g ?? '—'}`);
   }
-  if (j.label !== caseObj.rating.label) diffAr.push(`التصنيف العام: النموذج «${caseObj.rating.label}»، والقاضي «${j.label}»`);
+  if (j.label !== caseObj.rating.label) diffAr.push(`الحكم: النموذج «${caseObj.rating.verdict.labelAr}»، وأنت «${j.verdict.labelAr}»`);
   return { ...j, diffAr };
 }

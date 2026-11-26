@@ -9,7 +9,7 @@ describe('constants', () => {
   });
 
   it('disclaimer is the exact fixed string', () => {
-    expect(DISCLAIMER).toBe('تحليل تعليمي مبني على القوائم المنشورة، لا يشمل التقييم السعري، وليس توصية استثمارية.');
+    expect(DISCLAIMER).toBe('حكم تعليمي مبني على القوائم المالية المنشورة وحدها؛ لا يأخذ سعر السهم أو التقييم السوقي في الحساب.');
   });
 
   it('has 7 halls and 4 rating labels', () => {
