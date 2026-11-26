@@ -8,7 +8,7 @@ const MAX_BYTES = 25 * 1024 * 1024;
 function cors(env, origin) {
   const allowed = (env.ALLOWED_ORIGINS ?? '').split(',').map((s) => s.trim()).filter(Boolean);
   const ok = allowed.includes(origin) || /^http:\/\/localhost:\d+$/.test(origin ?? '');
-  return ok ? { 'Access-Control-Allow-Origin': origin, 'Access-Control-Allow-Methods': 'POST, OPTIONS', 'Access-Control-Allow-Headers': 'Content-Type', Vary: 'Origin' } : null;
+  return ok ? { 'Access-Control-Allow-Origin': origin, 'Access-Control-Allow-Methods': 'POST, OPTIONS', 'Access-Control-Allow-Headers': 'Content-Type, X-File-Name', Vary: 'Origin' } : null;
 }
 
 const json = (body, status, headers) => new Response(JSON.stringify(body), { status, headers: { 'Content-Type': 'application/json; charset=utf-8', ...headers } });
@@ -64,14 +64,15 @@ const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
 async function extract(env, file) {
   const tried = [];
   for (const model of await modelCandidates(env)) {
-    for (let attempt = 0; attempt < 2; attempt++) {
+    // Free-tier flash models often answer 503 "overloaded" for a few seconds; waiting 3s, 6s, 12s usually gets through.
+    for (let attempt = 0; attempt < 4; attempt++) {
       // Default thinking on purpose: a low-thinking test read 3 lines wrong and flipped the verdict (2026-11-25).
       const res = await generate(env, file, model, false);
       if (res.ok) { resolvedModel = model; return res.data; }
       tried.push(`${model}:${res.status}`);
       // 429 = quota for this model is used up: retrying only burns more quota, so move to the next model.
       if (res.status !== 503 && res.status !== 500) break;
-      await sleep(2500 * (attempt + 1));
+      if (attempt < 3) await sleep(3000 * 2 ** attempt);
     }
   }
   throw new Error(`generate ${tried.join(' ') || 'no-model'}`);
@@ -118,7 +119,10 @@ export default {
       const data = await extract(env, file);
       return json({ data, model: resolvedModel }, 200, headers);
     } catch (e) {
-      return json({ error: 'extraction-failed', detail: String(e.message).slice(0, 120) }, 502, headers);
+      const msg = String(e.message);
+      // Every model answered "overloaded" or "quota": the file is fine, the free tier is busy.
+      const busy = msg.startsWith('generate') && /:(503|429)/.test(msg) && !/:(400|413)/.test(msg);
+      return json({ error: busy ? 'busy' : 'extraction-failed', detail: msg.slice(0, 160) }, busy ? 503 : 502, headers);
     }
   },
 };

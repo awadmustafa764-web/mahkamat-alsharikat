@@ -27,6 +27,7 @@ export function headline(ev) {
   if (ev.id === 'disclaimerOpinion') return 'المدقق امتنع عن إبداء رأيه في القوائم.';
   if (ev.id === 'goingConcern') return 'المدقق يشك في قدرة الشركة على الاستمرار.';
   if (ev.id === 'emphasis') return 'المدقق لفت الانتباه إلى أمر يجب أن تعرفه قبل القرار.';
+  if (ev.id === 'noAuditReport') return 'لم نجد تقرير المدقق في الملف، فلا نعرف رأيه في القوائم.';
   if (ev.id === 'auditorOpinion') return 'رأي المدقق نظيف: القوائم تعرض الوضع المالي بعدالة.';
   if (ev.id.startsWith('kam-')) return `ركّز المدقق على: ${ev.titleAr.replace('أمر تدقيق رئيسي: ', '')}.`;
   return ev.titleAr;
@@ -79,7 +80,7 @@ export function buildArgument(caseObj, { max = 5 } = {}) {
   const all = Object.values(caseObj.halls).flat().filter((e) => e.id !== 'sectorProfile');
   for (const e of all) { e.headlineAr = headline(e); e.weight = weightOf(e); }
   const mustKnow = all.filter((e) => AUDIT_ALERTS.has(e.id) || (e.id === 'altman' && e.zone === 'distress'));
-  if (!mustKnow.length) { const op = all.find((e) => e.id === 'auditorOpinion'); if (op) mustKnow.push(op); }
+  if (!mustKnow.length) { const op = all.find((e) => e.id === 'auditorOpinion' || e.id === 'noAuditReport'); if (op) mustKnow.push(op); }
   mustKnow.push(...all.filter((e) => e.id.startsWith('kam-')).slice(0, 2));
   const taken = new Set(mustKnow.map((e) => e.id));
   const graded = all.filter((e) => !taken.has(e.id) && e.axis);

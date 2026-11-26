@@ -18,6 +18,7 @@ const ERRORS = {
   'not-pdf': 'الملف ليس PDF صالحاً.',
   'origin-not-allowed': 'هذا الموقع غير مسموح له باستخدام خدمة القراءة.',
   'missing-key': 'خدمة القراءة غير مهيأة بعد (مفتاح القراءة مفقود).',
+  busy: 'خدمة القراءة المجانية مزدحمة الآن عند Google، والملف سليم. جرّب مرة ثانية بعد دقيقة، أو افتح شركة جاهزة.',
   'extraction-failed': 'لم تتمكن خدمة القراءة من استخراج القوائم من هذا الملف. جرّب ملفاً أوضح، أو افتح شركة جاهزة.',
 };
 
@@ -36,10 +37,14 @@ export async function analyzeUpload(file, onStep = () => {}) {
   }
   onStep('send');
   let res;
+  // One request carries the upload and the reading; the upload is done within seconds, the rest is the reader working.
+  const readingTimer = setTimeout(() => onStep('read'), 5000);
   try {
     res = await fetch(EXTRACT_URL, { method: 'POST', headers: { 'Content-Type': 'application/pdf', 'X-File-Name': encodeURIComponent(file.name) }, body: file });
   } catch {
     throw new Error('تعذّر الاتصال بخدمة القراءة. تأكد من الاتصال بالإنترنت، أو افتح شركة جاهزة.');
+  } finally {
+    clearTimeout(readingTimer);
   }
   onStep('read');
   const body = await res.json().catch(() => ({}));
@@ -49,6 +54,7 @@ export async function analyzeUpload(file, onStep = () => {}) {
   const data = toCompanyData(body.data, file.name);
   const problems = [];
   if (!data.meta.isAnnualAudited) problems.push('الملف يبدو قوائم مرحلية أو غير مدققة؛ هذا السجل يقرأ القوائم السنوية المدققة.');
+  if (data.disclosures.auditor.opinion === 'not-found') problems.push('لم نجد تقرير المدقق في الملف؛ الحكم مبني على الأرقام وحدها.');
   const v = validateCompany(data);
   if (!v.ok) problems.push(...v.errors.map((e) => `بند ناقص: ${e}`));
   const integrity = runIntegrity(data);

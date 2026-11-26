@@ -46,3 +46,14 @@ describe('pickSurprise', () => {
     expect(pickSurprise(d, ev).id).toBe('altman');
   });
 });
+
+describe('missing auditor report', () => {
+  it('is never shown as a clean opinion', () => {
+    const d = fixture('industrial');
+    d.disclosures.auditor.opinion = 'not-found';
+    const ev = disclosureEvidence(d);
+    expect(ev.find((e) => e.id === 'auditorOpinion')).toBeUndefined();
+    const e = ev.find((x) => x.id === 'noAuditReport');
+    expect(e.severity).toBe('watch');
+  });
+});

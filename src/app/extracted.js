@@ -24,7 +24,7 @@ export function toCompanyData(x, fileName = 'upload.pdf') {
     years,
     disclosures: {
       auditor: {
-        opinion: a.opinion ?? 'unmodified', firm: a.firm ?? '',
+        opinion: a.opinion ?? 'not-found', firm: a.firm ?? '',
         emphasis: a.emphasis ? { present: true, quote: a.emphasis.quote, page: a.emphasis.page } : null,
         goingConcern: a.goingConcern ?? 'none', goingConcernQuote: a.goingConcernQuote?.quote, goingConcernPage: a.goingConcernQuote?.page,
         kams: (a.kams ?? []).map((k) => ({ title: k.title ?? '', quote: k.quote, page: k.page })),

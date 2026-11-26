@@ -46,7 +46,7 @@ export const EXTRACTION_SCHEMA = {
         auditor: {
           type: 'OBJECT',
           properties: {
-            opinion: { type: 'STRING', enum: ['unmodified', 'qualified', 'adverse', 'disclaimer'] },
+            opinion: { type: 'STRING', enum: ['unmodified', 'qualified', 'adverse', 'disclaimer', 'not-found'] },
             firm: { type: 'STRING' },
             emphasis: { ...QUOTE, nullable: true },
             goingConcern: { type: 'STRING', enum: ['none', 'material-uncertainty'] },
@@ -78,6 +78,6 @@ Return JSON matching the schema. Rules:
 - sector: bank for commercial/Islamic banks; insurance for insurers (framework "IFRS17" when the income statement shows insurance revenue / insurance service result); investment for holding and real-estate investment companies; industrial for manufacturers and agriculture; services otherwise.
 - Banks: grossLoans = gross direct credit facilities; allowanceLoans = ECL allowance on them; netLoans as presented; npl = gross stage-3 / non-performing facilities from the credit-risk note; deposits = customers' deposits; capitalAdequacy = regulatory capital adequacy ratio as a decimal (e.g. 0.152).
 - Insurance (IFRS 17): insuranceRevenue, insuranceServiceExpenses, netReinsuranceResult (net result from reinsurance contracts held, signed), insuranceServiceResult = the result AFTER reinsurance (= insuranceRevenue − insuranceServiceExpenses + netReinsuranceResult; often labelled "insurance and reinsurance contracts results"), investmentIncome, totalInvestments. dividendsPaid = cash dividends PAID in the cash-flow statement, not dividends declared.
-- Auditor's report: opinion type, firm, emphasis-of-matter paragraph (short quote ≤ 40 words + page) or null, going concern ("material-uncertainty" only if the auditor has a material-uncertainty paragraph), key audit matters (title + ≤ 2-sentence quote + page). Quotes in the report's own language.
+- Auditor's report: opinion type (use "not-found" if the file contains no independent auditor's report; never guess "unmodified"), firm, emphasis-of-matter paragraph (short quote ≤ 40 words + page) or null, going concern ("material-uncertainty" only if the auditor has a material-uncertainty paragraph), key audit matters (title + ≤ 2-sentence quote + page). Quotes in the report's own language.
 - relatedParties: only material balances/transactions in the related-party note. contingencies, subsequentEvents, policyChanges: only real items in the notes. disclosures.notesIncluded = false if the PDF has no notes.
 - meta.isAnnualAudited = false if these are interim or unaudited statements.`;
