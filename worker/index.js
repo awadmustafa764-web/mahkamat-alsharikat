@@ -121,8 +121,10 @@ export default {
     } catch (e) {
       const msg = String(e.message);
       // Every model answered "overloaded" or "quota": the file is fine, the free tier is busy.
-      const busy = msg.startsWith('generate') && /:(503|429)/.test(msg) && !/:(400|413)/.test(msg);
-      return json({ error: busy ? 'busy' : 'extraction-failed', detail: msg.slice(0, 160) }, busy ? 503 : 502, headers);
+      const busy = msg.startsWith('generate') && /:(503|429|524)/.test(msg) && !/:(400|413)/.test(msg);
+      // No model answered anything but 429: today's free quota is spent (it resets daily at midnight Pacific time).
+      const quota = busy && !/:(503|500|524)/.test(msg);
+      return json({ error: quota ? 'quota' : busy ? 'busy' : 'extraction-failed', detail: msg.slice(0, 160) }, busy ? 503 : 502, headers);
     }
   },
 };
