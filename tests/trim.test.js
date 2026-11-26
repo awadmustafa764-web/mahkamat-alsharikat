@@ -43,3 +43,11 @@ describe('shiftPages', () => {
     expect(shiftPages(x, 0)).toBe(x);
   });
 });
+
+describe('pickPages with a summary balance sheet in the board report', () => {
+  it('starts at the audited section, not at the earlier summary table', () => {
+    const t = pages(62, (p) => (p === 25 ? `ملخص قائمة المركز المالي ${figures}`
+      : p === 41 ? 'تقرير مدقق EY الحسابات القوائم المالية' : p >= 44 ? `قائمة المركز المالي ${figures}` : narrative));
+    expect(pickPages(t)).toEqual({ from: 41, to: 62 });
+  });
+});

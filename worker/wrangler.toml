@@ -11,3 +11,8 @@ ALLOWED_ORIGINS = ""
 GEMINI_MODEL = ""
 
 # The key is NOT here. Set it once with:  npx wrangler secret put GEMINI_API_KEY
+
+# Results already read, keyed by the SHA-256 of the PDF the reader received: a repeat upload costs no Gemini quota.
+[[kv_namespaces]]
+binding = "EXTRACT_CACHE"
+id = "3957a97b5c734342a1cb6d428901d400"

@@ -1,4 +1,26 @@
 /**
+ * The four "other" lines are residuals by definition (data/EXTRACTION-GUIDE.md), not the line a statement happens to
+ * label "other": the reader once took «موجودات متداولة أخرى» literally and left biological assets out (2026-11-25).
+ * Computed only when every named line is present (a missing one must not hide inside "other"), and never when the
+ * result is negative (named lines above the total means a misread, which the integrity check should still flag).
+ */
+const RESIDUALS = [
+  ['otherCurrentAssets', 'totalCurrentAssets', ['cash', 'receivables'], ['inventory']],
+  ['otherCurrentLiabilities', 'totalCurrentLiabilities', ['payables'], ['shortTermDebt']],
+  ['otherNonCurrentLiabilities', 'totalLiabilities', ['totalCurrentLiabilities'], ['longTermDebt']],
+  ['otherNonCurrentAssets', 'totalAssets', ['totalCurrentAssets', 'ppeNet'], []],
+];
+export function residuals(bs) {
+  const out = { ...bs };
+  for (const [key, total, required, optional] of RESIDUALS) {
+    if (!bs[total] || required.some((k) => !bs[k])) continue;
+    const v = bs[total].v - [...required, ...optional].reduce((s, k) => s + (bs[k]?.v ?? 0), 0);
+    if (v >= 0) out[key] = { v: Math.round(v * 100) / 100, src: { ...bs[total].src, derived: true } };
+  }
+  return out;
+}
+
+/**
  * Convert the Worker's extraction JSON into CompanyData for the engine.
  * Null lines are dropped (the engine treats them as missing), pages become src.page, doc = 'upload'.
  */
@@ -7,8 +29,9 @@ export function toCompanyData(x, fileName = 'upload.pdf') {
   const line = (l) => (l && typeof l.v === 'number' && Number.isFinite(l.v) ? { v: l.v, src: { page: l.page, doc } } : null);
   const block = (b = {}) => Object.fromEntries(Object.entries(b).map(([k, l]) => [k, line(l)]).filter(([, l]) => l));
   const years = {};
+  const classified = !['bank', 'insurance'].includes(x.meta?.sector);
   for (const y of x.years ?? []) {
-    years[String(y.year)] = { bs: block(y.bs), is: block(y.is), cf: block(y.cf) };
+    years[String(y.year)] = { bs: classified ? residuals(block(y.bs)) : block(y.bs), is: block(y.is), cf: block(y.cf) };
     const sh = line(y.shares); if (sh) years[String(y.year)].shares = sh;
     const ca = line(y.capitalAdequacy); if (ca) years[String(y.year)].capitalAdequacy = ca;
   }

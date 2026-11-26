@@ -21,6 +21,20 @@ const AUDITOR = ['تقرير مدقق', 'تقرير المدقق المستقل'
 const NUMBER = /[\d٠-٩][\d٠-٩٬,.]{2,}/g;
 
 /**
+ * Pure: page texts without running headers, footers and side navigation, i.e. any text item that sits at the same
+ * spot on at least a quarter of the pages. Some reports print the chapter list ("تقرير مدقق الحسابات" included) on
+ * every page, which would otherwise make every page look like the auditor's report.
+ * @param {{str:string,x:number,y:number}[][]} pages
+ */
+export function stripRunning(pages) {
+  const key = (it) => `${it.str.trim()}@${Math.round(it.x / 6)},${Math.round(it.y / 6)}`;
+  const seen = new Map();
+  for (const p of pages) for (const k of new Set(p.map(key))) seen.set(k, (seen.get(k) ?? 0) + 1);
+  const limit = Math.max(3, pages.length * 0.25);
+  return pages.map((p) => p.filter((it) => !it.str.trim() || seen.get(key(it)) < limit).map((it) => it.str).join(' '));
+}
+
+/**
  * Pure: which pages to keep, given each page's text (index 0 = page 1).
  * @returns {{from:number,to:number}|null} 1-based inclusive range, or null to send the whole file.
  */
@@ -33,7 +47,12 @@ export function pickPages(pageTexts) {
   const nearFigures = (i) => t.slice(i, i + 9).some((_, k) => figures(i + k) >= 25);
   const accept = (from) => (n - from <= n * 0.8 ? { from: from + 1, to: n } : null); // a cut that barely helps is not worth it
 
-  // 1. The balance sheet itself: its title plus a table of figures (the contents page and narrative pages lack the figures).
+  // 1. The auditor's-report divider, past the opening pages (whose contents page names it too), followed within
+  //    8 pages by a page of figures. It comes first because board reports often print a condensed "balance sheet"
+  //    summary earlier on; starting there made the reader take figures from the summary, not the audited statements.
+  const aud = t.findIndex((_, i) => i >= n * 0.3 && isAuditor(i) && nearFigures(i));
+  if (aud >= 0) return accept(aud);
+  // 2. No readable divider: the balance sheet itself, its title plus a table of figures.
   const bs = t.findIndex((p, i) => BALANCE_SHEET.some((re) => re.test(p)) && figures(i) >= 25);
   if (bs >= 0) {
     // Back up to the auditor's report. Its pages are often scanned images with no text, so take the nearest
@@ -43,10 +62,6 @@ export function pickPages(pageTexts) {
     for (let i = bs; i >= Math.max(0, bs - 12); i--) if (isAuditor(i)) { from = i; break; }
     return accept(from);
   }
-  // 2. Title unreadable (scrambled fonts): the auditor's-report divider, past the opening pages (whose contents page
-  //    names it too), followed within 8 pages by a page of figures.
-  const aud = t.findIndex((_, i) => i >= n * 0.3 && isAuditor(i) && nearFigures(i));
-  if (aud >= 0) return accept(aud);
   // 3. Statements scanned as images: a block of text-less pages that runs to the end of the file.
   let k = n;
   while (k > 0 && t[k - 1].replace(/[\d٠-٩]/g, '').length < 20) k--;
@@ -67,19 +82,19 @@ export async function trimPdf(file) {
     pdfjs.GlobalWorkerOptions.workerSrc = workerSrc;
     const task = pdfjs.getDocument({ data: bytes.slice(), verbosity: 0 });
     const doc = await task.promise;
-    const texts = [];
+    const pages = [];
     for (let i = 1; i <= doc.numPages; i++) {
       const c = await (await doc.getPage(i)).getTextContent();
-      texts.push(c.items.map((x) => x.str ?? '').join(' '));
+      pages.push(c.items.map((x) => ({ str: x.str ?? '', x: x.transform?.[4] ?? 0, y: x.transform?.[5] ?? 0 })));
     }
     const total = doc.numPages;
     await task.destroy();
-    const range = pickPages(texts);
+    const range = pickPages(stripRunning(pages));
     if (!range) return { file, cut: null };
 
     const { PDFDocument } = await import('pdf-lib');
-    const src = await PDFDocument.load(bytes, { ignoreEncryption: true });
-    const out = await PDFDocument.create();
+    const src = await PDFDocument.load(bytes, { ignoreEncryption: true, updateMetadata: false });
+    const out = await PDFDocument.create({ updateMetadata: false }); // no timestamp: the same report always cuts to the same bytes, so the reader's store recognises it
     const idx = Array.from({ length: range.to - range.from + 1 }, (_, k) => range.from - 1 + k);
     (await out.copyPages(src, idx)).forEach((p) => out.addPage(p));
     const blob = new Blob([await out.save()], { type: 'application/pdf' });

@@ -48,3 +48,17 @@ describe('toCompanyData', () => {
     expect(c.disclosures.auditor.opinion).toBe('qualified');
   });
 });
+
+import { residuals } from '../src/app/extracted.js';
+describe('residual "other" lines', () => {
+  const L = (v) => ({ v, src: { page: 44, doc: 'upload' } });
+  it('computes other current assets as total minus the named lines', () => {
+    const bs = residuals({ totalCurrentAssets: L(100), cash: L(20), receivables: L(30), inventory: L(10), otherCurrentAssets: L(5) });
+    expect(bs.otherCurrentAssets.v).toBe(40);
+    expect(bs.otherCurrentAssets.src.derived).toBe(true);
+  });
+  it('leaves the line alone when a named line is missing or the result is negative', () => {
+    expect(residuals({ totalCurrentAssets: L(100), receivables: L(30), otherCurrentAssets: L(5) }).otherCurrentAssets.v).toBe(5);
+    expect(residuals({ totalCurrentAssets: L(100), cash: L(90), receivables: L(30), otherCurrentAssets: L(5) }).otherCurrentAssets.v).toBe(5);
+  });
+});

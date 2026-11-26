@@ -4,11 +4,16 @@ import { EXTRACTION_SCHEMA, EXTRACTION_PROMPT } from './schema.js';
 
 const API = 'https://generativelanguage.googleapis.com';
 const MAX_BYTES = 25 * 1024 * 1024;
+// Bump when EXTRACTION_PROMPT or EXTRACTION_SCHEMA changes, so old stored readings are not reused.
+const CACHE_VERSION = 'v1';
+// Read-accuracy proven against verified figures, best first.
+// 3.8/3.7 are not listed until they pass the same test (their quota was spent on 2026-11-25 before they could be measured).
+const TESTED_MODELS = ['gemini-3.6-flash', 'gemini-3.5-flash'];
 
 function cors(env, origin) {
   const allowed = (env.ALLOWED_ORIGINS ?? '').split(',').map((s) => s.trim()).filter(Boolean);
   const ok = allowed.includes(origin) || /^http:\/\/localhost:\d+$/.test(origin ?? '');
-  return ok ? { 'Access-Control-Allow-Origin': origin, 'Access-Control-Allow-Methods': 'POST, OPTIONS', 'Access-Control-Allow-Headers': 'Content-Type, X-File-Name', Vary: 'Origin' } : null;
+  return ok ? { 'Access-Control-Allow-Origin': origin, 'Access-Control-Allow-Methods': 'POST, OPTIONS', 'Access-Control-Allow-Headers': 'Content-Type, X-File-Name, X-Model', Vary: 'Origin' } : null;
 }
 
 const json = (body, status, headers) => new Response(JSON.stringify(body), { status, headers: { 'Content-Type': 'application/json; charset=utf-8', ...headers } });
@@ -42,28 +47,30 @@ async function uploadToGemini(env, bytes, name) {
 }
 
 let candidates = null;
+let usableModels = [];
 let resolvedModel = null;
 
-/** Models to try, best first: GEMINI_MODEL if available, then stable "gemini-X-flash" models newest first. */
+/** Models to try, best first: GEMINI_MODEL if available, then the accuracy-tested models. */
 async function modelCandidates(env) {
   if (candidates) return candidates;
   const r = await fetch(`${API}/v1beta/models?pageSize=200`, { headers: { 'x-goog-api-key': env.GEMINI_API_KEY } });
   const { models = [] } = await r.json();
   const usable = models.filter((m) => m.supportedGenerationMethods?.includes('generateContent')).map((m) => m.name.replace('models/', ''));
-  const byVersion = (re) => usable.filter((n) => re.test(n)).sort((a, b) => parseFloat(b.split('-')[1]) - parseFloat(a.split('-')[1]));
-  const flash = byVersion(/^gemini-[\d.]+-flash(-\d{3})?$/);
-  const pro = byVersion(/^gemini-[\d.]+-pro(-\d{3})?$/);
+  usableModels = usable;
   const wanted = env.GEMINI_MODEL && usable.includes(env.GEMINI_MODEL) ? [env.GEMINI_MODEL] : [];
-  // Two newest flash models, then the newest pro as a capacity fallback (slower, but a different pool).
-  candidates = [...new Set([...wanted, ...flash.slice(0, 2), ...pro.slice(0, 1)])];
+  // Each model has its own free daily quota, so a longer chain means more readings per day.
+  // Only models that read our hand-verified files with zero wrong lines are allowed (tests of 2026-11-25 on the
+  // NIC statements, 43/43; the "flash-lite" models misread capex or missed 28 lines and are excluded).
+  // Untested models are never tried: a wrong figure is worse than no reading.
+  candidates = [...new Set([...wanted, ...TESTED_MODELS.filter((m) => usable.includes(m))])];
   return candidates;
 }
 
 const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
 
-async function extract(env, file) {
+async function extract(env, file, only) {
   const tried = [];
-  for (const model of await modelCandidates(env)) {
+  for (const model of only ? [only] : await modelCandidates(env)) {
     // Free-tier flash models often answer 503 "overloaded" for a few seconds; waiting 3s, 6s, 12s usually gets through.
     for (let attempt = 0; attempt < 4; attempt++) {
       // Default thinking on purpose: a low-thinking test read 3 lines wrong and flipped the verdict (2026-11-25).
@@ -103,7 +110,8 @@ export default {
     if (!headers) return json({ error: 'origin-not-allowed' }, 403);
     if (request.method === 'OPTIONS') return new Response(null, { status: 204, headers });
     if (request.method === 'GET' && new URL(request.url).pathname === '/models') {
-      return json({ candidates: await modelCandidates(env) }, 200, headers); // model names only; no secrets
+      const c = await modelCandidates(env);
+      return json({ candidates: c, ...(new URL(request.url).searchParams.has('all') ? { all: usableModels } : {}) }, 200, headers); // model names only; no secrets
     }
     if (request.method !== 'POST' || new URL(request.url).pathname !== '/extract') return json({ error: 'not-found' }, 404, headers);
     if (!env.GEMINI_API_KEY) return json({ error: 'missing-key' }, 500, headers);
@@ -114,10 +122,22 @@ export default {
     if (bytes.byteLength > MAX_BYTES) return json({ error: 'too-large' }, 413, headers);
     if (new TextDecoder().decode(bytes.slice(0, 5)) !== '%PDF-') return json({ error: 'not-pdf' }, 415, headers);
 
+    // Local testing only: force one model to measure its accuracy against verified figures (never cached).
+    const only = /^http:\/\/localhost:\d+$/.test(origin ?? '') ? request.headers.get('X-Model') : null;
+    // A file read once is never sent to Gemini again: same bytes → same stored result, from any device.
+    const hash = [...new Uint8Array(await crypto.subtle.digest('SHA-256', bytes))].map((b) => b.toString(16).padStart(2, '0')).join('');
+    const key = `${CACHE_VERSION}:${hash}`;
+    if (env.EXTRACT_CACHE && !only) {
+      const hit = await env.EXTRACT_CACHE.get(key, 'json').catch(() => null);
+      if (hit) return json({ ...hit, cached: true }, 200, headers);
+    }
+
     try {
       const file = await uploadToGemini(env, bytes, request.headers.get('X-File-Name') ?? 'statements.pdf');
-      const data = await extract(env, file);
-      return json({ data, model: resolvedModel }, 200, headers);
+      const data = await extract(env, file, only);
+      const result = { data, model: resolvedModel, readAt: new Date().toISOString() };
+      if (env.EXTRACT_CACHE && !only) await env.EXTRACT_CACHE.put(key, JSON.stringify(result)).catch(() => {});
+      return json(result, 200, headers);
     } catch (e) {
       const msg = String(e.message);
       // Every model answered "overloaded" or "quota": the file is fine, the free tier is busy.
