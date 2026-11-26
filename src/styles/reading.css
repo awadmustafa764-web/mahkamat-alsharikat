@@ -39,3 +39,32 @@
   .balance { grid-template-columns: 1fr; }
   .equals { display: none; }
 }
+
+/* waiting game (uploads only): a ledger sheet the visitor can play on while the reader works */
+.wait-game { max-width: 52rem; margin-block: var(--row); display: grid; gap: 0.7rem; }
+.wg-title { margin: 0; font: 700 var(--t-line) / 1.3 var(--f-hand); color: var(--ink); }
+.wg-lede { margin: 0.2rem 0 0; color: var(--pencil); font-size: var(--t-small); max-width: 40rem; }
+.wg-board { position: relative; height: clamp(18rem, 52vh, 24rem); border: 1px solid var(--rule); background: var(--paper); }
+.wg-canvas { display: block; width: 100%; height: 100%; touch-action: none; cursor: grab; }
+.wg-canvas:focus-visible { outline: 2px dashed var(--ink); outline-offset: 3px; }
+.wg-cover {
+  position: absolute; inset: 0; display: grid; place-content: center; justify-items: center; gap: 0.4rem; text-align: center;
+  background: color-mix(in srgb, var(--paper) 82%, transparent); padding: 1rem;
+}
+.wg-cover[hidden] { display: none; }
+.wg-start { font: 700 var(--t-line) var(--f-hand); color: var(--ink); padding: 0.2rem 1rem; border-block-end: 2px solid var(--ink); }
+.wg-start:hover { border-block-end-color: var(--close-red); }
+.wg-hint { margin: 0; color: var(--pencil); font-size: var(--t-small); }
+.wg-done { margin: 0; font: 700 var(--t-line) var(--f-hand); color: var(--ink); }
+.wg-final { margin: 0; color: var(--ink-soft); }
+.wg-sheet { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 0.4rem 1.2rem; margin: 0; }
+.wg-sheet div { display: grid; gap: 0.1rem; border-block-end: 1px solid var(--rule-faint); padding-block-end: 0.25rem; }
+.wg-sheet dt { font-size: var(--t-small); color: var(--pencil); }
+.wg-sheet dd { margin: 0; font-family: var(--f-figures); font-variant-numeric: tabular-nums; direction: ltr; text-align: end; color: var(--ink); }
+.wg-net { border-block-end: 3px double var(--close-red) !important; }
+.wg-net dd { font-weight: 700; }
+.wg-score.is-loss { color: var(--close-red); }
+.wg-tools { display: flex; gap: 1.4rem; }
+.wg-tools button { font-size: var(--t-small); color: var(--pencil); border-block-end: 1px dashed var(--pencil); }
+.wg-tools button:hover { color: var(--ink); }
+@media (max-width: 760px) { .wg-sheet { grid-template-columns: repeat(2, minmax(0, 1fr)); } }

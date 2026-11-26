@@ -1,6 +1,7 @@
 import { gsap } from 'gsap';
 import { docket } from '../app/cases.js';
 import { analyzeUpload } from '../app/upload.js';
+import { mountWaitGame } from '../app/wait-game.js';
 import { RATIOS } from '../engine/index.js';
 import { fmt } from '../engine/texts.js';
 
@@ -55,6 +56,8 @@ export function mount(el, ctx) {
         </section>
       </div>
 
+      ${known ? '' : '<section class="wait-game" aria-label="لعبة الانتظار"></section>'}
+
       <div class="balance" aria-hidden="true">
         <div class="col col-a"><span class="col-h">الأصول</span><span class="col-v">—</span></div>
         <div class="equals"><span></span><span></span></div>
@@ -84,6 +87,9 @@ export function mount(el, ctx) {
     }
   };
 
+  // A new file can take minutes to read: the visitor may play on a ledger sheet meanwhile (it starts only on request).
+  const game = known ? null : mountWaitGame(el.querySelector('.wait-game'), { reducedMotion: ctx.reducedMotion });
+
   const status = el.querySelector('.drop-status');
   const wait = (ms) => new Promise((r) => setTimeout(r, ctx.reducedMotion ? 0 : ms));
 
@@ -98,6 +104,7 @@ export function mount(el, ctx) {
 
   run().then(async (r) => {
     el.querySelectorAll('[data-step]').forEach((li) => { li.classList.remove('is-now'); li.classList.add('is-done'); });
+    game?.finish(r.case ? 'انتهت القراءة. الحكم جاهز تحت.' : 'انتهت القراءة، لكن الملف لم يكتمل. السبب مكتوب تحت.');
     if (!r.case) { status.textContent = r.problems.join(' '); return; }
     const c = r.case, y = r.data.meta.years[0];
 
@@ -129,5 +136,6 @@ export function mount(el, ctx) {
     enter.hidden = false;
     enter.focus({ preventScroll: true });
     enter.addEventListener('click', () => ctx.go('answer', { result: { data: r.data, case: c, verifiedMatch: r.verifiedMatch, problems: r.problems, guesses } }), { once: true });
-  }).catch((e) => { status.textContent = e.message; });
+  }).catch((e) => { game?.finish('توقفت القراءة. السبب مكتوب تحت.'); status.textContent = e.message; });
+  return { unmount: () => game?.destroy() };
 }
