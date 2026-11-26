@@ -50,11 +50,12 @@ async function modelCandidates(env) {
   const r = await fetch(`${API}/v1beta/models?pageSize=200`, { headers: { 'x-goog-api-key': env.GEMINI_API_KEY } });
   const { models = [] } = await r.json();
   const usable = models.filter((m) => m.supportedGenerationMethods?.includes('generateContent')).map((m) => m.name.replace('models/', ''));
-  const flash = usable
-    .filter((n) => /^gemini-[\d.]+-flash(-\d{3})?$/.test(n))
-    .sort((a, b) => parseFloat(b.split('-')[1]) - parseFloat(a.split('-')[1]));
+  const byVersion = (re) => usable.filter((n) => re.test(n)).sort((a, b) => parseFloat(b.split('-')[1]) - parseFloat(a.split('-')[1]));
+  const flash = byVersion(/^gemini-[\d.]+-flash(-\d{3})?$/);
+  const pro = byVersion(/^gemini-[\d.]+-pro(-\d{3})?$/);
   const wanted = env.GEMINI_MODEL && usable.includes(env.GEMINI_MODEL) ? [env.GEMINI_MODEL] : [];
-  candidates = [...new Set([...wanted, ...flash])].slice(0, 3);
+  // Two newest flash models, then the newest pro as a capacity fallback (slower, but a different pool).
+  candidates = [...new Set([...wanted, ...flash.slice(0, 2), ...pro.slice(0, 1)])];
   return candidates;
 }
 
@@ -99,6 +100,9 @@ export default {
     const headers = cors(env, origin);
     if (!headers) return json({ error: 'origin-not-allowed' }, 403);
     if (request.method === 'OPTIONS') return new Response(null, { status: 204, headers });
+    if (request.method === 'GET' && new URL(request.url).pathname === '/models') {
+      return json({ candidates: await modelCandidates(env) }, 200, headers); // model names only; no secrets
+    }
     if (request.method !== 'POST' || new URL(request.url).pathname !== '/extract') return json({ error: 'not-found' }, 404, headers);
     if (!env.GEMINI_API_KEY) return json({ error: 'missing-key' }, 500, headers);
 

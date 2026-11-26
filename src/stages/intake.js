@@ -56,7 +56,7 @@ export function mount(el, ctx) {
     }
     title.textContent = `قضية ${r.data.meta.nameAr}`;
     const failed = r.integrity.checks.filter((c) => !c.ok && !c.soft);
-    body.innerHTML = (failed.length
+    body.innerHTML = (r.verifiedMatch ? '<p class="pencil-note">هذا الملف مطابق لتقرير دققناه بنداً بنداً مسبقاً، فعُرضت أرقامه المدققة فوراً.</p>' : '') + (failed.length
       ? `<p class="drop-status">تنبيه: ${failed.length} من فحوصات سلامة القراءة لم تتطابق (${failed.map((c) => c.labelAr).join('، ')}). راجع الأرقام قبل الاعتماد على الحكم.</p>`
       : '') + (r.problems.length ? `<p class="drop-status">${r.problems.join(' ')}</p>` : '') + coverHtml(r.case, r.data);
   }).catch((e) => { body.querySelector('.drop-status').textContent = e.message; });

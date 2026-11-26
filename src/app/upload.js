@@ -1,7 +1,17 @@
 import { EXTRACT_URL } from './config.js';
 import { toCompanyData } from './extracted.js';
 import { validateCompany, runIntegrity, analyze } from '../engine/index.js';
-import { benchmarks } from './cases.js';
+import { benchmarks, docket } from './cases.js';
+import KNOWN from '../../data/known-files.json';
+
+async function knownCase(file) {
+  try {
+    const digest = await crypto.subtle.digest('SHA-256', await file.arrayBuffer());
+    const hex = [...new Uint8Array(digest)].map((b) => b.toString(16).padStart(2, '0')).join('');
+    const id = KNOWN[hex];
+    return id ? docket().find((e) => e.id === id) ?? null : null;
+  } catch { return null; }
+}
 
 const ERRORS = {
   'too-large': 'الملف أكبر من 25 ميغابايت. ارفع ملف القوائم المالية والإيضاحات فقط.',
@@ -18,6 +28,12 @@ const ERRORS = {
  * @returns {Promise<{data, case, integrity, problems:string[]}>}
  */
 export async function analyzeUpload(file, onStep = () => {}) {
+  // A file we have already audited line by line opens instantly with the verified figures.
+  const known = await knownCase(file);
+  if (known) {
+    for (const s of ['send', 'read', 'check', 'analyze']) onStep(s);
+    return { data: known.data, case: known.case, integrity: known.case.integrity, problems: [], verifiedMatch: true };
+  }
   onStep('send');
   let res;
   try {
