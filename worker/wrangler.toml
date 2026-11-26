@@ -6,7 +6,7 @@ preview_urls = false
 
 [vars]
 # Comma-separated origins allowed to call the Worker (GitHub Pages URL goes here after publishing).
-ALLOWED_ORIGINS = ""
+ALLOWED_ORIGINS = "https://awadmustafa764-web.github.io"
 # Preferred model; if this key cannot use it, the Worker picks the newest available "gemini-*-flash".
 GEMINI_MODEL = ""
 
