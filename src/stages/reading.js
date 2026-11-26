@@ -60,7 +60,7 @@ export function mount(el, ctx) {
         <div class="col col-l"><span class="col-h">الخصوم وحقوق الملكية</span><span class="col-v">—</span></div>
       </div>
       <p class="drop-status" role="status"></p>
-      <button type="button" class="enter drop-action" hidden>افتح قاعة الأدلة</button>
+      <button type="button" class="enter drop-action" hidden>اعرض الحكم</button>
       <p class="folio-foot"><a href="#landing" data-back>العودة إلى السجل</a></p>
     </div>`;
 
@@ -124,6 +124,6 @@ export function mount(el, ctx) {
     const enter = el.querySelector('.enter');
     enter.hidden = false;
     enter.focus({ preventScroll: true });
-    enter.addEventListener('click', () => ctx.go('exhibit', { result: { data: r.data, case: c, verifiedMatch: r.verifiedMatch, problems: r.problems, guesses } }), { once: true });
+    enter.addEventListener('click', () => ctx.go('answer', { result: { data: r.data, case: c, verifiedMatch: r.verifiedMatch, problems: r.problems, guesses } }), { once: true });
   }).catch((e) => { status.textContent = e.message; });
 }

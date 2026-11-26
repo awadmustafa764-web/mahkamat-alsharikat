@@ -1,0 +1,23 @@
+.answer-case { margin: 0; color: var(--ink-soft); font-family: var(--f-hand); font-size: var(--t-body); }
+.answer-verdict { margin: 0.2rem 0 0; font: 700 clamp(3.6rem, 1.6rem + 8vw, 7.5rem) / 1.15 var(--f-hand); }
+.answer-verdict.is-yes { color: var(--ink); }
+.answer-verdict.is-no { color: var(--close-red); }
+.answer-rule { display: block; width: min(34rem, 80%); height: 8px; border-block: 2px solid var(--close-red); transform-origin: right; margin: 0.4rem 0 1rem; }
+.answer-reason { margin: 0 0 var(--row); max-width: 60ch; font-size: var(--t-line); line-height: 1.6; }
+
+.answer-sides { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(1.5rem, 4vw, 4rem); max-width: 74rem; }
+.side h2 { margin: 0 0 0.4rem; font: 700 clamp(1.8rem, 1.3rem + 1.6vw, 2.6rem) / 1.2 var(--f-hand); padding-block-end: 0.2rem; border-block-end: 1.5px solid currentColor; }
+.side--against h2 { color: var(--close-red); }
+.side--for h2 { color: var(--ink); }
+.side ol { margin: 0; padding-inline-start: 1.4rem; }
+.side li { margin-block: 0.55rem; line-height: 1.65; }
+.side li::marker { font-family: var(--f-figures); color: var(--rule); }
+.side--against li::marker { color: var(--close-red); }
+.side li.none { list-style: none; color: var(--pencil); margin-inline-start: -1.4rem; }
+
+.answer-note { margin: var(--row) 0 0; color: var(--pencil); font-size: var(--t-small); }
+.answer-actions { display: flex; flex-wrap: wrap; align-items: center; gap: 1rem 2rem; margin: var(--row) 0; }
+.answer-actions .drop-action { font-size: var(--t-line); padding: 0.5rem 1.8rem; }
+.answer-actions .link { font-family: var(--f-hand); font-size: var(--t-body); text-decoration: underline; text-decoration-color: var(--rule); text-underline-offset: 0.4em; }
+
+@media (max-width: 760px) { .answer-sides { grid-template-columns: 1fr; } }

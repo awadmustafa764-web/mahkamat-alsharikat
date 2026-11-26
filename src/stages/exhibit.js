@@ -7,7 +7,7 @@ import { judgeRating, allEvidence, fmt, RATING_LABELS } from '../engine/index.js
 const esc = (s) => String(s ?? '').replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
 const num = (v) => (v === null || v === undefined ? '—' : typeof v === 'number' ? (Math.abs(v) >= 100 ? Math.round(v).toLocaleString('en-US') : +v.toFixed(4)) : esc(v));
 
-const figure = (v, unit) => `<bdi class="n" dir="ltr">${esc(fmt(v, unit))}</bdi>`;
+const figure = (v, unit) => `<bdi class="n" dir="auto">${esc(fmt(v, unit))}</bdi>`;
 
 function valueHtml(ev) {
   if (typeof ev.value === 'number' && ev.unitAr !== undefined) {
@@ -28,13 +28,12 @@ export function cardHtml(ev, vote) {
   const inputs = (ev.inputs ?? []).map((i) => `<li><span>${esc(i.labelAr)}</span><bdi class="n">${num(i.value)}</bdi>${i.src?.page ? `<span class="src">ص <bdi class="n">${i.src.page}</bdi></span>` : ''}${i.reasonAr ? `<p class="reason">${esc(i.reasonAr)}</p>` : ''}</li>`).join('');
   return `
     <p class="card-hall">${esc(HALL_TITLES[ev.hall] ?? '')}</p>
-    <h2 class="card-title">${esc(ev.titleAr)}</h2>
+    <h2 class="card-headline ${ev.severity === 'alert' ? 'is-alert' : ''}">${esc(ev.headlineAr || ev.titleAr)}</h2>
+    <p class="card-title">${esc(ev.titleAr)}</p>
     ${ev.displayAr || typeof ev.value === 'number' ? `<p class="card-value ${ev.severity === 'alert' ? 'is-alert' : ''}">${valueHtml(ev)}</p>` : ''}
     ${ev.benchmark?.grade ? `<p class="card-grade">الدرجة <span>${ev.benchmark.grade}</span> · ${benchText(ev.benchmark, ev.unitAr)}</p>` : ''}
     ${ev.quote ? `<blockquote class="card-quote">${esc(ev.quote)}${ev.page ? `<footer>ص <bdi class="n">${ev.page}</bdi></footer>` : ''}</blockquote>` : ''}
     ${ev.meaningAr ? `<p class="card-meaning">${esc(ev.meaningAr)}</p>` : ''}
-    ${ev.prosecutionAr ? `<p class="card-pro"><strong>الادعاء:</strong> ${esc(ev.prosecutionAr)}</p>` : ''}
-    ${ev.defenseAr ? `<p class="card-def"><strong>الدفاع:</strong> ${esc(ev.defenseAr)}</p>` : ''}
     <details class="card-calc"><summary>كيف حُسب</summary>
       <p class="formula">${esc(ev.formulaAr)}</p>${ev.basisAr ? `<p class="basis">${esc(ev.basisAr)}</p>` : ''}
       ${inputs ? `<ul class="inputs">${inputs}</ul>` : ''}
@@ -52,8 +51,9 @@ export function mount(el, ctx) {
   const layout = buildLayout(c);
   const rail = createRail(layout.stops);
   const votes = {};
-  const byId = new Map(allEvidence(c).map((e) => [e.id, e]));
-  if (c.surprise) byId.set(c.surprise.id, c.surprise);
+  const A = c.argument;
+  const byId = new Map([...A.for, ...A.against, ...A.mustKnow, ...A.archive].map((e) => [e.id, e]));
+  const sideOfStop = new Map(layout.stops.filter((s) => s.evidenceId).map((s) => [s.evidenceId, s.side]));
 
   el.tabIndex = -1;
   el.innerHTML = `
@@ -70,9 +70,14 @@ export function mount(el, ctx) {
         <button type="button" data-act="open">افتح الدليل</button>
         <button type="button" data-act="forward">التالي</button>
         <button type="button" data-act="verdict">إلى قاعة الحكم</button>
+        <button type="button" data-act="archive">أرشيف القضية (<bdi class="n">${A.archive.length}</bdi>)</button>
         <span class="keys">الأسهم أو W/S للتنقل · Enter لفتح الدليل · Esc للإغلاق</span>
       </nav>
       <div class="list2d" hidden></div>
+      <section class="archive" hidden aria-label="أرشيف القضية">
+        <header><h2>أرشيف القضية</h2><p>بقية المقاييس والفحوص. لا تغيّر الحكم وحدها، لكنها متاحة لمن يريد التفاصيل.</p><button type="button" data-act="close">إغلاق</button></header>
+        <div class="archive-list">${A.archive.map((e) => `<details class="archive-item"><summary>${esc(e.headlineAr || e.titleAr)}</summary><article class="card card--flat">${cardHtml(e)}</article></details>`).join('')}</div>
+      </section>
     </div>`;
 
   const host = el.querySelector('.exhibit-canvas');
@@ -94,7 +99,9 @@ export function mount(el, ctx) {
       if (!votes[id]) delete votes[id];
       card.querySelectorAll('[data-vote]').forEach((x) => x.setAttribute('aria-pressed', String(votes[id] === x.dataset.vote)));
       scene?.markVote(id, votes[id]);
-      scene?.setTilt(RATING_LABELS.indexOf(judge().label));
+      if (votes[id] === 'unconvincing') scene?.removeWeight(id);
+      else scene?.addWeight(id, sideOfStop.get(id), Math.max(1, Math.round(ev.weight ?? 1)));
+      if (rail.stop.hallId === 'verdict') scene?.setTilt(RATING_LABELS.indexOf(judge().label));
       if (votes[id] === 'convincing' && !ctx.reducedMotion) gsap.fromTo(b, { scale: 1.12 }, { scale: 1, duration: 0.24, ease: 'back.out(1.6)' });
     }));
     if (ev.severity === 'alert' && !ctx.reducedMotion) gsap.fromTo(card.querySelector('.card-value'), { x: -2 }, { x: 2, duration: 0.06, repeat: 5, yoyo: true, clearProps: 'x' });
@@ -109,9 +116,13 @@ export function mount(el, ctx) {
     scene?.goTo(s);
     // keep the card on the opposite side of the slip being looked at
     card.classList.toggle('card--far', (s.target?.[0] ?? 0) > 0);
-    if (s.evidenceId) showCard(s.evidenceId); else hideCard();
+    if (s.evidenceId) {
+      showCard(s.evidenceId);
+      if (votes[s.evidenceId] !== 'unconvincing') scene?.addWeight(s.evidenceId, s.side, Math.max(1, Math.round(byId.get(s.evidenceId)?.weight ?? 1)));
+    } else hideCard();
     if (s.hallId === 'verdict') {
       hideCard();
+      hudHall.textContent = `قاعة الحكم · الميزان يزن كل الأدلة: ما رأيته هنا و${A.archive.length} في الأرشيف`;
       scene?.setTilt(RATING_LABELS.indexOf(judge().label));
       el.querySelector('[data-act="verdict"]').textContent = 'اقرأ صك الحكم';
     }
@@ -121,13 +132,14 @@ export function mount(el, ctx) {
     if (a === 'forward') { if (rail.atEnd()) return finish(); rail.step(1); }
     else if (a === 'back') rail.step(-1);
     else if (a === 'open') { if (rail.stop.evidenceId) return showCard(rail.stop.evidenceId); if (rail.stop.hallId === 'verdict') return finish(); rail.step(1); }
-    else if (a === 'close') return hideCard();
-    else if (a === 'start') rail.jumpToHall('intro');
+    else if (a === 'close') { el.querySelector('.archive').hidden = true; return hideCard(); }
+    else if (a === 'archive') { const ar = el.querySelector('.archive'); ar.hidden = !ar.hidden; return; }
+    else if (a === 'start') rail.jumpTo(null);
     else if (a === 'verdict') { if (rail.stop.hallId === 'verdict') return finish(); rail.jumpToHall('verdict'); }
     update();
   }
 
-  el.querySelector('.controls').addEventListener('click', (e) => { const b = e.target.closest('[data-act]'); if (b) act(b.dataset.act); });
+  el.querySelector('.exhibit').addEventListener('click', (e) => { const b = e.target.closest('[data-act]'); if (b) act(b.dataset.act); });
   const onKey = (e) => {
     if (e.target.closest?.('details, summary')) return;
     const a = keyAction(e.key); if (!a) return;
@@ -140,7 +152,7 @@ export function mount(el, ctx) {
     scene?.dispose(); scene = null; host.remove();
     const list = el.querySelector('.list2d');
     list.hidden = false;
-    list.innerHTML = layout.halls.filter((h) => h.id !== 'verdict').map((h) => `<section><h2>${h.titleAr}</h2>${h.empty ? '<p class="pencil-note">لا أدلة في هذه القاعة لهذا القطاع.</p>' : h.slots.map((s) => `<article class="card card--flat" data-ev="${s.evidenceId}">${cardHtml(byId.get(s.evidenceId))}</article>`).join('')}</section>`).join('');
+    list.innerHTML = layout.halls.filter((h) => h.id !== 'verdict').map((h) => `<section><h2>${h.titleAr}</h2>${h.empty ? '<p class="pencil-note">لا أدلة في هذه القاعة.</p>' : h.slots.map((s) => `<article class="card card--flat" data-ev="${s.evidenceId}">${cardHtml(byId.get(s.evidenceId))}</article>`).join('')}</section>`).join('');
     list.querySelectorAll('[data-ev]').forEach((a) => a.querySelectorAll('[data-vote]').forEach((b) => b.addEventListener('click', () => {
       votes[a.dataset.ev] = b.dataset.vote; a.querySelectorAll('[data-vote]').forEach((x) => x.setAttribute('aria-pressed', String(x === b)));
     })));
@@ -152,7 +164,7 @@ export function mount(el, ctx) {
     try {
       scene = createScene(host, layout, c, { reducedMotion: ctx.reducedMotion, onPick: (id) => { rail.jumpTo(id); update(); } });
       host.addEventListener('exhibit:lost', fallback, { once: true });
-      scene.setTilt(RATING_LABELS.indexOf(c.rating.label));
+      // the beam starts level; the visitor's walk loads it
     } catch { fallback(); }
   } else fallback();
   if (scene) update();

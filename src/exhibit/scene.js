@@ -11,7 +11,7 @@ export function webglAvailable() {
 
 /* ---------------- textures drawn on canvas (no generated imagery) ---------------- */
 
-function ledgerTexture(repeatX) {
+function ledgerTexture(repeatX, ruleRGB = '127,165,142') {
   const cv = document.createElement('canvas'); cv.width = 1024; cv.height = 1024;
   const g = cv.getContext('2d');
   g.fillStyle = C.paper; g.fillRect(0, 0, 1024, 1024);
@@ -22,10 +22,10 @@ function ledgerTexture(repeatX) {
     g.beginPath(); g.moveTo(x, y); g.lineTo(x + Math.cos(a) * l, y + Math.sin(a) * l); g.stroke();
   }
   // horizontal ledger rules
-  g.strokeStyle = 'rgba(127,165,142,0.55)'; g.lineWidth = 2;
+  g.strokeStyle = `rgba(${ruleRGB},0.55)`; g.lineWidth = 2;
   for (let y = 40; y < 1024; y += 48) { g.beginPath(); g.moveTo(0, y); g.lineTo(1024, y); g.stroke(); }
   // column rules + red double margin
-  g.strokeStyle = 'rgba(127,165,142,0.8)';
+  g.strokeStyle = `rgba(${ruleRGB},0.8)`;
   for (const x of [220, 520, 760]) { g.beginPath(); g.moveTo(x, 0); g.lineTo(x, 1024); g.stroke(); }
   g.strokeStyle = 'rgba(194,39,45,0.75)'; g.lineWidth = 2.5;
   for (const x of [930, 942]) { g.beginPath(); g.moveTo(x, 0); g.lineTo(x, 1024); g.stroke(); }
@@ -47,28 +47,32 @@ function slipCanvas(ev, vote) {
   g.fillStyle = '#F4F7EF'; g.fillRect(0, 0, 1024, 700);
   g.strokeStyle = 'rgba(127,165,142,0.45)'; g.lineWidth = 2;
   for (let y = 150; y < 700; y += 64) { g.beginPath(); g.moveTo(40, y); g.lineTo(984, y); g.stroke(); }
-  g.direction = 'rtl'; g.textAlign = 'right'; g.fillStyle = C.ink;
-  g.font = '700 64px "Aref Ruqaa"';
-  wrapLines(g, ev.titleAr, 900).slice(0, 2).forEach((l, i) => g.fillText(l, 970, 110 + i * 74));
+  g.direction = 'rtl'; g.textAlign = 'right'; g.fillStyle = C.pencil;
+  g.font = '400 40px "Aref Ruqaa"'; g.fillText(ev.titleAr, 970, 70);
   g.fillStyle = ev.severity === 'alert' ? C.red : C.ink;
-  if (typeof ev.value === 'number' && ev.unitAr !== undefined) {
-    // figures are drawn left-to-right so "%" and parentheses stay where an accountant expects them
-    g.direction = 'ltr'; g.textAlign = 'right';
-    g.font = '500 92px "IBM Plex Sans Arabic"'; g.fillText(fmt(ev.value, ev.unitAr), 970, 360);
-    if (typeof ev.priorValue === 'number') { g.font = '400 40px "IBM Plex Sans Arabic"'; g.fillStyle = C.pencil; g.fillText(fmt(ev.priorValue, ev.unitAr), 970, 430); }
-    g.direction = 'rtl';
-  } else {
-    g.font = '500 46px "IBM Plex Sans Arabic"';
-    wrapLines(g, ev.displayAr || '', 900).slice(0, 3).forEach((l, i) => g.fillText(l, 970, 330 + i * 64));
-  }
+  g.font = '700 58px "Noto Naskh Arabic"';
+  wrapLines(g, ev.headlineAr || ev.titleAr, 910).slice(0, 4).forEach((l, i) => g.fillText(l, 970, 160 + i * 84));
+  if (true) { drawFigure(g, ev); return finishSlip(g, ev, vote, cv); }
+}
+
+function drawFigure(g, ev) {
+  if (typeof ev.value !== 'number' || ev.unitAr === undefined) return;
+  // Each figure is isolated (LRI…PDI) so "%", "−" and the unit word keep their places inside right-to-left text.
+  const iso = (x) => `⁨${x}⁩`;
+  g.direction = 'rtl'; g.textAlign = 'right'; g.fillStyle = C.pencil;
+  g.font = '400 44px "IBM Plex Sans Arabic"';
+  g.fillText(iso(fmt(ev.value, ev.unitAr)) + (typeof ev.priorValue === 'number' ? `   ·   السنة السابقة ${iso(fmt(ev.priorValue, ev.unitAr))}` : ''), 970, 640);
+}
+
+function finishSlip(g, ev, vote, cv) {
   if (ev.benchmark?.grade) {
-    g.font = '700 120px "Aref Ruqaa"'; g.textAlign = 'left'; g.fillStyle = ev.benchmark.grade >= 'D' ? C.red : C.ink;
-    g.fillText(ev.benchmark.grade, 60, 640);
+    g.font = '700 110px "Aref Ruqaa"'; g.textAlign = 'left'; g.fillStyle = ['D', 'E'].includes(ev.benchmark.grade) ? C.red : C.ink;
+    g.fillText(ev.benchmark.grade, 50, 650);
   }
-  if (vote === 'convincing') { // ink tick
+  if (vote === 'convincing') {
     g.strokeStyle = C.ink; g.lineWidth = 14; g.lineCap = 'round';
-    g.beginPath(); g.moveTo(780, 560); g.lineTo(830, 620); g.lineTo(950, 480); g.stroke();
-  } else if (vote === 'unconvincing') { // red strike
+    g.beginPath(); g.moveTo(200, 600); g.lineTo(250, 660); g.lineTo(370, 520); g.stroke();
+  } else if (vote === 'unconvincing') {
     g.strokeStyle = C.red; g.lineWidth = 10; g.lineCap = 'round';
     g.beginPath(); g.moveTo(60, 620); g.lineTo(980, 90); g.stroke();
   }
@@ -126,7 +130,7 @@ export function createScene(canvasHost, layout, caseObj, { reducedMotion, onPick
 
   const scene = new THREE.Scene();
   scene.background = new THREE.Color(C.paperDeep);
-  scene.fog = new THREE.Fog(C.paperDeep, 9, 34);
+  scene.fog = new THREE.Fog(C.paperDeep, 16, 52);
 
   const camera = new THREE.PerspectiveCamera(55, 1, 0.1, 200);
   const look = new THREE.Vector3();
@@ -140,12 +144,17 @@ export function createScene(canvasHost, layout, caseObj, { reducedMotion, onPick
   // corridor: walls are giant ledger pages, folded at every slot
   const { halfWidth: W } = GEOM;
   const len = layout.length + 10;
-  const wallMat = new THREE.MeshStandardMaterial({ map: ledgerTexture(len / 4.2), roughness: 0.95 });
-  for (const side of [1, -1]) {
-    const wall = new THREE.Mesh(new THREE.PlaneGeometry(len, 4.6), wallMat);
-    wall.position.set(side * (W + 0.25), 2.3, -len / 2 + 6);
-    wall.rotation.y = side > 0 ? -Math.PI / 2 : Math.PI / 2;
-    wall.receiveShadow = true; scene.add(wall);
+  const TINT = { for: '31,59,77', against: '194,39,45', mustKnow: '110,110,104' };
+  for (const h of layout.halls) {
+    const from = h.z0 + 3, to = h.z1 - (h.id === 'verdict' ? 2 : GEOM.hallGap - 0.5);
+    const segLen = from - to;
+    const mat = new THREE.MeshStandardMaterial({ map: ledgerTexture(segLen / 4.2, TINT[h.id]), roughness: 0.95 });
+    for (const side of [1, -1]) {
+      const wall = new THREE.Mesh(new THREE.PlaneGeometry(segLen, 4.6), mat);
+      wall.position.set(side * (W + 0.25), 2.3, (from + to) / 2);
+      wall.rotation.y = side > 0 ? -Math.PI / 2 : Math.PI / 2;
+      wall.receiveShadow = true; scene.add(wall);
+    }
   }
   const floor = new THREE.Mesh(new THREE.PlaneGeometry(W * 2 + 1, len), new THREE.MeshStandardMaterial({ color: '#C9D6BA', roughness: 1 }));
   floor.rotation.x = -Math.PI / 2; floor.position.set(0, 0, -len / 2 + 6); floor.receiveShadow = true; scene.add(floor);
@@ -169,21 +178,21 @@ export function createScene(canvasHost, layout, caseObj, { reducedMotion, onPick
   }
 
   // evidence slips pinned to the walls
-  const byId = new Map(Object.values(caseObj.halls).flat().map((e) => [e.id, e]));
-  if (caseObj.surprise) byId.set(caseObj.surprise.id, caseObj.surprise);
+  const a = caseObj.argument;
+  const byId = new Map([...a.for, ...a.against, ...a.mustKnow, ...a.archive].map((e) => [e.id, e]));
   const slips = new Map();
   const pickables = [];
   for (const h of layout.halls) for (const s of h.slots) {
     const ev = byId.get(s.evidenceId); if (!ev) continue;
     const tex = new THREE.CanvasTexture(slipCanvas(ev)); tex.colorSpace = THREE.SRGBColorSpace;
-    const mesh = new THREE.Mesh(new THREE.PlaneGeometry(1.75, 1.2), new THREE.MeshStandardMaterial({ map: tex, roughness: 0.92 }));
+    const mesh = new THREE.Mesh(new THREE.PlaneGeometry(2.5, 1.71), new THREE.MeshStandardMaterial({ map: tex, roughness: 0.92 }));
     const [x, y, z] = s.position;
     mesh.position.set(x > 0 ? x - 0.02 : x + 0.02, y + 0.15, z);
     mesh.rotation.y = x > 0 ? -Math.PI / 2 : Math.PI / 2;
     mesh.rotation.z = ((z * 7.3) % 1) * 0.06 - 0.03; // slightly crooked, like real slips
     mesh.castShadow = true; mesh.userData.evidenceId = ev.id;
     const pin = new THREE.Mesh(new THREE.SphereGeometry(0.045, 16, 12), new THREE.MeshStandardMaterial({ color: ev.severity === 'alert' ? C.red : ev.severity === 'watch' ? C.pencil : C.brass, metalness: 0.5, roughness: 0.4 }));
-    pin.position.set(0, 0.5, 0.03); mesh.add(pin);
+    pin.position.set(0, 0.74, 0.03); mesh.add(pin);
     scene.add(mesh); slips.set(ev.id, { mesh, tex, ev }); pickables.push(mesh);
   }
 
@@ -222,10 +231,38 @@ export function createScene(canvasHost, layout, caseObj, { reducedMotion, onPick
     gsap.to(look, { x: stop.target[0], y: stop.target[1], z: stop.target[2], duration: d, ease: 'power3.inOut' });
   }
 
+  // Brass weights: each exhibit visited puts a weight on its side's pan; a dismissed exhibit loses its weight.
+  const weightMat = new THREE.MeshStandardMaterial({ color: '#8C6A3A', metalness: 0.9, roughness: 0.3 });
+  const weights = new Map(); // evidenceId -> {mesh, side}
+  const panOf = (side) => scale.pans[side === 'for' ? 0 : 1];
+  function restack() {
+    for (const side of ['for', 'against']) {
+      let k = 0;
+      for (const w of weights.values()) if (w.side === side) { w.mesh.position.set(((k % 3) - 1) * 0.16, -1.0 + 0.09 * Math.floor(k / 3) + 0.05, (k % 2) * 0.08 - 0.04); k++; }
+    }
+  }
+  function addWeight(evidenceId, side, w = 1) {
+    if (!side || weights.has(evidenceId)) return;
+    const mesh = new THREE.Mesh(new THREE.CylinderGeometry(0.06 + 0.02 * w, 0.07 + 0.02 * w, 0.08, 20), weightMat);
+    mesh.castShadow = true; panOf(side).add(mesh);
+    weights.set(evidenceId, { mesh, side, w }); restack();
+    if (!reducedMotion) gsap.from(mesh.position, { y: '+=0.6', duration: 0.5, ease: 'bounce.out' });
+    lean();
+  }
+  function removeWeight(evidenceId) {
+    const w = weights.get(evidenceId); if (!w) return;
+    w.mesh.parent.remove(w.mesh); w.mesh.geometry.dispose(); weights.delete(evidenceId); restack(); lean();
+  }
+  function lean() {
+    let bal = 0; for (const w of weights.values()) bal += (w.side === 'for' ? 1 : -1) * w.w;
+    tiltTo(THREE.MathUtils.clamp(bal * 0.035, -0.26, 0.26));
+  }
   let tiltNow = 0;
   function setTilt(verdictIndex) {
-    // Follows the final verdict (after audit downgrades): استثمر → … → لا تستثمر.
-    const target = [0.24, 0.09, -0.09, -0.24][verdictIndex] ?? 0;
+    // In the verdict hall the beam settles on the final verdict (after audit downgrades).
+    tiltTo([0.24, 0.09, -0.09, -0.24][verdictIndex] ?? 0);
+  }
+  function tiltTo(target) {
     if (Math.abs(target - tiltNow) < 1e-4) return;
     tiltNow = target;
     gsap.to(scale.beam.rotation, { z: -target, duration: reducedMotion ? 0 : 2.2, ease: 'elastic.out(1, 0.32)' });
@@ -264,7 +301,7 @@ export function createScene(canvasHost, layout, caseObj, { reducedMotion, onPick
   tick();
 
   return {
-    goTo, setTilt, markVote, resize,
+    goTo, setTilt, addWeight, removeWeight, markVote, resize,
     dispose() {
       running = false; cancelAnimationFrame(raf); ro.disconnect();
       document.removeEventListener('visibilitychange', onVis);

@@ -11,6 +11,7 @@ import './styles/landing.css';
 import './styles/read.css';
 import './styles/reading.css';
 import './styles/exhibit.css';
+import './styles/answer.css';
 
 import { createStages } from './app/stages.js';
 import * as landing from './stages/landing.js';
@@ -18,13 +19,14 @@ import * as intake from './stages/intake.js';
 import * as reading from './stages/reading.js';
 import * as exhibit from './stages/exhibit.js';
 import * as verdict from './stages/verdict.js';
+import * as answer from './stages/answer.js';
 import { pageStage } from './stages/pages.js';
 
 const reducedMotion = matchMedia('(prefers-reduced-motion: reduce)').matches;
 const root = document.getElementById('app');
 
 const stages = createStages(root, {
-  landing, reading, case: intake, exhibit, verdict,
+  landing, reading, case: intake, exhibit, verdict, answer,
   method: pageStage('method'),
   limits: pageStage('limits'),
 }, { reducedMotion });
