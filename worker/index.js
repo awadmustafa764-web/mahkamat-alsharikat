@@ -69,7 +69,8 @@ async function extract(env, file) {
       const res = await generate(env, file, model, false);
       if (res.ok) { resolvedModel = model; return res.data; }
       tried.push(`${model}:${res.status}`);
-      if (res.status !== 503 && res.status !== 429 && res.status !== 500) break; // not transient → next model
+      // 429 = quota for this model is used up: retrying only burns more quota, so move to the next model.
+      if (res.status !== 503 && res.status !== 500) break;
       await sleep(2500 * (attempt + 1));
     }
   }
