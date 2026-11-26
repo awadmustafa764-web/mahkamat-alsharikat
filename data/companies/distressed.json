@@ -1,0 +1,557 @@
+{
+  "meta": {
+    "id": "distressed",
+    "nameAr": "شركة فلسطين للاستثمار العقاري (بريكو)",
+    "nameEn": "Palestine Real Estate Investment Company (PRICO)",
+    "ticker": "PRICO",
+    "exchange": "PEX",
+    "sector": "investment",
+    "activityAr": "استثمار وتطوير عقاري وخدمات تجارية",
+    "currency": "JOD",
+    "unit": "1",
+    "consolidated": true,
+    "framework": "IFRS",
+    "years": [
+      2025,
+      2024
+    ]
+  },
+  "years": {
+    "2024": {
+      "bs": {
+        "cash": {
+          "v": 2201456,
+          "src": {
+            "page": 29,
+            "doc": "PRICO-FY2025"
+          }
+        },
+        "receivables": {
+          "v": 2354761,
+          "src": {
+            "page": 29,
+            "doc": "PRICO-FY2025"
+          }
+        },
+        "inventory": {
+          "v": 10097479,
+          "src": {
+            "page": 29,
+            "doc": "PRICO-FY2025"
+          }
+        },
+        "otherCurrentAssets": {
+          "v": 1822535,
+          "src": {
+            "page": 29,
+            "doc": "PRICO-FY2025",
+            "note": "محسوب: مجموع الموجودات المتداولة − النقد − الذمم المدينة − البضاعة والعقارات الجاهزة للبيع"
+          }
+        },
+        "totalCurrentAssets": {
+          "v": 16476231,
+          "src": {
+            "page": 29,
+            "doc": "PRICO-FY2025"
+          }
+        },
+        "ppeNet": {
+          "v": 195104,
+          "src": {
+            "page": 29,
+            "doc": "PRICO-FY2025"
+          }
+        },
+        "otherNonCurrentAssets": {
+          "v": 37731063,
+          "src": {
+            "page": 29,
+            "doc": "PRICO-FY2025",
+            "note": "محسوب: مجموع الموجودات − الموجودات المتداولة − الممتلكات والآلات والمعدات"
+          }
+        },
+        "totalAssets": {
+          "v": 54402398,
+          "src": {
+            "page": 29,
+            "doc": "PRICO-FY2025"
+          }
+        },
+        "shortTermDebt": {
+          "v": 10869998,
+          "src": {
+            "page": 29,
+            "doc": "PRICO-FY2025"
+          }
+        },
+        "totalCurrentLiabilities": {
+          "v": 22657401,
+          "src": {
+            "page": 29,
+            "doc": "PRICO-FY2025"
+          }
+        },
+        "longTermDebt": {
+          "v": 4884420,
+          "src": {
+            "page": 29,
+            "doc": "PRICO-FY2025"
+          }
+        },
+        "otherNonCurrentLiabilities": {
+          "v": 4587927,
+          "src": {
+            "page": 29,
+            "doc": "PRICO-FY2025",
+            "note": "محسوب: مجموع المطلوبات − المطلوبات المتداولة − القروض طويلة الأجل"
+          }
+        },
+        "totalLiabilities": {
+          "v": 32129748,
+          "src": {
+            "page": 29,
+            "doc": "PRICO-FY2025"
+          }
+        },
+        "equityParent": {
+          "v": 16964646,
+          "src": {
+            "page": 29,
+            "doc": "PRICO-FY2025"
+          }
+        },
+        "nci": {
+          "v": 5308004,
+          "src": {
+            "page": 29,
+            "doc": "PRICO-FY2025"
+          }
+        },
+        "totalEquity": {
+          "v": 22272650,
+          "src": {
+            "page": 29,
+            "doc": "PRICO-FY2025"
+          }
+        },
+        "retainedEarnings": {
+          "v": -48889271,
+          "src": {
+            "page": 29,
+            "doc": "PRICO-FY2025"
+          }
+        }
+      },
+      "is": {
+        "revenue": {
+          "v": 3552150,
+          "src": {
+            "page": 54,
+            "doc": "PRICO-FY2025"
+          }
+        },
+        "depreciation": {
+          "v": 1000702,
+          "src": {
+            "page": 31,
+            "doc": "PRICO-FY2025"
+          }
+        },
+        "interestExpense": {
+          "v": 1216661,
+          "src": {
+            "page": 30,
+            "doc": "PRICO-FY2025"
+          }
+        },
+        "pbt": {
+          "v": -1642274,
+          "src": {
+            "page": 30,
+            "doc": "PRICO-FY2025"
+          }
+        },
+        "tax": {
+          "v": 87884,
+          "src": {
+            "page": 30,
+            "doc": "PRICO-FY2025"
+          }
+        },
+        "netIncome": {
+          "v": -1730158,
+          "src": {
+            "page": 30,
+            "doc": "PRICO-FY2025"
+          }
+        },
+        "netIncomeParent": {
+          "v": -1592213,
+          "src": {
+            "page": 30,
+            "doc": "PRICO-FY2025"
+          }
+        }
+      },
+      "cf": {
+        "cfo": {
+          "v": 5628842,
+          "src": {
+            "page": 31,
+            "doc": "PRICO-FY2025"
+          }
+        },
+        "capex": {
+          "v": 757098,
+          "src": {
+            "page": 31,
+            "doc": "PRICO-FY2025",
+            "note": "محسوب: شراء ممتلكات وآلات ومعدات + مشاريع تحت التنفيذ (كلاهما من الأنشطة الاستثمارية)"
+          }
+        },
+        "cfi": {
+          "v": 185665,
+          "src": {
+            "page": 31,
+            "doc": "PRICO-FY2025"
+          }
+        },
+        "cff": {
+          "v": -4959907,
+          "src": {
+            "page": 31,
+            "doc": "PRICO-FY2025"
+          }
+        },
+        "netChangeCash": {
+          "v": 854600,
+          "src": {
+            "page": 31,
+            "doc": "PRICO-FY2025"
+          }
+        },
+        "cashBegin": {
+          "v": 1240574,
+          "src": {
+            "page": 31,
+            "doc": "PRICO-FY2025"
+          }
+        },
+        "cashEnd": {
+          "v": 2095174,
+          "src": {
+            "page": 31,
+            "doc": "PRICO-FY2025"
+          }
+        }
+      },
+      "shares": {
+        "v": 63749719,
+        "src": {
+          "page": 50,
+          "doc": "PRICO-FY2025"
+        }
+      }
+    },
+    "2025": {
+      "bs": {
+        "cash": {
+          "v": 1624789,
+          "src": {
+            "page": 29,
+            "doc": "PRICO-FY2025"
+          }
+        },
+        "receivables": {
+          "v": 1813532,
+          "src": {
+            "page": 29,
+            "doc": "PRICO-FY2025"
+          }
+        },
+        "inventory": {
+          "v": 9707466,
+          "src": {
+            "page": 29,
+            "doc": "PRICO-FY2025"
+          }
+        },
+        "otherCurrentAssets": {
+          "v": 2441926,
+          "src": {
+            "page": 29,
+            "doc": "PRICO-FY2025",
+            "note": "محسوب: مجموع الموجودات المتداولة − النقد − الذمم المدينة − البضاعة والعقارات الجاهزة للبيع"
+          }
+        },
+        "totalCurrentAssets": {
+          "v": 15587713,
+          "src": {
+            "page": 29,
+            "doc": "PRICO-FY2025"
+          }
+        },
+        "ppeNet": {
+          "v": 179794,
+          "src": {
+            "page": 29,
+            "doc": "PRICO-FY2025"
+          }
+        },
+        "otherNonCurrentAssets": {
+          "v": 34727557,
+          "src": {
+            "page": 29,
+            "doc": "PRICO-FY2025",
+            "note": "محسوب: مجموع الموجودات − الموجودات المتداولة − الممتلكات والآلات والمعدات"
+          }
+        },
+        "totalAssets": {
+          "v": 50495064,
+          "src": {
+            "page": 29,
+            "doc": "PRICO-FY2025"
+          }
+        },
+        "shortTermDebt": {
+          "v": 1349740,
+          "src": {
+            "page": 29,
+            "doc": "PRICO-FY2025"
+          }
+        },
+        "totalCurrentLiabilities": {
+          "v": 17293291,
+          "src": {
+            "page": 29,
+            "doc": "PRICO-FY2025"
+          }
+        },
+        "longTermDebt": {
+          "v": 4443794,
+          "src": {
+            "page": 29,
+            "doc": "PRICO-FY2025"
+          }
+        },
+        "otherNonCurrentLiabilities": {
+          "v": 4459783,
+          "src": {
+            "page": 29,
+            "doc": "PRICO-FY2025",
+            "note": "محسوب: مجموع المطلوبات − المطلوبات المتداولة − القروض طويلة الأجل"
+          }
+        },
+        "totalLiabilities": {
+          "v": 26196868,
+          "src": {
+            "page": 29,
+            "doc": "PRICO-FY2025"
+          }
+        },
+        "equityParent": {
+          "v": 18954722,
+          "src": {
+            "page": 29,
+            "doc": "PRICO-FY2025"
+          }
+        },
+        "nci": {
+          "v": 5343474,
+          "src": {
+            "page": 29,
+            "doc": "PRICO-FY2025"
+          }
+        },
+        "totalEquity": {
+          "v": 24298196,
+          "src": {
+            "page": 29,
+            "doc": "PRICO-FY2025"
+          }
+        },
+        "retainedEarnings": {
+          "v": -51930697,
+          "src": {
+            "page": 29,
+            "doc": "PRICO-FY2025"
+          }
+        }
+      },
+      "is": {
+        "revenue": {
+          "v": 3709269,
+          "src": {
+            "page": 54,
+            "doc": "PRICO-FY2025"
+          }
+        },
+        "depreciation": {
+          "v": 768091,
+          "src": {
+            "page": 31,
+            "doc": "PRICO-FY2025"
+          }
+        },
+        "interestExpense": {
+          "v": 480113,
+          "src": {
+            "page": 30,
+            "doc": "PRICO-FY2025"
+          }
+        },
+        "pbt": {
+          "v": -355016,
+          "src": {
+            "page": 30,
+            "doc": "PRICO-FY2025"
+          }
+        },
+        "tax": {
+          "v": 193632,
+          "src": {
+            "page": 30,
+            "doc": "PRICO-FY2025"
+          }
+        },
+        "netIncome": {
+          "v": -548648,
+          "src": {
+            "page": 30,
+            "doc": "PRICO-FY2025"
+          }
+        },
+        "netIncomeParent": {
+          "v": -418759,
+          "src": {
+            "page": 30,
+            "doc": "PRICO-FY2025"
+          }
+        }
+      },
+      "cf": {
+        "cfo": {
+          "v": 4502035,
+          "src": {
+            "page": 31,
+            "doc": "PRICO-FY2025"
+          }
+        },
+        "capex": {
+          "v": 2489102,
+          "src": {
+            "page": 31,
+            "doc": "PRICO-FY2025",
+            "note": "محسوب: شراء ممتلكات وآلات ومعدات + مشاريع تحت التنفيذ (كلاهما من الأنشطة الاستثمارية)"
+          }
+        },
+        "cfi": {
+          "v": 4681909,
+          "src": {
+            "page": 31,
+            "doc": "PRICO-FY2025"
+          }
+        },
+        "cff": {
+          "v": -9735099,
+          "src": {
+            "page": 31,
+            "doc": "PRICO-FY2025"
+          }
+        },
+        "netChangeCash": {
+          "v": -551155,
+          "src": {
+            "page": 31,
+            "doc": "PRICO-FY2025"
+          }
+        },
+        "cashBegin": {
+          "v": 2095174,
+          "src": {
+            "page": 31,
+            "doc": "PRICO-FY2025"
+          }
+        },
+        "cashEnd": {
+          "v": 1544019,
+          "src": {
+            "page": 31,
+            "doc": "PRICO-FY2025"
+          }
+        }
+      },
+      "shares": {
+        "v": 63749719,
+        "src": {
+          "page": 50,
+          "doc": "PRICO-FY2025"
+        }
+      }
+    }
+  },
+  "disclosures": {
+    "auditor": {
+      "opinion": "unmodified",
+      "firm": "إرنست ويونغ – الشرق الأوسط (فرع فلسطين)",
+      "emphasis": {
+        "present": true,
+        "quote": "فقرة توكيدية – الحرب على قطاع غزة: نلفت الانتباه إلى إيضاح رقم (44) حول القوائم المالية الموحدة المرفقة، والذي يتعلق بالحرب على قطاع غزة. إن هذا الأمر لا يعدل رأينا حول القوائم المالية الموحدة.",
+        "page": 27
+      },
+      "goingConcern": "material-uncertainty",
+      "goingConcernQuote": "بلغت الخسائر المتراكمة كما في 31 كانون الأول 2025 51,930,697 دينار أردني، كما أن المطلوبات المتداولة تزيد عن الموجودات المتداولة ... بمبلغ 1,705,578 دينار أردني. إن هذه الظروف تلقي بشكوك جوهرية حول قدرة المجموعة على الاستمرار في أعمالها كمنشأة مستمرة.",
+      "goingConcernPage": 27,
+      "kams": [
+        {
+          "title": "مخصص الخسائر الائتمانية المتوقعة",
+          "quote": "بلغ إجمالي الذمم المدينة كما في 31 كانون الأول 2025 مبلغ 17,085,132 دينار أردني وذلك قبل مخصص الخسائر الائتمانية المتوقعة والبالغ 14,522,387 دينار أردني والذي يمثل ما نسبته 85% من إجمالي الذمم المدينة.",
+          "page": 28
+        }
+      ]
+    },
+    "relatedParties": [
+      {
+        "party": "الشركة الأم ومساهمون رئيسيون",
+        "nature": "قروض طويلة الأجل",
+        "amount": 1405721,
+        "page": 50
+      },
+      {
+        "party": "الشركة الأم وشركات شقيقة",
+        "nature": "مستحق لجهات ذات علاقة",
+        "amount": 3681560,
+        "page": 50
+      },
+      {
+        "party": "شركات شقيقة وحليفة",
+        "nature": "مستحق من جهات ذات علاقة",
+        "amount": 1652700,
+        "page": 50
+      }
+    ],
+    "contingencies": [
+      {
+        "text": "بلغ عدد القضايا المقامة ضد المجموعة (24) قضية كما في 31 كانون الأول 2025 بقيمة 8,371,345 دينار أردني؛ وترى الإدارة ومستشاروها القانونيون أن المخصصات المكونة كافية.",
+        "amount": 8371345,
+        "page": 55
+      },
+      {
+        "text": "بلغت الالتزامات التعاقدية بتاريخ القوائم المالية الموحدة 680,844 دينار أردني ناتجة عن عقود واتفاقيات مع موردين تتعلق بمشاريع المجموعة.",
+        "amount": 680844,
+        "page": 55
+      }
+    ],
+    "subsequentEvents": [
+      {
+        "text": "في شباط 2026 تبلّغت الشركة بدعوى مدنية في ولاية فلوريدا الأمريكية ضد الشركة والشركة الأم وشركات ذات علاقة للمطالبة بتعويضات على خلفية أحداث 7 أكتوبر 2023؛ ولا يمكن التنبؤ بنتيجتها حالياً.",
+        "page": 55
+      },
+      {
+        "text": "شهدت المنطقة في بداية 2026 تصعيداً عسكرياً أدى إلى اضطرابات في حركة النقل وتقلبات في الأسواق، وتواصل الإدارة تقييم أثره.",
+        "page": 55
+      }
+    ],
+    "policyChanges": []
+  }
+}

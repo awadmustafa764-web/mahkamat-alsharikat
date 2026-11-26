@@ -7,6 +7,7 @@
 | bop-FY2025 | بنك فلسطين (BOP) | التقرير السنوي 2025 (عربي) متضمناً القوائم المالية الموحدة المدققة 2025 | https://bopwebsitestorage.blob.core.windows.net/assets/documents/FkDRMbOboipUAX358i26LsvOEx3trkgFgIwOGViE.pdf | 2026-11-24 | ص 124-129، 133، 166-167، 204، 247؛ nonInterestIncome محسوب؛ تفاصيل في data/sources/bop.md |
 | aziza-FY2025 | دواجن فلسطين (AZIZA) | التقرير السنوي 2025 مع القوائم المالية المدققة (عربي) | https://api.pex.ps/FileManager/Default.aspx?AID=1&UID=1&DocAction=610&PathCode=1&HashCode=58981&TRID=142909&TID=1977&WFID=5 | 2026-11-24 | صفحات 42–46، 55–61؛ التفاصيل والاشتقاقات في data/sources/aziza.md |
 | aziza-FY2024 | دواجن فلسطين (AZIZA) | التقرير السنوي 2024 (عربي) — لمجموع موجودات 2023 فقط | https://archiveapi.pex.ps/FileManager/Default.aspx?AID=1&UID=1&DocAction=610&PathCode=1&HashCode=14649&TRID=121391&TID=1977&WFID=5 | 2026-11-24 | صفحة 39 |
+| PRICO-FY2025 | فلسطين للاستثمار العقاري (PRICO) | التقرير السنوي 2025 (عربي) متضمناً القوائم المالية الموحدة المدققة وتقرير EY | https://api.pex.ps/FileManager/Default.aspx?AID=1&UID=1&DocAction=610&PathCode=1&HashCode=58895&TRID=142763&TID=1977&WFID=5 | 2026-11-24 | صفحات PDF ‏27–31، 50، 54، 55؛ otherCurrentAssets وotherNonCurrentAssets وotherNonCurrentLiabilities محسوبة؛ تفاصيل في data/sources/distressed.md |
 
 ## عينة المقارنة القطاعية (data/pex-benchmark.json)
 - قائمة الشركات والقطاعات: واجهة بورصة فلسطين الرسمية `webapi.pex.ps` (47 شركة).
