@@ -1,0 +1,284 @@
+[
+ {
+  "ticker": "NIC",
+  "nameAr": "التأمين الوطنية",
+  "nameEn": "NATIONAL INSURANCE",
+  "sector": "insurance"
+ },
+ {
+  "ticker": "TRUST",
+  "nameAr": "ترست العالميه للتأمين",
+  "nameEn": "TRUST INTERNATIONAL INSURANCE",
+  "sector": "insurance"
+ },
+ {
+  "ticker": "MIC",
+  "nameAr": "المشرق للتأمين",
+  "nameEn": "AL MASHRIQ INSURANCE",
+  "sector": "insurance"
+ },
+ {
+  "ticker": "TIC",
+  "nameAr": "التكافل الفلسطينية للتأمين",
+  "nameEn": "AL-TAKAFUL PALESTINIAN INSURANCE",
+  "sector": "insurance"
+ },
+ {
+  "ticker": "AIG",
+  "nameAr": "المجموعة الاهلية للتأمين",
+  "nameEn": "AHLIEA INSURANCE GROUP",
+  "sector": "insurance"
+ },
+ {
+  "ticker": "GUI",
+  "nameAr": "العالمية المتحدة للتأمين",
+  "nameEn": "GLOBAL UNITED INSURANCE",
+  "sector": "insurance"
+ },
+ {
+  "ticker": "PICO",
+  "nameAr": "فلسطين للتأمين",
+  "nameEn": "PALESTINE INSURANCE",
+  "sector": "insurance"
+ },
+ {
+  "ticker": "TPIC",
+  "nameAr": "تمكين الفلسطينية للتأمين",
+  "nameEn": "TAMKEEN PALESTINIAN INSURANCE",
+  "sector": "insurance"
+ },
+ {
+  "ticker": "PADICO",
+  "nameAr": "فلسطين للتنمية والاستثمار",
+  "nameEn": "PALESTINE DEVELOPMENT & INVESTMENT",
+  "sector": "investment"
+ },
+ {
+  "ticker": "UCI",
+  "nameAr": "الاتحاد للاعمار والاستثمار",
+  "nameEn": "UNION CONSTRUCTION AND INVESTMENT",
+  "sector": "investment"
+ },
+ {
+  "ticker": "JREI",
+  "nameAr": "القدس للاستثمارات العقارية",
+  "nameEn": "JERUSALEM REAL ESTATE INVESTMENT",
+  "sector": "investment"
+ },
+ {
+  "ticker": "AQARIYA",
+  "nameAr": "العقارية التجارية للاستثمار",
+  "nameEn": "AL-AQARIYA TRADING INVESTMENT",
+  "sector": "investment"
+ },
+ {
+  "ticker": "PID",
+  "nameAr": "الفلسطينية للاستثمار والانماء",
+  "nameEn": "PALESTINE INVESTMENT & DEVELOPMENT",
+  "sector": "investment"
+ },
+ {
+  "ticker": "PIIC",
+  "nameAr": "فلسطين للاستثمار الصناعي",
+  "nameEn": "PALESTINE INDUSTRIAL INVESTMENT",
+  "sector": "investment"
+ },
+ {
+  "ticker": "ARAB",
+  "nameAr": "المستثمرون العرب",
+  "nameEn": "ARAB INVESTORS",
+  "sector": "investment"
+ },
+ {
+  "ticker": "PRICO",
+  "nameAr": "فلسطين للاستثمار العقاري",
+  "nameEn": "PALESTINE REAL ESTATE INVESTMENT",
+  "sector": "investment"
+ },
+ {
+  "ticker": "APIC",
+  "nameAr": "العربية الفلسطينية للاستثمار - ايبك",
+  "nameEn": "ARAB PALESTINIAN INVESTMENT - APIC",
+  "sector": "investment"
+ },
+ {
+  "ticker": "SANAD",
+  "nameAr": "سند للموارد الإنشائية",
+  "nameEn": "SANAD Construction Resources",
+  "sector": "investment"
+ },
+ {
+  "ticker": "ARKAAN",
+  "nameAr": "شركة أركان العقارية",
+  "nameEn": "ARKAAN REAL ESTATE",
+  "sector": "investment"
+ },
+ {
+  "ticker": "AMLAK",
+  "nameAr": "شركة أملاك للاستثمار العقاري والتجارة",
+  "nameEn": "AMLAK REAL ESTATE INVESTMENT & TRADING",
+  "sector": "investment"
+ },
+ {
+  "ticker": "JCC",
+  "nameAr": "سجاير القدس",
+  "nameEn": "JERUSALEM CIGARETTE",
+  "sector": "industrial"
+ },
+ {
+  "ticker": "GMC",
+  "nameAr": "مطاحن القمح الذهبي",
+  "nameEn": "GOLDEN WHEAT MILLS",
+  "sector": "industrial"
+ },
+ {
+  "ticker": "NCI",
+  "nameAr": "الوطنيه لصناعة الكرتون",
+  "nameEn": "THE NATIONAL CARTON INDUSTRY",
+  "sector": "industrial"
+ },
+ {
+  "ticker": "NAPCO",
+  "nameAr": "الوطنيه لصناعةالألمنيوم والبروفيلات - نابكو",
+  "nameEn": "NATIONAL ALUMINUM AND PROFILE - NAPCO",
+  "sector": "industrial"
+ },
+ {
+  "ticker": "APC",
+  "nameAr": "العربية لصناعة الدهانات",
+  "nameEn": "ARAB COMPANY FOR PAINTS PRODUCTS",
+  "sector": "industrial"
+ },
+ {
+  "ticker": "VOIC",
+  "nameAr": "مصانع الزيوت النباتية",
+  "nameEn": "THE VEGETABLE OIL INDUSTRIES",
+  "sector": "industrial"
+ },
+ {
+  "ticker": "BPC",
+  "nameAr": "بيرزيت للادوية",
+  "nameEn": "BIRZEIT PHARMACEUTICALS",
+  "sector": "industrial"
+ },
+ {
+  "ticker": "JPH",
+  "nameAr": "القدس للمستحضرات الطبية",
+  "nameEn": "JERUSALEM PHARMACEUTICALS",
+  "sector": "industrial"
+ },
+ {
+  "ticker": "BJP",
+  "nameAr": "بيت جالا لصناعة الأدوية",
+  "nameEn": "Beit Jala Pharmaceutical",
+  "sector": "industrial"
+ },
+ {
+  "ticker": "AZIZA",
+  "nameAr": "دواجن فلسطين",
+  "nameEn": "PALESTINE POULTRY",
+  "sector": "industrial"
+ },
+ {
+  "ticker": "PSE",
+  "nameAr": "سوق فلسطين للأوراق المالية",
+  "nameEn": "PALESTINE SECURITIES EXCHANGE",
+  "sector": "investment"
+ },
+ {
+  "ticker": "BOP",
+  "nameAr": "بنك فلسطين",
+  "nameEn": "BANK OF PALESTINE",
+  "sector": "bank"
+ },
+ {
+  "ticker": "QUDS",
+  "nameAr": "بنك القدس",
+  "nameEn": "AL QUDS BANK",
+  "sector": "bank"
+ },
+ {
+  "ticker": "ISBK",
+  "nameAr": "البنك الاسلامي الفلسطيني",
+  "nameEn": "PALESTINE ISLAMIC BANK",
+  "sector": "bank"
+ },
+ {
+  "ticker": "AIB",
+  "nameAr": "البنك الاسلامي العربي",
+  "nameEn": "ARAB ISLAMIC BANK",
+  "sector": "bank"
+ },
+ {
+  "ticker": "PIBC",
+  "nameAr": "بنك الاستثمار الفلسطيني",
+  "nameEn": "PALESTINE INVESTMENT BANK",
+  "sector": "bank"
+ },
+ {
+  "ticker": "TNB",
+  "nameAr": "البنك الوطني",
+  "nameEn": "THE NATIONAL BANK",
+  "sector": "bank"
+ },
+ {
+  "ticker": "SAFABANK",
+  "nameAr": "شركة مصرف الصفا",
+  "nameEn": "SAFA bank",
+  "sector": "bank"
+ },
+ {
+  "ticker": "AHC",
+  "nameAr": "المؤسسة العربية للفنادق",
+  "nameEn": "THE ARAB HOTELS",
+  "sector": "services"
+ },
+ {
+  "ticker": "WASSEL",
+  "nameAr": "الفلسطينيه للتوزيع والخدمات اللوجستيه",
+  "nameEn": "PALESTINIAN COMPANY FOR DISTRIBUTION & LOGISTICS SERVICES",
+  "sector": "services"
+ },
+ {
+  "ticker": "PALAQAR",
+  "nameAr": "بال عقار لتطوير وادارة وتشغيل العقارات",
+  "nameEn": "PALAQAR FOR REAL ESTATE DEVELOPMENT & MANAGEMENT",
+  "sector": "services"
+ },
+ {
+  "ticker": "OOREDOO",
+  "nameAr": "موبايل الوطنية الفلسطينية للاتصالات",
+  "nameEn": "WATANIYA PALESTINE MOBILE TELECOMMUNICATIONS",
+  "sector": "services"
+ },
+ {
+  "ticker": "RSR",
+  "nameAr": "مصايف رام الله",
+  "nameEn": "THE RAMALLAH SUMMER RESORTS",
+  "sector": "services"
+ },
+ {
+  "ticker": "NSC",
+  "nameAr": "مركز نابلس الجراحي التخصصي",
+  "nameEn": "NABLUS SURGICAL CENTER",
+  "sector": "services"
+ },
+ {
+  "ticker": "PEC",
+  "nameAr": "الفلسطينية للكهرباء",
+  "nameEn": "PALESTINE ELECTRIC",
+  "sector": "services"
+ },
+ {
+  "ticker": "PALTEL",
+  "nameAr": "الاتصالات الفلسطينية",
+  "nameEn": "PALESTINE TELECOMMUNICATIONS",
+  "sector": "services"
+ },
+ {
+  "ticker": "ISH",
+  "nameAr": "شركة مستشفى ابن سينا التخصصي",
+  "nameEn": "IBN SINA SPECIALIZED HOSPITAL",
+  "sector": "services"
+ }
+]

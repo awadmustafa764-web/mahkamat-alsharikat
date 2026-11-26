@@ -1,0 +1,1100 @@
+{
+ "source": "Palestine Exchange official API https://webapi.pex.ps/api (GetCompaniesList, GetAllSectorsWithRelatedCompanies, GetFinancialKpis, GetAllFinancialReports) for tickers, sectors, currency and official totals; StockAnalysis https://stockanalysis.com/quote/pex/<TICKER>/financials/ (S&P Global data) for line items. Rows with unit 'million' are aggregator figures in millions of reporting currency; rows with unit 'unit' are PEX official KPIs in currency units. Expenses (cogs, interestExpense, capex, depreciation) positive.",
+ "accessed": "2026-11-24",
+ "rows": [
+  {
+   "ticker": "NIC",
+   "sector": "insurance",
+   "year": 2025,
+   "currency": "USD",
+   "unit": "million",
+   "src": "https://stockanalysis.com/quote/pex/NIC/financials/",
+   "bs": {
+    "totalAssets": 119.91,
+    "totalEquity": 48.33,
+    "totalInvestments": 70.72
+   },
+   "is": {
+    "insuranceRevenue": 52.12,
+    "investmentIncome": 4.5,
+    "netIncome": 5.04
+   },
+   "note": "insuranceRevenue = aggregator 'Premiums & Annuity Revenue' (NIC verified equal to IFRS 17 insurance contracts revenue in official FS); insuranceServiceResult not available from aggregator; investmentIncome = aggregator 'Total Interest & Dividend Income'"
+  },
+  {
+   "ticker": "TRUST",
+   "sector": "insurance",
+   "year": 2025,
+   "currency": "USD",
+   "unit": "million",
+   "src": "https://stockanalysis.com/quote/pex/TRUST/financials/",
+   "bs": {
+    "totalAssets": 163.71,
+    "totalEquity": 65.83,
+    "totalInvestments": 65.23
+   },
+   "is": {
+    "insuranceRevenue": 91.54,
+    "investmentIncome": 7.25,
+    "netIncome": 1.96
+   },
+   "note": "insuranceRevenue = aggregator 'Premiums & Annuity Revenue' (NIC verified equal to IFRS 17 insurance contracts revenue in official FS); insuranceServiceResult not available from aggregator; investmentIncome = aggregator 'Total Interest & Dividend Income'"
+  },
+  {
+   "ticker": "MIC",
+   "sector": "insurance",
+   "year": 2025,
+   "currency": "USD",
+   "unit": "unit",
+   "src": "https://webapi.pex.ps/api/GetFinancialKpis (POST CompanySymbol=MIC, Period=245, Year=2025)",
+   "bs": {
+    "totalAssets": 50706759,
+    "totalEquity": 23733300
+   },
+   "is": {
+    "netIncome": 517448
+   },
+   "note": "official PEX financial KPIs only (detail line items not retrieved)"
+  },
+  {
+   "ticker": "TIC",
+   "sector": "insurance",
+   "year": 2025,
+   "currency": "USD",
+   "unit": "million",
+   "src": "https://stockanalysis.com/quote/pex/TIC/financials/",
+   "bs": {
+    "totalAssets": 57.83,
+    "totalEquity": 26.18,
+    "totalInvestments": 32.32
+   },
+   "is": {
+    "insuranceRevenue": 51.99,
+    "investmentIncome": 5.88,
+    "netIncome": 1.75
+   },
+   "note": "insuranceRevenue = aggregator 'Premiums & Annuity Revenue' (NIC verified equal to IFRS 17 insurance contracts revenue in official FS); insuranceServiceResult not available from aggregator; investmentIncome = aggregator 'Total Interest & Dividend Income'"
+  },
+  {
+   "ticker": "AIG",
+   "sector": "insurance",
+   "year": 2025,
+   "currency": "USD",
+   "unit": "unit",
+   "src": "https://webapi.pex.ps/api/GetFinancialKpis (POST CompanySymbol=AIG, Period=245, Year=2025)",
+   "bs": {
+    "totalAssets": 86803998,
+    "totalEquity": 50025312
+   },
+   "is": {
+    "netIncome": 459601
+   },
+   "note": "official PEX financial KPIs only (detail line items not retrieved)"
+  },
+  {
+   "ticker": "GUI",
+   "sector": "insurance",
+   "year": 2025,
+   "currency": "USD",
+   "unit": "unit",
+   "src": "https://webapi.pex.ps/api/GetFinancialKpis (POST CompanySymbol=GUI, Period=245, Year=2025)",
+   "bs": {
+    "totalAssets": 50522268,
+    "totalEquity": 25914670
+   },
+   "is": {
+    "netIncome": 1834830
+   },
+   "note": "official PEX financial KPIs only (detail line items not retrieved)"
+  },
+  {
+   "ticker": "PICO",
+   "sector": "insurance",
+   "year": 2025,
+   "currency": "USD",
+   "unit": "million",
+   "src": "https://stockanalysis.com/quote/pex/PICO/financials/",
+   "bs": {
+    "totalAssets": 67.11,
+    "totalEquity": 17.95,
+    "totalInvestments": 22.63
+   },
+   "is": {
+    "insuranceRevenue": 48.96,
+    "investmentIncome": -0.52,
+    "netIncome": 1.28
+   },
+   "note": "insuranceRevenue = aggregator 'Premiums & Annuity Revenue' (NIC verified equal to IFRS 17 insurance contracts revenue in official FS); insuranceServiceResult not available from aggregator; investmentIncome = aggregator 'Total Interest & Dividend Income'"
+  },
+  {
+   "ticker": "TPIC",
+   "sector": "insurance",
+   "year": 2025,
+   "currency": "USD",
+   "unit": "million",
+   "src": "https://stockanalysis.com/quote/pex/TPIC/financials/",
+   "bs": {
+    "totalAssets": 35.37,
+    "totalEquity": 21.38,
+    "totalInvestments": 14.22
+   },
+   "is": {
+    "insuranceRevenue": 30.2,
+    "investmentIncome": 1.97,
+    "netIncome": 1.05
+   },
+   "note": "insuranceRevenue = aggregator 'Premiums & Annuity Revenue' (NIC verified equal to IFRS 17 insurance contracts revenue in official FS); insuranceServiceResult not available from aggregator; investmentIncome = aggregator 'Total Interest & Dividend Income'"
+  },
+  {
+   "ticker": "PADICO",
+   "sector": "investment",
+   "year": 2025,
+   "currency": "USD",
+   "unit": "million",
+   "src": "https://stockanalysis.com/quote/pex/PADICO/financials/",
+   "bs": {
+    "totalCurrentAssets": 61.96,
+    "totalCurrentLiabilities": 53.17,
+    "cash": 18.92,
+    "receivables": 18.99,
+    "inventory": 13.4,
+    "totalAssets": 714.51,
+    "totalLiabilities": 221.02,
+    "totalEquity": 493.49,
+    "equityParent": 482.84,
+    "shortTermDebt": 7.77,
+    "longTermDebt": 161.1,
+    "payables": 2.27,
+    "retainedEarnings": 221.46
+   },
+   "is": {
+    "revenue": 45.6,
+    "cogs": 7.75,
+    "operatingIncome": 19.53,
+    "interestExpense": 13.48,
+    "netIncomeParent": 18.37,
+    "depreciation": 3.43
+   },
+   "cf": {
+    "cfo": -12.74,
+    "capex": 24.52
+   },
+   "note": "shortTermDebt = current LTD 6.80 + current leases 0.97; longTermDebt = LTD 153.89 + LT leases 7.21; depreciation = D&A from cash-flow statement; netIncomeParent = aggregator 'Net Income'; expenses positive"
+  },
+  {
+   "ticker": "UCI",
+   "sector": "investment",
+   "year": 2025,
+   "currency": "USD",
+   "unit": "unit",
+   "src": "https://webapi.pex.ps/api/GetFinancialKpis (POST CompanySymbol=UCI, Period=245, Year=2025)",
+   "bs": {
+    "totalAssets": 56310680,
+    "totalEquity": 42353112,
+    "totalLiabilities": 13957568
+   },
+   "is": {
+    "netIncome": -161483
+   },
+   "cf": {
+    "cfo": 1268943
+   },
+   "note": "official PEX financial KPIs only (detail line items not retrieved)"
+  },
+  {
+   "ticker": "JREI",
+   "sector": "investment",
+   "year": 2025,
+   "currency": "USD",
+   "unit": "unit",
+   "src": "https://webapi.pex.ps/api/GetFinancialKpis (POST CompanySymbol=JREI, Period=245, Year=2025)",
+   "bs": {
+    "totalAssets": 11231524,
+    "totalEquity": 7177007,
+    "totalLiabilities": 4054517
+   },
+   "is": {
+    "netIncome": -102231
+   },
+   "cf": {
+    "cfo": -383241
+   },
+   "note": "official PEX financial KPIs only (detail line items not retrieved)"
+  },
+  {
+   "ticker": "AQARIYA",
+   "sector": "investment",
+   "year": 2025,
+   "currency": "USD",
+   "unit": "unit",
+   "src": "https://webapi.pex.ps/api/GetFinancialKpis (POST CompanySymbol=AQARIYA, Period=245, Year=2025)",
+   "bs": {
+    "totalAssets": 14833730,
+    "totalEquity": 11472886,
+    "totalLiabilities": 3360844
+   },
+   "is": {
+    "netIncome": 376928
+   },
+   "cf": {
+    "cfo": 2462409
+   },
+   "note": "official PEX financial KPIs only (detail line items not retrieved)"
+  },
+  {
+   "ticker": "PIIC",
+   "sector": "investment",
+   "year": 2025,
+   "currency": "JOD",
+   "unit": "unit",
+   "src": "https://webapi.pex.ps/api/GetFinancialKpis (POST CompanySymbol=PIIC, Period=245, Year=2025)",
+   "bs": {
+    "totalAssets": 167021682,
+    "totalEquity": 100876593,
+    "totalLiabilities": 66145089
+   },
+   "is": {
+    "netIncome": 9347102
+   },
+   "cf": {
+    "cfo": 6566674
+   },
+   "note": "official PEX financial KPIs only (detail line items not retrieved)"
+  },
+  {
+   "ticker": "ARAB",
+   "sector": "investment",
+   "year": 2025,
+   "currency": "JOD",
+   "unit": "unit",
+   "src": "https://webapi.pex.ps/api/GetFinancialKpis (POST CompanySymbol=ARAB, Period=245, Year=2025)",
+   "bs": {
+    "totalAssets": 13492781,
+    "totalEquity": 13435176,
+    "totalLiabilities": 57605
+   },
+   "is": {
+    "netIncome": 43094
+   },
+   "cf": {
+    "cfo": 25150
+   },
+   "note": "official PEX financial KPIs only (detail line items not retrieved)"
+  },
+  {
+   "ticker": "PRICO",
+   "sector": "investment",
+   "year": 2025,
+   "currency": "JOD",
+   "unit": "million",
+   "src": "https://stockanalysis.com/quote/pex/PRICO/financials/",
+   "bs": {
+    "totalCurrentAssets": 15.59,
+    "totalCurrentLiabilities": 17.29,
+    "cash": 1.62,
+    "receivables": 3.64,
+    "inventory": 9.71,
+    "totalAssets": 50.5,
+    "totalLiabilities": 26.2,
+    "totalEquity": 24.3,
+    "equityParent": 18.95,
+    "shortTermDebt": 1.54,
+    "longTermDebt": 7.26,
+    "payables": 0.39,
+    "retainedEarnings": -51
+   },
+   "is": {
+    "revenue": 3.71,
+    "cogs": 0.25,
+    "operatingIncome": 0.61,
+    "interestExpense": 0.69,
+    "netIncomeParent": -0.42,
+    "depreciation": 0.77
+   },
+   "cf": {
+    "cfo": 4.5,
+    "capex": 0.02
+   },
+   "note": "shortTermDebt = current LTD 1.35 + current leases 0.19; longTermDebt = LTD 4.44 + LT leases 2.82; depreciation = D&A from cash-flow statement; netIncomeParent = aggregator 'Net Income'; expenses positive"
+  },
+  {
+   "ticker": "APIC",
+   "sector": "investment",
+   "year": 2025,
+   "currency": "USD",
+   "unit": "million",
+   "src": "https://stockanalysis.com/quote/pex/APIC/financials/",
+   "bs": {
+    "totalCurrentAssets": 628.45,
+    "totalCurrentLiabilities": 450.86,
+    "cash": 39.26,
+    "receivables": 321.05,
+    "inventory": 181.97,
+    "totalAssets": 1001,
+    "totalLiabilities": 733.67,
+    "totalEquity": 267.05,
+    "equityParent": 229.25,
+    "shortTermDebt": 271.84,
+    "longTermDebt": 245.86,
+    "payables": 111.04,
+    "retainedEarnings": 69.58
+   },
+   "is": {
+    "revenue": 1306,
+    "cogs": 1134,
+    "operatingIncome": 46.64,
+    "interestExpense": 32.33,
+    "netIncomeParent": 8.18,
+    "depreciation": 20.38
+   },
+   "cf": {
+    "cfo": -46.13,
+    "capex": 44.17
+   },
+   "note": "shortTermDebt = ST debt 98.62 + current LTD 168.79 + current leases 4.43; longTermDebt = LTD 239.10 + LT leases 6.76; depreciation = D&A from cash-flow statement; netIncomeParent = aggregator 'Net Income'; expenses positive"
+  },
+  {
+   "ticker": "SANAD",
+   "sector": "investment",
+   "year": 2025,
+   "currency": "USD",
+   "unit": "unit",
+   "src": "https://webapi.pex.ps/api/GetFinancialKpis (POST CompanySymbol=SANAD, Period=245, Year=2025)",
+   "bs": {
+    "totalAssets": 59918321,
+    "totalEquity": 37068848,
+    "totalLiabilities": 22849473
+   },
+   "is": {
+    "netIncome": -2609401
+   },
+   "cf": {
+    "cfo": -8292837
+   },
+   "note": "official PEX financial KPIs only (detail line items not retrieved)"
+  },
+  {
+   "ticker": "ARKAAN",
+   "sector": "investment",
+   "year": 2025,
+   "currency": "USD",
+   "unit": "million",
+   "src": "https://stockanalysis.com/quote/pex/ARKAAN/financials/",
+   "bs": {
+    "totalCurrentAssets": 99.98,
+    "totalCurrentLiabilities": 15.35,
+    "cash": 10.75,
+    "receivables": 13.6,
+    "totalAssets": 569.06,
+    "totalLiabilities": 22.55,
+    "totalEquity": 546.52,
+    "equityParent": 518.96,
+    "shortTermDebt": 3.35,
+    "longTermDebt": 0.09,
+    "payables": 2.8,
+    "retainedEarnings": 9.49
+   },
+   "is": {
+    "revenue": -0.72,
+    "cogs": 0.93,
+    "operatingIncome": -7.53,
+    "netIncomeParent": 17.46,
+    "depreciation": 0.15
+   },
+   "cf": {
+    "cfo": -7.05,
+    "capex": 0.01
+   },
+   "note": "real-estate developer; reported revenue is negative (fair-value effects), net income driven by revaluation; depreciation = D&A from cash-flow statement; netIncomeParent = aggregator 'Net Income'; expenses positive"
+  },
+  {
+   "ticker": "AMLAK",
+   "sector": "investment",
+   "year": 2025,
+   "currency": "USD",
+   "unit": "unit",
+   "src": "https://webapi.pex.ps/api/GetFinancialKpis (POST CompanySymbol=AMLAK, Period=245, Year=2025)",
+   "bs": {
+    "totalAssets": 21897531,
+    "totalEquity": 10834185,
+    "totalLiabilities": 11063346
+   },
+   "is": {
+    "netIncome": 46456
+   },
+   "cf": {
+    "cfo": -279965
+   },
+   "note": "official PEX financial KPIs only (detail line items not retrieved)"
+  },
+  {
+   "ticker": "JCC",
+   "sector": "industrial",
+   "year": 2025,
+   "currency": "JOD",
+   "unit": "unit",
+   "src": "https://webapi.pex.ps/api/GetFinancialKpis (POST CompanySymbol=JCC, Period=245, Year=2025)",
+   "bs": {
+    "totalAssets": 76935458,
+    "totalEquity": 31611933,
+    "totalLiabilities": 45323525
+   },
+   "is": {
+    "netIncome": 309853
+   },
+   "cf": {
+    "cfo": 3789611
+   },
+   "note": "official PEX financial KPIs only (detail line items not retrieved)"
+  },
+  {
+   "ticker": "GMC",
+   "sector": "industrial",
+   "year": 2025,
+   "currency": "JOD",
+   "unit": "million",
+   "src": "https://stockanalysis.com/quote/pex/GMC/financials/",
+   "bs": {
+    "totalCurrentAssets": 16.79,
+    "totalCurrentLiabilities": 7.03,
+    "cash": 2.86,
+    "receivables": 11.65,
+    "inventory": 1.45,
+    "totalAssets": 27.05,
+    "totalLiabilities": 7.87,
+    "totalEquity": 19.18,
+    "equityParent": 19.21,
+    "shortTermDebt": 3.19,
+    "longTermDebt": 0.05,
+    "payables": 1.31,
+    "retainedEarnings": 4.06
+   },
+   "is": {
+    "revenue": 21.74,
+    "cogs": 15.41,
+    "operatingIncome": 3.77,
+    "interestExpense": 0.32,
+    "netIncomeParent": 2.92,
+    "depreciation": 0.37
+   },
+   "cf": {
+    "cfo": 5.76,
+    "capex": 0.72
+   },
+   "note": "shortTermDebt = ST debt 1.86 + current LTD 1.30 + current leases 0.03; longTermDebt = LT leases 0.05; depreciation = D&A from cash-flow statement; netIncomeParent = aggregator 'Net Income'; expenses positive"
+  },
+  {
+   "ticker": "NCI",
+   "sector": "industrial",
+   "year": 2025,
+   "currency": "USD",
+   "unit": "unit",
+   "src": "https://webapi.pex.ps/api/GetFinancialKpis (POST CompanySymbol=NCI, Period=245, Year=2025)",
+   "bs": {
+    "totalAssets": 13725553,
+    "totalEquity": 10182276,
+    "totalLiabilities": 3543277
+   },
+   "is": {
+    "netIncome": 1498727
+   },
+   "cf": {
+    "cfo": 618433
+   },
+   "note": "official PEX financial KPIs only (detail line items not retrieved)"
+  },
+  {
+   "ticker": "NAPCO",
+   "sector": "industrial",
+   "year": 2025,
+   "currency": "JOD",
+   "unit": "unit",
+   "src": "https://webapi.pex.ps/api/GetFinancialKpis (POST CompanySymbol=NAPCO, Period=245, Year=2025)",
+   "bs": {
+    "totalAssets": 46854506,
+    "totalEquity": 12816916,
+    "totalLiabilities": 34037590
+   },
+   "is": {
+    "netIncome": -1321556
+   },
+   "cf": {
+    "cfo": 3653350
+   },
+   "note": "official PEX financial KPIs only (detail line items not retrieved)"
+  },
+  {
+   "ticker": "APC",
+   "sector": "industrial",
+   "year": 2025,
+   "currency": "JOD",
+   "unit": "unit",
+   "src": "https://webapi.pex.ps/api/GetFinancialKpis (POST CompanySymbol=APC, Period=245, Year=2025)",
+   "bs": {
+    "totalAssets": 8734606,
+    "totalEquity": 6400297,
+    "totalLiabilities": 2334309
+   },
+   "is": {
+    "netIncome": 1167257
+   },
+   "cf": {
+    "cfo": 998285
+   },
+   "note": "official PEX financial KPIs only (detail line items not retrieved)"
+  },
+  {
+   "ticker": "VOIC",
+   "sector": "industrial",
+   "year": 2025,
+   "currency": "JOD",
+   "unit": "million",
+   "src": "https://stockanalysis.com/quote/pex/VOIC/financials/",
+   "bs": {
+    "totalCurrentAssets": 5.91,
+    "totalCurrentLiabilities": 5.66,
+    "cash": 1.63,
+    "receivables": 1.51,
+    "inventory": 2.12,
+    "totalAssets": 98.01,
+    "totalLiabilities": 6.5,
+    "totalEquity": 91.52,
+    "shortTermDebt": 3.1,
+    "longTermDebt": 0.09,
+    "payables": 0.25,
+    "retainedEarnings": 71.97
+   },
+   "is": {
+    "revenue": 7.75,
+    "cogs": 5.3,
+    "operatingIncome": 1.16,
+    "interestExpense": 0.39,
+    "netIncomeParent": 10.44,
+    "depreciation": 0.28
+   },
+   "cf": {
+    "cfo": 1.04,
+    "capex": 0.17
+   },
+   "note": "shortTermDebt = current LTD 3.07 + current leases 0.03; longTermDebt = LT leases 0.09; depreciation = D&A from cash-flow statement; netIncomeParent = aggregator 'Net Income'; expenses positive"
+  },
+  {
+   "ticker": "BPC",
+   "sector": "industrial",
+   "year": 2025,
+   "currency": "USD",
+   "unit": "million",
+   "src": "https://stockanalysis.com/quote/pex/BPC/financials/",
+   "bs": {
+    "totalCurrentAssets": 69.9,
+    "totalCurrentLiabilities": 12.84,
+    "cash": 1.03,
+    "receivables": 52.12,
+    "inventory": 12.76,
+    "totalAssets": 140.21,
+    "totalLiabilities": 24.84,
+    "totalEquity": 115.36,
+    "equityParent": 114.63,
+    "payables": 5.77,
+    "retainedEarnings": 73.77
+   },
+   "is": {
+    "revenue": 47.96,
+    "cogs": 30.51,
+    "operatingIncome": 10.72,
+    "interestExpense": 0.05,
+    "netIncomeParent": 11.95,
+    "depreciation": 1.41
+   },
+   "cf": {
+    "cfo": 2.34,
+    "capex": 2.33
+   },
+   "note": "depreciation = D&A from cash-flow statement; netIncomeParent = aggregator 'Net Income'; expenses positive"
+  },
+  {
+   "ticker": "JPH",
+   "sector": "industrial",
+   "year": 2025,
+   "currency": "USD",
+   "unit": "million",
+   "src": "https://stockanalysis.com/quote/pex/JPH/financials/",
+   "bs": {
+    "totalCurrentAssets": 65.79,
+    "totalCurrentLiabilities": 19.3,
+    "cash": 12.22,
+    "receivables": 37.39,
+    "inventory": 13.45,
+    "totalAssets": 114.59,
+    "totalLiabilities": 26.39,
+    "totalEquity": 88.2,
+    "equityParent": 87.11,
+    "shortTermDebt": 1.12,
+    "longTermDebt": 0.21,
+    "payables": 7.89,
+    "retainedEarnings": 51.58
+   },
+   "is": {
+    "revenue": 48.95,
+    "cogs": 21.43,
+    "operatingIncome": 12.85,
+    "interestExpense": 0.01,
+    "netIncomeParent": 10.18,
+    "depreciation": 1.79
+   },
+   "cf": {
+    "cfo": 3.62,
+    "capex": 2.01
+   },
+   "note": "shortTermDebt = current LTD 0.72 + current leases 0.40; longTermDebt = LT leases 0.21; depreciation = D&A from cash-flow statement; netIncomeParent = aggregator 'Net Income'; expenses positive"
+  },
+  {
+   "ticker": "BJP",
+   "sector": "industrial",
+   "year": 2025,
+   "currency": "JOD",
+   "unit": "unit",
+   "src": "https://webapi.pex.ps/api/GetFinancialKpis (POST CompanySymbol=BJP, Period=245, Year=2025)",
+   "bs": {
+    "totalAssets": 23501350,
+    "totalEquity": 19162670,
+    "totalLiabilities": 4338680
+   },
+   "is": {
+    "netIncome": 2734068
+   },
+   "cf": {
+    "cfo": 4468540
+   },
+   "note": "official PEX financial KPIs only (detail line items not retrieved)"
+  },
+  {
+   "ticker": "AZIZA",
+   "sector": "industrial",
+   "year": 2025,
+   "currency": "JOD",
+   "unit": "million",
+   "src": "https://stockanalysis.com/quote/pex/AZIZA/financials/",
+   "bs": {
+    "totalCurrentAssets": 21.29,
+    "totalCurrentLiabilities": 9.81,
+    "cash": 3.12,
+    "receivables": 11.86,
+    "inventory": 5.77,
+    "totalAssets": 54.23,
+    "totalLiabilities": 12.46,
+    "totalEquity": 41.78,
+    "shortTermDebt": 1.02,
+    "longTermDebt": 0.09,
+    "payables": 6.73,
+    "retainedEarnings": 20.5
+   },
+   "is": {
+    "revenue": 38.58,
+    "cogs": 30.66,
+    "operatingIncome": 5.17,
+    "interestExpense": 0.08,
+    "netIncomeParent": 4.35,
+    "depreciation": 1.95
+   },
+   "cf": {
+    "cfo": 5.42,
+    "capex": 3.45
+   },
+   "note": "shortTermDebt = ST debt 0.64 + current LTD 0.33 + current leases 0.05; longTermDebt = LT leases 0.09; depreciation = D&A from cash-flow statement; netIncomeParent = aggregator 'Net Income'; expenses positive"
+  },
+  {
+   "ticker": "PSE",
+   "sector": "investment",
+   "year": 2025,
+   "currency": "USD",
+   "unit": "unit",
+   "src": "https://webapi.pex.ps/api/GetFinancialKpis (POST CompanySymbol=PSE, Period=245, Year=2025)",
+   "bs": {
+    "totalAssets": 16667413,
+    "totalEquity": 14498791,
+    "totalLiabilities": 2168622
+   },
+   "is": {
+    "netIncome": 962327
+   },
+   "cf": {
+    "cfo": 765130
+   },
+   "note": "official PEX financial KPIs only (detail line items not retrieved)"
+  },
+  {
+   "ticker": "BOP",
+   "sector": "bank",
+   "year": 2025,
+   "currency": "USD",
+   "unit": "million",
+   "src": "https://stockanalysis.com/quote/pex/BOP/financials/",
+   "bs": {
+    "totalAssets": 10651,
+    "totalEquity": 670.83,
+    "grossLoans": 4465,
+    "netLoans": 4012,
+    "deposits": 8269
+   },
+   "is": {
+    "netInterestIncome": 226.54,
+    "nonInterestIncome": 159.69,
+    "operatingExpenses": 193.32,
+    "netIncome": 53.36
+   },
+   "note": "NPL and capital adequacy not available from aggregator; operatingExpenses = aggregator 'Total Non-Interest Expense'"
+  },
+  {
+   "ticker": "QUDS",
+   "sector": "bank",
+   "year": 2025,
+   "currency": "USD",
+   "unit": "million",
+   "src": "https://stockanalysis.com/quote/pex/QUDS/financials/",
+   "bs": {
+    "totalAssets": 1692,
+    "totalEquity": 176.17,
+    "deposits": 1317
+   },
+   "is": {
+    "netInterestIncome": 49.48,
+    "nonInterestIncome": 17.09,
+    "operatingExpenses": 43.1,
+    "netIncome": 6.78
+   },
+   "note": "FY2025 gross/net loans shown by aggregator as 2.79 (evident data error) so omitted; aggregator totalAssets differs from PEX official KPI (1670209674) by 1.3%"
+  },
+  {
+   "ticker": "ISBK",
+   "sector": "bank",
+   "year": 2025,
+   "currency": "USD",
+   "unit": "million",
+   "src": "https://stockanalysis.com/quote/pex/ISBK/financials/",
+   "bs": {
+    "totalAssets": 1783,
+    "totalEquity": 163.4,
+    "grossLoans": 1007,
+    "netLoans": 912.02,
+    "deposits": 523.45
+   },
+   "is": {
+    "netInterestIncome": 55.38,
+    "nonInterestIncome": 13.51,
+    "operatingExpenses": 36.92,
+    "netIncome": 4.08
+   }
+  },
+  {
+   "ticker": "AIB",
+   "sector": "bank",
+   "year": 2025,
+   "currency": "USD",
+   "unit": "million",
+   "src": "https://stockanalysis.com/quote/pex/AIB/financials/",
+   "bs": {
+    "totalAssets": 1942,
+    "totalEquity": 149.87,
+    "grossLoans": 1207,
+    "netLoans": 1119,
+    "deposits": 669.15
+   },
+   "is": {
+    "netInterestIncome": 68.38,
+    "nonInterestIncome": 21.8,
+    "operatingExpenses": 53.99,
+    "netIncome": 5.38
+   }
+  },
+  {
+   "ticker": "PIBC",
+   "sector": "bank",
+   "year": 2025,
+   "currency": "USD",
+   "unit": "million",
+   "src": "https://stockanalysis.com/quote/pex/PIBC/financials/",
+   "bs": {
+    "totalAssets": 888.17,
+    "totalEquity": 106.43,
+    "grossLoans": 475.48,
+    "netLoans": 475.48,
+    "deposits": 709.88
+   },
+   "is": {
+    "netInterestIncome": 23.24,
+    "nonInterestIncome": 5.47,
+    "operatingExpenses": 21.51,
+    "netIncome": 2.16
+   }
+  },
+  {
+   "ticker": "TNB",
+   "sector": "bank",
+   "year": 2025,
+   "currency": "USD",
+   "unit": "million",
+   "src": "https://stockanalysis.com/quote/pex/TNB/financials/",
+   "bs": {
+    "totalAssets": 1476,
+    "totalEquity": 164.01,
+    "grossLoans": 929.38,
+    "netLoans": 844.98,
+    "deposits": 1113
+   },
+   "is": {
+    "netInterestIncome": 43.06,
+    "nonInterestIncome": 11.61,
+    "operatingExpenses": 38.74,
+    "netIncome": 7.01
+   }
+  },
+  {
+   "ticker": "SAFABANK",
+   "sector": "bank",
+   "year": 2025,
+   "currency": "USD",
+   "unit": "unit",
+   "src": "https://webapi.pex.ps/api/GetFinancialKpis (POST CompanySymbol=SAFABANK, Period=245, Year=2025)",
+   "bs": {
+    "totalAssets": 369835774,
+    "totalEquity": 58707107
+   },
+   "is": {
+    "netIncome": -2622478
+   },
+   "note": "official PEX financial KPIs only (detail line items not retrieved)"
+  },
+  {
+   "ticker": "AHC",
+   "sector": "services",
+   "year": 2025,
+   "currency": "JOD",
+   "unit": "unit",
+   "src": "https://webapi.pex.ps/api/GetFinancialKpis (POST CompanySymbol=AHC, Period=245, Year=2025)",
+   "bs": {
+    "totalAssets": 23001389,
+    "totalEquity": 5046682,
+    "totalLiabilities": 17954707
+   },
+   "is": {
+    "netIncome": -1786008
+   },
+   "cf": {
+    "cfo": 200626
+   },
+   "note": "official PEX financial KPIs only (detail line items not retrieved)"
+  },
+  {
+   "ticker": "WASSEL",
+   "sector": "services",
+   "year": 2025,
+   "currency": "USD",
+   "unit": "million",
+   "src": "https://stockanalysis.com/quote/pex/WASSEL/financials/",
+   "bs": {
+    "totalCurrentAssets": 8.5,
+    "totalCurrentLiabilities": 5.54,
+    "cash": 1.67,
+    "receivables": 3.23,
+    "inventory": 0.38,
+    "totalAssets": 22.99,
+    "totalLiabilities": 9.96,
+    "totalEquity": 13.03,
+    "equityParent": 13.07,
+    "shortTermDebt": 0.56,
+    "longTermDebt": 0.68,
+    "payables": 1.53,
+    "retainedEarnings": -0.46
+   },
+   "is": {
+    "revenue": 14.74,
+    "cogs": 10.74,
+    "operatingIncome": 1.08,
+    "interestExpense": 0.03,
+    "netIncomeParent": 2.55,
+    "depreciation": 0.61
+   },
+   "cf": {
+    "cfo": 3.7,
+    "capex": 0.2
+   },
+   "note": "shortTermDebt/longTermDebt are lease liabilities only; depreciation = D&A from cash-flow statement; netIncomeParent = aggregator 'Net Income'; expenses positive"
+  },
+  {
+   "ticker": "PALAQAR",
+   "sector": "services",
+   "year": 2025,
+   "currency": "JOD",
+   "unit": "unit",
+   "src": "https://webapi.pex.ps/api/GetFinancialKpis (POST CompanySymbol=PALAQAR, Period=245, Year=2025)",
+   "bs": {
+    "totalAssets": 6170624,
+    "totalEquity": 1010376,
+    "totalLiabilities": 5160248
+   },
+   "is": {
+    "netIncome": -129377
+   },
+   "cf": {
+    "cfo": 631770
+   },
+   "note": "official PEX financial KPIs only (detail line items not retrieved)"
+  },
+  {
+   "ticker": "OOREDOO",
+   "sector": "services",
+   "year": 2025,
+   "currency": "USD",
+   "unit": "million",
+   "src": "https://stockanalysis.com/quote/pex/OOREDOO/financials/",
+   "bs": {
+    "totalCurrentAssets": 148.2,
+    "totalCurrentLiabilities": 125.94,
+    "cash": 123.3,
+    "receivables": 20.08,
+    "inventory": 1.11,
+    "totalAssets": 323.69,
+    "totalLiabilities": 147.08,
+    "totalEquity": 176.61,
+    "payables": 114.97,
+    "shortTermDebt": 5.34,
+    "longTermDebt": 7.4,
+    "retainedEarnings": -128
+   },
+   "is": {
+    "revenue": 106.15,
+    "cogs": 20.22,
+    "operatingIncome": 13.29,
+    "interestExpense": 0.52,
+    "netIncomeParent": 15.06,
+    "depreciation": 21.7
+   },
+   "cf": {
+    "cfo": 41.49,
+    "capex": 7.6
+   },
+   "note": "shortTermDebt/longTermDebt are lease liabilities only (no borrowings reported); depreciation = D&A from cash-flow statement; netIncomeParent = aggregator 'Net Income'; expenses positive"
+  },
+  {
+   "ticker": "RSR",
+   "sector": "services",
+   "year": 2025,
+   "currency": "JOD",
+   "unit": "million",
+   "src": "https://stockanalysis.com/quote/pex/RSR/financials/",
+   "bs": {
+    "cash": 0.35,
+    "receivables": 1.12,
+    "totalAssets": 15.02,
+    "totalLiabilities": 0.93,
+    "totalEquity": 14.09,
+    "payables": 0.01,
+    "longTermDebt": 0.04,
+    "retainedEarnings": 1.84
+   },
+   "is": {
+    "revenue": 0.61,
+    "operatingIncome": 0.19,
+    "netIncomeParent": 0.17,
+    "depreciation": 0.08
+   },
+   "cf": {
+    "cfo": 0.36
+   },
+   "note": "depreciation = D&A from cash-flow statement; netIncomeParent = aggregator 'Net Income'; expenses positive"
+  },
+  {
+   "ticker": "NSC",
+   "sector": "services",
+   "year": 2025,
+   "currency": "JOD",
+   "unit": "million",
+   "src": "https://stockanalysis.com/quote/pex/NSC/financials/",
+   "bs": {
+    "totalCurrentAssets": 18.05,
+    "totalCurrentLiabilities": 14.02,
+    "cash": 0.03,
+    "receivables": 17.54,
+    "inventory": 0.45,
+    "totalAssets": 24.67,
+    "totalLiabilities": 16.89,
+    "totalEquity": 7.78,
+    "shortTermDebt": 0.68,
+    "longTermDebt": 0.5,
+    "payables": 6.97,
+    "retainedEarnings": 1.5
+   },
+   "is": {
+    "revenue": 5.52,
+    "cogs": 3.94,
+    "operatingIncome": -0.22,
+    "interestExpense": 0.08,
+    "netIncomeParent": 0.11,
+    "depreciation": 0.32
+   },
+   "cf": {
+    "cfo": -0.71,
+    "capex": 0.22
+   },
+   "note": "shortTermDebt = ST debt 0.24 + current LTD 0.44; depreciation = D&A from cash-flow statement; netIncomeParent = aggregator 'Net Income'; expenses positive"
+  },
+  {
+   "ticker": "PALTEL",
+   "sector": "services",
+   "year": 2025,
+   "currency": "JOD",
+   "unit": "million",
+   "src": "https://stockanalysis.com/quote/pex/PALTEL/financials/",
+   "bs": {
+    "totalCurrentAssets": 193.95,
+    "totalCurrentLiabilities": 229.37,
+    "cash": 69.8,
+    "receivables": 69.85,
+    "inventory": 17.69,
+    "totalAssets": 557.83,
+    "totalLiabilities": 326.24,
+    "totalEquity": 231.59,
+    "equityParent": 231.05,
+    "shortTermDebt": 66,
+    "longTermDebt": 35.6,
+    "payables": 31.8,
+    "retainedEarnings": 103.26
+   },
+   "is": {
+    "revenue": 285.58,
+    "cogs": 56.74,
+    "operatingIncome": 83.08,
+    "interestExpense": 7.35,
+    "netIncome": 52.23,
+    "netIncomeParent": 52.01,
+    "depreciation": 54.07
+   },
+   "cf": {
+    "cfo": 118.29,
+    "capex": 55.66
+   },
+   "note": "shortTermDebt = ST debt 47.85 + current LTD 17.31 + current leases 0.84; longTermDebt = LTD 34.85 + LT leases 0.75; depreciation = D&A from cash-flow statement; netIncomeParent = aggregator 'Net Income'; expenses positive"
+  },
+  {
+   "ticker": "ISH",
+   "sector": "services",
+   "year": 2025,
+   "currency": "USD",
+   "unit": "unit",
+   "src": "https://webapi.pex.ps/api/GetFinancialKpis (POST CompanySymbol=ISH, Period=245, Year=2025)",
+   "bs": {
+    "totalAssets": 80500894,
+    "totalEquity": 43056031,
+    "totalLiabilities": 37444863
+   },
+   "is": {
+    "netIncome": 1949472
+   },
+   "cf": {
+    "cfo": -6961977
+   },
+   "note": "official PEX financial KPIs only (detail line items not retrieved)"
+  }
+ ]
+}
