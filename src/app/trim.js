@@ -16,7 +16,9 @@ function fuzzy(phrase) {
   return new RegExp(`${body(p)}|${body([...p].reverse().join(''))}`);
 }
 
-const BALANCE_SHEET = ['قائمة المركز المالي', 'بيان المركز المالي', 'الميزانية العامة', 'statement of financial position', 'balance sheet'].map(fuzzy);
+// Titles of the primary statements. Short forms on purpose: "الربح والخسار" also matches the garbled "بيان ة الربح والخسار".
+const STATEMENT = ['المركز المالي', 'الميزانية العامة', 'قائمة الدخل', 'بيان الدخل', 'الربح والخسار', 'الربح او الخسار',
+  'التدفقات النقدية', 'statement of financial position', 'balance sheet', 'profit or loss', 'income statement', 'statement of cash flows'].map(fuzzy);
 const AUDITOR = ['تقرير مدقق', 'تقرير المدقق المستقل', 'مدقق الحسابات المستقل', 'independent auditor'].map(fuzzy);
 const NUMBER = /[\d٠-٩][\d٠-٩٬,.]{2,}/g;
 
@@ -44,27 +46,39 @@ export function pickPages(pageTexts) {
   const t = pageTexts.map(squash);
   const figures = (i) => (pageTexts[i].match(NUMBER) ?? []).length;
   const isAuditor = (i) => AUDITOR.some((re) => re.test(t[i]));
-  const nearFigures = (i) => t.slice(i, i + 9).some((_, k) => figures(i + k) >= 25);
+  const isBlank = (i) => t[i].replace(/[\d٠-٩\-–.]/g, '').length < 20; // a scanned page: no text layer
   const accept = (from) => (n - from <= n * 0.8 ? { from: from + 1, to: n } : null); // a cut that barely helps is not worth it
 
-  // 1. The auditor's-report divider, past the opening pages (whose contents page names it too), followed within
-  //    8 pages by a page of figures. It comes first because board reports often print a condensed "balance sheet"
-  //    summary earlier on; starting there made the reader take figures from the summary, not the audited statements.
-  const aud = t.findIndex((_, i) => i >= n * 0.3 && isAuditor(i) && nearFigures(i));
+  // A primary statement page: its title at the TOP of the page (notes only mention it mid-text) and a table of figures.
+  const isStatement = (i) => STATEMENT.some((re) => re.test(t[i].slice(0, 160))) && figures(i) >= 15;
+  // 1. The auditor's report, past the opening pages (whose contents page names it too), counted only when a statement
+  //    page follows within 8 pages. The phrase may sit anywhere on the page (a bank's report opens with the firm's
+  //    letterhead); the statement-page test rejects audit-committee and AGM pages that merely mention the auditor.
+  //    It comes before rule 2 because board reports often print a condensed "balance sheet" summary earlier on;
+  //    starting there made the reader take figures from the summary, not the audited statements.
+  const aud = t.findIndex((_, i) => i >= n * 0.3 && isAuditor(i) && t.slice(i + 1, i + 9).some((_, k) => isStatement(i + 1 + k)));
   if (aud >= 0) return accept(aud);
-  // 2. No readable divider: the balance sheet itself, its title plus a table of figures.
-  const bs = t.findIndex((p, i) => BALANCE_SHEET.some((re) => re.test(p)) && figures(i) >= 25);
-  if (bs >= 0) {
-    // Back up to the auditor's report. Its pages are often scanned images with no text, so take the nearest
-    // auditor marker within 12 pages, or failing that the 9 pages before the balance sheet. The opinion is on the
-    // report's first page and a bank's report (with key audit matters) can run 8 pages, so err on keeping more.
-    let from = Math.max(0, bs - 9);
-    for (let i = bs; i >= Math.max(0, bs - 12); i--) if (isAuditor(i)) { from = i; break; }
-    return accept(from);
+  // 1b. Statement titles unreadable (scrambled fonts): a divider page that opens with the auditor phrase, followed
+  //     within 8 pages by a table of figures.
+  const divider = t.findIndex((p, i) => i >= n * 0.3 && AUDITOR.some((re) => re.test(p.slice(0, 160)))
+    && t.slice(i, i + 9).some((_, k) => figures(i + k) >= 25));
+  if (divider >= 0) return accept(divider);
+  // 2. No readable divider: the first primary statement, recognised by its title at the TOP of the page plus a table
+  //    of figures. Notes mention "statement of financial position" mid-text too; taking such a note page once cut
+  //    away the statements of a file whose balance sheet was a scan (JCC 2023, 2026-11-26).
+  const st = t.findIndex((_, i) => isStatement(i));
+  if (st >= 0) {
+    // Back up to the auditor's report: the nearest auditor marker within 12 pages, else 9 pages (the opinion is on
+    // the report's first page and a bank's report can run 8 pages, so err on keeping more).
+    for (let i = st; i >= Math.max(0, st - 12); i--) if (isAuditor(i)) return accept(i);
+    // No readable marker, and scanned pages right before the statements: the auditor's report and maybe the balance
+    // sheet are images there, and nothing tells where they start. Send the whole file rather than guess.
+    if ([1, 2, 3].some((k) => st - k >= 0 && isBlank(st - k))) return null;
+    return accept(Math.max(0, st - 9));
   }
   // 3. Statements scanned as images: a block of text-less pages that runs to the end of the file.
   let k = n;
-  while (k > 0 && t[k - 1].replace(/[\d٠-٩]/g, '').length < 20) k--;
+  while (k > 0 && isBlank(k - 1)) k--;
   if (n - k >= 6) return accept(Math.max(0, k - 1)); // keep the divider page just before the scans
   return null;
 }

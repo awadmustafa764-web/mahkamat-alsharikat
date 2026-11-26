@@ -51,3 +51,13 @@ describe('pickPages with a summary balance sheet in the board report', () => {
     expect(pickPages(t)).toEqual({ from: 41, to: 62 });
   });
 });
+
+describe('pickPages with a scanned auditor report and balance sheet', () => {
+  it('sends the whole file instead of cutting past the statements', () => {
+    // JCC 2023: pages 1-26 scanned (board report, auditor, balance sheet), income statement on 27, notes from 31
+    // that mention "بيان المركز المالي" in passing.
+    const t = pages(69, (p) => (p <= 26 ? '' : p === 27 ? `- 6 - شركة سجاير القدس بيان ة الربح والخسار الموحد ${figures}`
+      : p >= 31 ? `إيضاحات حول البيانات المالية تصنف الموجودات في بيان المركز المالي ${figures}` : figures));
+    expect(pickPages(t)).toBeNull();
+  });
+});

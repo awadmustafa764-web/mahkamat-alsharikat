@@ -40,13 +40,45 @@ export async function analyzeUpload(file, onStep = () => {}) {
   // Long annual reports stall the free reader: send only the auditor's report, statements and notes.
   onStep('trim');
   const { file: toSend, cut } = await trimPdf(file);
-  onStep('trim', cut ? `الصفحات ${cut.from}–${cut.to} من ${cut.total}` : 'الملف صغير، يُرسل كاملاً');
+  onStep('trim', cut ? `الصفحات ${cut.from}–${cut.to} من ${cut.total}` : 'يُرسل الملف كاملاً');
   onStep('send');
-  let res;
-  // One request carries the upload and the reading; the upload is done within seconds, the rest is the reader working.
+  let body = await read(toSend, file.name, onStep);
+  let offset = cut ? cut.from - 1 : 0;
+
+  onStep('check');
+  let data = toCompanyData(shiftPages(body.data, offset), file.name);
+  let v = validateCompany(data);
+  // Safety net for the cut: if the trimmed pages did not yield the core lines or the auditor's report, the cut may
+  // have missed something, so the whole file is read before anything is judged.
+  if (cut && (!v.ok || data.disclosures.auditor.opinion === 'not-found')) {
+    onStep('send', 'لم تكتمل القراءة من الصفحات المقتطعة، نعيد إرسال الملف كاملاً');
+    try {
+      body = await read(file, file.name, onStep);
+      offset = 0;
+      data = toCompanyData(body.data, file.name);
+      v = validateCompany(data);
+    } catch { /* keep the first reading; its problems are reported below */ }
+    onStep('check');
+  }
+  const problems = [];
+  if (!data.meta.isAnnualAudited) problems.push('الملف يبدو قوائم مرحلية أو غير مدققة؛ هذا السجل يقرأ القوائم السنوية المدققة.');
+  if (data.disclosures.auditor.opinion === 'not-found') problems.push('لم نجد تقرير المدقق في الملف؛ الحكم مبني على الأرقام وحدها.');
+  if (!v.ok) problems.push(MISSING_CORE);
+  const integrity = runIntegrity(data);
+
+  onStep('analyze');
+  const c = v.ok ? analyze(data, benchmarks) : null;
+  return { data, case: c, integrity, problems, cut: offset ? cut : null, missing: v.ok ? [] : v.errors };
+}
+
+const MISSING_CORE = 'لم نتمكن من قراءة البنود الأساسية في هذا الملف (مثل مجموع الأصول وحقوق الملكية وصافي الربح)، فلن نصدر حكماً على أرقام ناقصة. تأكد أن الملف يحتوي القوائم المالية السنوية المدققة، أو ارفع ملف القوائم المالية وحده.';
+
+/** One request carries the upload and the reading; the upload is done within seconds, the rest is the reader working. */
+async function read(blob, name, onStep) {
   const readingTimer = setTimeout(() => onStep('read'), 5000);
+  let res;
   try {
-    res = await fetch(EXTRACT_URL, { method: 'POST', headers: { 'Content-Type': 'application/pdf', 'X-File-Name': encodeURIComponent(file.name) }, body: toSend });
+    res = await fetch(EXTRACT_URL, { method: 'POST', headers: { 'Content-Type': 'application/pdf', 'X-File-Name': encodeURIComponent(name) }, body: blob });
   } catch {
     throw new Error('تعذّر الاتصال بخدمة القراءة. تأكد من الاتصال بالإنترنت، أو افتح شركة جاهزة.');
   } finally {
@@ -55,17 +87,5 @@ export async function analyzeUpload(file, onStep = () => {}) {
   onStep('read');
   const body = await res.json().catch(() => ({}));
   if (!res.ok) throw new Error(ERRORS[body.error] ?? 'حدث خطأ في خدمة القراءة.');
-
-  onStep('check');
-  const data = toCompanyData(shiftPages(body.data, cut ? cut.from - 1 : 0), file.name);
-  const problems = [];
-  if (!data.meta.isAnnualAudited) problems.push('الملف يبدو قوائم مرحلية أو غير مدققة؛ هذا السجل يقرأ القوائم السنوية المدققة.');
-  if (data.disclosures.auditor.opinion === 'not-found') problems.push('لم نجد تقرير المدقق في الملف؛ الحكم مبني على الأرقام وحدها.');
-  const v = validateCompany(data);
-  if (!v.ok) problems.push(...v.errors.map((e) => `بند ناقص: ${e}`));
-  const integrity = runIntegrity(data);
-
-  onStep('analyze');
-  const c = v.ok ? analyze(data, benchmarks) : null;
-  return { data, case: c, integrity, problems, cut };
+  return body;
 }

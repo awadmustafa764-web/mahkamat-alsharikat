@@ -4,3 +4,4 @@ node_modules/
 .wrangler/
 dist/
 data/raw/
+public/_tmp/
