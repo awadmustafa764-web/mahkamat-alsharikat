@@ -13,6 +13,7 @@ import { managementQuestions, guesses } from './questions.js';
 import { makeEvidence } from './evidence.js';
 import { MEANING, fmt } from './texts.js';
 import { DISCLAIMER, HALLS } from './constants.js';
+import { buildArgument } from './argument.js';
 
 const sevFromGrade = (g) => (g === 'E' ? 'alert' : g === 'D' ? 'watch' : 'info');
 
@@ -124,7 +125,7 @@ export function analyze(d, benchmarks = {}) {
   const strengths = graded.filter((e) => e.benchmark.points >= 3).sort((a, b) => b.benchmark.points - a.benchmark.points).slice(0, 3);
   const weaknesses = graded.filter((e) => e.benchmark.points <= 1).sort((a, b) => a.benchmark.points - b.benchmark.points).slice(0, 3);
 
-  return {
+  const out = {
     meta: d.meta, disclaimer: DISCLAIMER, integrity, sectorRule: rule, halls, surprise,
     models: { piotroski: piotroski(d), altman: altmanZpp(d, cur(d)), dupont: dupont(d, cur(d)) },
     anomalies, redFlags: flags,
@@ -133,4 +134,9 @@ export function analyze(d, benchmarks = {}) {
     questions: managementQuestions(d, flags, anomalies),
     guesses: guesses(d),
   };
+  out.argument = buildArgument(out);
+  // A specific reason beats a generic one: name the heaviest evidence on each side.
+  const top = (xs) => xs[0]?.headlineAr;
+  out.rating.verdict = { ...out.rating.verdict, becauseAr: [top(out.argument.mustKnow.filter((e) => e.severity === 'alert')), top(out.argument.against), top(out.argument.for)].filter(Boolean) };
+  return out;
 }
