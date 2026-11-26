@@ -1,0 +1,661 @@
+{
+  "meta": {
+    "id": "paltel",
+    "nameAr": "شركة الاتصالات الفلسطينية (مجموعة الاتصالات الفلسطينية)",
+    "nameEn": "Palestine Telecommunications Company P.L.C. (Paltel Group)",
+    "ticker": "PALTEL",
+    "exchange": "PEX",
+    "sector": "services",
+    "activityAr": "خدمات الاتصالات السلكية واللاسلكية والخدمات الرقمية وتكنولوجيا المعلومات",
+    "currency": "JOD",
+    "unit": "1000",
+    "consolidated": true,
+    "framework": "IFRS",
+    "years": [
+      2025,
+      2024
+    ]
+  },
+  "years": {
+    "2024": {
+      "bs": {
+        "cash": {
+          "v": 37429,
+          "src": {
+            "page": 7,
+            "doc": "paltel-FY2025"
+          }
+        },
+        "receivables": {
+          "v": 63496,
+          "src": {
+            "page": 7,
+            "doc": "paltel-FY2025"
+          }
+        },
+        "inventory": {
+          "v": 910,
+          "src": {
+            "page": 7,
+            "doc": "paltel-FY2025"
+          }
+        },
+        "otherCurrentAssets": {
+          "v": 47282,
+          "src": {
+            "page": 7,
+            "doc": "paltel-FY2025",
+            "note": "محسوب: مجموع الأصول المتداولة − النقد − الذمم المدينة − المخزون (يشمل المواد المتداولة والأرصدة المدينة الأخرى والموجودات بالقيمة العادلة من خلال الأرباح والخسائر)"
+          }
+        },
+        "totalCurrentAssets": {
+          "v": 149117,
+          "src": {
+            "page": 7,
+            "doc": "paltel-FY2025"
+          }
+        },
+        "ppeNet": {
+          "v": 179852,
+          "src": {
+            "page": 7,
+            "doc": "paltel-FY2025"
+          }
+        },
+        "otherNonCurrentAssets": {
+          "v": 180717,
+          "src": {
+            "page": 7,
+            "doc": "paltel-FY2025",
+            "note": "محسوب: مجموع الأصول − الأصول المتداولة − الممتلكات والآلات والمعدات"
+          }
+        },
+        "totalAssets": {
+          "v": 509686,
+          "src": {
+            "page": 7,
+            "doc": "paltel-FY2025"
+          }
+        },
+        "payables": {
+          "v": 36709,
+          "src": {
+            "page": 7,
+            "doc": "paltel-FY2025"
+          }
+        },
+        "shortTermDebt": {
+          "v": 67078,
+          "src": {
+            "page": 7,
+            "doc": "paltel-FY2025"
+          }
+        },
+        "otherCurrentLiabilities": {
+          "v": 124406,
+          "src": {
+            "page": 7,
+            "doc": "paltel-FY2025",
+            "note": "محسوب: مجموع المطلوبات المتداولة − الذمم الدائنة − التسهيلات والجزء المتداول من القروض"
+          }
+        },
+        "totalCurrentLiabilities": {
+          "v": 228193,
+          "src": {
+            "page": 7,
+            "doc": "paltel-FY2025"
+          }
+        },
+        "longTermDebt": {
+          "v": 19820,
+          "src": {
+            "page": 7,
+            "doc": "paltel-FY2025"
+          }
+        },
+        "otherNonCurrentLiabilities": {
+          "v": 46139,
+          "src": {
+            "page": 7,
+            "doc": "paltel-FY2025",
+            "note": "محسوب: مجموع المطلوبات − المطلوبات المتداولة − القروض طويلة الأجل"
+          }
+        },
+        "totalLiabilities": {
+          "v": 294152,
+          "src": {
+            "page": 7,
+            "doc": "paltel-FY2025"
+          }
+        },
+        "equityParent": {
+          "v": 215217,
+          "src": {
+            "page": 7,
+            "doc": "paltel-FY2025"
+          }
+        },
+        "nci": {
+          "v": 317,
+          "src": {
+            "page": 7,
+            "doc": "paltel-FY2025"
+          }
+        },
+        "totalEquity": {
+          "v": 215534,
+          "src": {
+            "page": 7,
+            "doc": "paltel-FY2025"
+          }
+        },
+        "retainedEarnings": {
+          "v": 49875,
+          "src": {
+            "page": 7,
+            "doc": "paltel-FY2025"
+          }
+        }
+      },
+      "is": {
+        "revenue": {
+          "v": 241129,
+          "src": {
+            "page": 8,
+            "doc": "paltel-FY2025"
+          }
+        },
+        "cogs": {
+          "v": 34624,
+          "src": {
+            "page": 8,
+            "doc": "paltel-FY2025"
+          }
+        },
+        "grossProfit": {
+          "v": 206505,
+          "src": {
+            "page": 8,
+            "doc": "paltel-FY2025",
+            "note": "مجموع فرعي غير معنون في قائمة الدخل = الإيرادات − التكلفة المباشرة للمبيعات"
+          }
+        },
+        "sga": {
+          "v": 163985,
+          "src": {
+            "page": 8,
+            "doc": "paltel-FY2025",
+            "note": "المصاريف التشغيلية والإدارية كما وردت، وتشمل الاستهلاك والإطفاء (إيضاح 26، صفحة 43)"
+          }
+        },
+        "operatingIncome": {
+          "v": 42520,
+          "src": {
+            "page": 8,
+            "doc": "paltel-FY2025",
+            "note": "محسوب: مجمل الربح − المصاريف التشغيلية والإدارية (قبل حصة الشركة الحليفة وتكاليف التمويل والإيرادات الأخرى بالصافي والضريبة)"
+          }
+        },
+        "depreciation": {
+          "v": 51771,
+          "src": {
+            "page": 11,
+            "doc": "paltel-FY2025"
+          }
+        },
+        "interestExpense": {
+          "v": 6870,
+          "src": {
+            "page": 8,
+            "doc": "paltel-FY2025"
+          }
+        },
+        "pbt": {
+          "v": 49192,
+          "src": {
+            "page": 8,
+            "doc": "paltel-FY2025"
+          }
+        },
+        "tax": {
+          "v": 7256,
+          "src": {
+            "page": 8,
+            "doc": "paltel-FY2025"
+          }
+        },
+        "netIncome": {
+          "v": 41936,
+          "src": {
+            "page": 8,
+            "doc": "paltel-FY2025"
+          }
+        },
+        "netIncomeParent": {
+          "v": 41789,
+          "src": {
+            "page": 8,
+            "doc": "paltel-FY2025"
+          }
+        }
+      },
+      "cf": {
+        "cfo": {
+          "v": 102996,
+          "src": {
+            "page": 11,
+            "doc": "paltel-FY2025"
+          }
+        },
+        "capex": {
+          "v": 52388,
+          "src": {
+            "page": 11,
+            "doc": "paltel-FY2025",
+            "note": "صافي الزيادة في المشاريع قيد التنفيذ والممتلكات والآلات والمعدات والمواد؛ لا يشمل شراء الموجودات غير الملموسة (المعروض في سطر منفصل)"
+          }
+        },
+        "cfi": {
+          "v": -45976,
+          "src": {
+            "page": 11,
+            "doc": "paltel-FY2025"
+          }
+        },
+        "cff": {
+          "v": -63811,
+          "src": {
+            "page": 11,
+            "doc": "paltel-FY2025"
+          }
+        },
+        "dividendsPaid": {
+          "v": 41048,
+          "src": {
+            "page": 11,
+            "doc": "paltel-FY2025"
+          }
+        },
+        "netChangeCash": {
+          "v": -6791,
+          "src": {
+            "page": 11,
+            "doc": "paltel-FY2025"
+          }
+        },
+        "cashBegin": {
+          "v": 44220,
+          "src": {
+            "page": 11,
+            "doc": "paltel-FY2025"
+          }
+        },
+        "cashEnd": {
+          "v": 37429,
+          "src": {
+            "page": 11,
+            "doc": "paltel-FY2025"
+          }
+        }
+      },
+      "shares": 131625000
+    },
+    "2025": {
+      "bs": {
+        "cash": {
+          "v": 69795,
+          "src": {
+            "page": 7,
+            "doc": "paltel-FY2025"
+          }
+        },
+        "receivables": {
+          "v": 58729,
+          "src": {
+            "page": 7,
+            "doc": "paltel-FY2025"
+          }
+        },
+        "inventory": {
+          "v": 1590,
+          "src": {
+            "page": 7,
+            "doc": "paltel-FY2025"
+          }
+        },
+        "otherCurrentAssets": {
+          "v": 63836,
+          "src": {
+            "page": 7,
+            "doc": "paltel-FY2025",
+            "note": "محسوب: مجموع الأصول المتداولة − النقد − الذمم المدينة − المخزون (يشمل المواد المتداولة والأرصدة المدينة الأخرى والموجودات بالقيمة العادلة من خلال الأرباح والخسائر)"
+          }
+        },
+        "totalCurrentAssets": {
+          "v": 193950,
+          "src": {
+            "page": 7,
+            "doc": "paltel-FY2025"
+          }
+        },
+        "ppeNet": {
+          "v": 185504,
+          "src": {
+            "page": 7,
+            "doc": "paltel-FY2025"
+          }
+        },
+        "otherNonCurrentAssets": {
+          "v": 178372,
+          "src": {
+            "page": 7,
+            "doc": "paltel-FY2025",
+            "note": "محسوب: مجموع الأصول − الأصول المتداولة − الممتلكات والآلات والمعدات"
+          }
+        },
+        "totalAssets": {
+          "v": 557826,
+          "src": {
+            "page": 7,
+            "doc": "paltel-FY2025"
+          }
+        },
+        "payables": {
+          "v": 40315,
+          "src": {
+            "page": 7,
+            "doc": "paltel-FY2025"
+          }
+        },
+        "shortTermDebt": {
+          "v": 65158,
+          "src": {
+            "page": 7,
+            "doc": "paltel-FY2025"
+          }
+        },
+        "otherCurrentLiabilities": {
+          "v": 123900,
+          "src": {
+            "page": 7,
+            "doc": "paltel-FY2025",
+            "note": "محسوب: مجموع المطلوبات المتداولة − الذمم الدائنة − التسهيلات والجزء المتداول من القروض"
+          }
+        },
+        "totalCurrentLiabilities": {
+          "v": 229373,
+          "src": {
+            "page": 7,
+            "doc": "paltel-FY2025"
+          }
+        },
+        "longTermDebt": {
+          "v": 34854,
+          "src": {
+            "page": 7,
+            "doc": "paltel-FY2025"
+          }
+        },
+        "otherNonCurrentLiabilities": {
+          "v": 62009,
+          "src": {
+            "page": 7,
+            "doc": "paltel-FY2025",
+            "note": "محسوب: مجموع المطلوبات − المطلوبات المتداولة − القروض طويلة الأجل"
+          }
+        },
+        "totalLiabilities": {
+          "v": 326236,
+          "src": {
+            "page": 7,
+            "doc": "paltel-FY2025"
+          }
+        },
+        "equityParent": {
+          "v": 231053,
+          "src": {
+            "page": 7,
+            "doc": "paltel-FY2025"
+          }
+        },
+        "nci": {
+          "v": 537,
+          "src": {
+            "page": 7,
+            "doc": "paltel-FY2025"
+          }
+        },
+        "totalEquity": {
+          "v": 231590,
+          "src": {
+            "page": 7,
+            "doc": "paltel-FY2025"
+          }
+        },
+        "retainedEarnings": {
+          "v": 62399,
+          "src": {
+            "page": 7,
+            "doc": "paltel-FY2025"
+          }
+        }
+      },
+      "is": {
+        "revenue": {
+          "v": 285584,
+          "src": {
+            "page": 8,
+            "doc": "paltel-FY2025"
+          }
+        },
+        "cogs": {
+          "v": 42982,
+          "src": {
+            "page": 8,
+            "doc": "paltel-FY2025"
+          }
+        },
+        "grossProfit": {
+          "v": 242602,
+          "src": {
+            "page": 8,
+            "doc": "paltel-FY2025",
+            "note": "مجموع فرعي غير معنون في قائمة الدخل = الإيرادات − التكلفة المباشرة للمبيعات"
+          }
+        },
+        "sga": {
+          "v": 176328,
+          "src": {
+            "page": 8,
+            "doc": "paltel-FY2025",
+            "note": "المصاريف التشغيلية والإدارية كما وردت، وتشمل الاستهلاك والإطفاء (إيضاح 26، صفحة 43)"
+          }
+        },
+        "operatingIncome": {
+          "v": 66274,
+          "src": {
+            "page": 8,
+            "doc": "paltel-FY2025",
+            "note": "محسوب: مجمل الربح − المصاريف التشغيلية والإدارية (قبل حصة الشركة الحليفة وتكاليف التمويل والإيرادات الأخرى بالصافي والضريبة)"
+          }
+        },
+        "depreciation": {
+          "v": 54065,
+          "src": {
+            "page": 11,
+            "doc": "paltel-FY2025"
+          }
+        },
+        "interestExpense": {
+          "v": 7348,
+          "src": {
+            "page": 8,
+            "doc": "paltel-FY2025"
+          }
+        },
+        "pbt": {
+          "v": 63846,
+          "src": {
+            "page": 8,
+            "doc": "paltel-FY2025"
+          }
+        },
+        "tax": {
+          "v": 11614,
+          "src": {
+            "page": 8,
+            "doc": "paltel-FY2025"
+          }
+        },
+        "netIncome": {
+          "v": 52232,
+          "src": {
+            "page": 8,
+            "doc": "paltel-FY2025"
+          }
+        },
+        "netIncomeParent": {
+          "v": 52012,
+          "src": {
+            "page": 8,
+            "doc": "paltel-FY2025"
+          }
+        }
+      },
+      "cf": {
+        "cfo": {
+          "v": 118290,
+          "src": {
+            "page": 11,
+            "doc": "paltel-FY2025"
+          }
+        },
+        "capex": {
+          "v": 55658,
+          "src": {
+            "page": 11,
+            "doc": "paltel-FY2025",
+            "note": "صافي الزيادة في المشاريع قيد التنفيذ والممتلكات والآلات والمعدات والمواد؛ لا يشمل شراء الموجودات غير الملموسة (المعروض في سطر منفصل)"
+          }
+        },
+        "cfi": {
+          "v": -45874,
+          "src": {
+            "page": 11,
+            "doc": "paltel-FY2025"
+          }
+        },
+        "cff": {
+          "v": -40050,
+          "src": {
+            "page": 11,
+            "doc": "paltel-FY2025"
+          }
+        },
+        "dividendsPaid": {
+          "v": 39173,
+          "src": {
+            "page": 11,
+            "doc": "paltel-FY2025"
+          }
+        },
+        "netChangeCash": {
+          "v": 32366,
+          "src": {
+            "page": 11,
+            "doc": "paltel-FY2025"
+          }
+        },
+        "cashBegin": {
+          "v": 37429,
+          "src": {
+            "page": 11,
+            "doc": "paltel-FY2025"
+          }
+        },
+        "cashEnd": {
+          "v": 69795,
+          "src": {
+            "page": 11,
+            "doc": "paltel-FY2025"
+          }
+        }
+      },
+      "shares": 131625000
+    }
+  },
+  "disclosures": {
+    "auditor": {
+      "opinion": "unmodified",
+      "firm": "Ernst & Young – Middle East (Ramallah)",
+      "reportDate": "2026-03-26",
+      "emphasis": {
+        "present": true,
+        "page": 2,
+        "quote": "We draw attention to Note (37) ... which relates to the war on Gaza Strip and the measures taken by management to mitigate its impact on the Group. Our opinion is not modified with respect to this matter."
+      },
+      "goingConcern": "none",
+      "kams": [
+        {
+          "title": "Revenue recognition – accuracy and occurrence of subscription and usage-based airtime services",
+          "quote": "We focused on this matter due to the significant risk ... in respect of both the occurrence and accuracy of airtime subscription and usage-based airtime revenue due to the complexity of systems and the high volume of transactions.",
+          "page": 3
+        },
+        {
+          "title": "Expected credit losses provision on accounts receivable",
+          "quote": "The total amount of accounts receivable amounted to JD 218,626,000 as of December 31, 2025, and the provision for expected credit losses amounted to JD 159,897,000.",
+          "page": 4
+        }
+      ]
+    },
+    "relatedParties": [
+      {
+        "party": "Associate (and a major shareholder)",
+        "nature": "Loans granted to associates, fully provided for (ECL JD 46,767k)",
+        "amount": 46767,
+        "page": 45
+      },
+      {
+        "party": "Major shareholders – banks",
+        "nature": "Overdrafts (26,924) and non-current interest-bearing loans (17,725); finance cost 3,758 for the year",
+        "amount": 26924,
+        "page": 45
+      },
+      {
+        "party": "Associate",
+        "nature": "Due from associate (impairment of JD 931,708 recognised in 2025)",
+        "amount": 11121,
+        "page": 45
+      },
+      {
+        "party": "Arkaan Real Estate Company (invested in by major shareholders)",
+        "nature": "Amount due to a related party (settlement extended; reclassified to non-current)",
+        "amount": 11680,
+        "page": 45
+      },
+      {
+        "party": "Companies owned by major shareholders and BoD",
+        "nature": "Operating and administrative expenses",
+        "amount": 3241,
+        "page": 45
+      }
+    ],
+    "contingencies": [
+      {
+        "text": "The group appears as a defendant in several cases ... management believes, based on a letter from the legal advisor, the group will not have any material obligations except for what was already provisioned for.",
+        "page": 44
+      },
+      {
+        "text": "Outstanding contractual commitments (purchase orders and letters of credit) of JD 40,218k, mostly maturing within one year.",
+        "amount": 40218,
+        "page": 44
+      },
+      {
+        "text": "Gaza Strip: receivables from Gaza subscribers of JD 62,360,241 fully provided for; Gaza non-financial assets of JD 10,899,508 fully impaired.",
+        "page": 54
+      }
+    ],
+    "subsequentEvents": [],
+    "policyChanges": []
+  }
+}

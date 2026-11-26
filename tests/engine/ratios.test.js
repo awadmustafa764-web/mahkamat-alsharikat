@@ -27,6 +27,16 @@ describe('common ratios (industrial fixture)', () => {
   });
 });
 
+describe('book value per share respects the reporting unit', () => {
+  it('equity in thousands ÷ actual share count', () => {
+    const d = fixture('industrial');           // unit "1000", equityParent 1150 → 1,150,000
+    d.years['2024'].shares = 1_000_000;
+    expect(r('bvps', d).value).toBeCloseTo(1.15, 6);
+    d.meta.unit = '1';
+    expect(r('bvps', d).value).toBeCloseTo(0.00115, 8);
+  });
+});
+
 describe('bank and insurance ratios', () => {
   const b = fixture('bank');
   const n = fixture('insurance');

@@ -60,8 +60,8 @@ export const COMMON = [
   ratio({ id: 'fcf', hall: 'quality', axis: null, labelAr: 'التدفق النقدي الحر', absolute: true,
     formulaAr: 'صافي التدفق النقدي التشغيلي − شراء الممتلكات والمعدات', num: [C('cfo'), C('capex', -1)] }),
 
-  ratio({ id: 'bvps', hall: 'intro', axis: null, labelAr: 'القيمة الدفترية للسهم', absolute: true,
-    formulaAr: 'حقوق مساهمي الشركة الأم ÷ عدد الأسهم', num: [B('equityParent')], den: [['top', 'shares']], guard: 'positive' }),
+  ratio({ id: 'bvps', hall: 'intro', axis: null, labelAr: 'القيمة الدفترية للسهم', absolute: true, scaleByUnit: true,
+    formulaAr: 'حقوق مساهمي الشركة الأم (بالوحدة الفعلية) ÷ عدد الأسهم', num: [B('equityParent')], den: [['top', 'shares']], guard: 'positive' }),
   ratio({ id: 'payoutRatio', hall: 'quality', axis: null, labelAr: 'نسبة توزيع الأرباح', unitAr: '%',
     formulaAr: 'توزيعات الأرباح المدفوعة ÷ صافي الربح', num: [C('dividendsPaid')], den: [I('netIncome')], guard: 'income' }),
 ];

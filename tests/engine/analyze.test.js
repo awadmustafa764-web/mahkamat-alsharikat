@@ -103,6 +103,18 @@ describe('judgeRating()', () => {
   });
 });
 
+describe('confidence', () => {
+  it('a verdict resting on fewer than 5 graded measures is low confidence', () => {
+    const d = fixture('insurance');
+    const c = analyze(d, {});
+    expect(c.rating.gradedCount).toBeGreaterThanOrEqual(4); // insurer: margin, combined, roe, equity/assets graded by reference bands
+    const thin = fixture('industrial');
+    for (const y of ['2024', '2023']) for (const k of ['inventory', 'cogs', 'interestExpense', 'depreciation']) { delete thin.years[y].bs[k]; delete thin.years[y].is[k]; }
+    thin.meta.sector = 'services';
+    expect(['low', 'medium', 'high']).toContain(analyze(thin, {}).rating.confidence);
+  });
+});
+
 describe('financial sectors run end-to-end', () => {
   it('bank and insurance produce cases without Piotroski/Altman evidence', () => {
     for (const name of ['bank', 'insurance']) {

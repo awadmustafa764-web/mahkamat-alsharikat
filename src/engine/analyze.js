@@ -128,7 +128,7 @@ export function analyze(d, benchmarks = {}) {
     meta: d.meta, disclaimer: DISCLAIMER, integrity, sectorRule: rule, halls, surprise,
     models: { piotroski: piotroski(d), altman: altmanZpp(d, cur(d)), dupont: dupont(d, cur(d)) },
     anomalies, redFlags: flags,
-    rating: { ...agg, confidence: confidence(integrity.ok, completeness), completeness },
+    rating: { ...agg, confidence: confidence(integrity.ok, completeness, graded.length), completeness, gradedCount: graded.length },
     strengths, weaknesses,
     questions: managementQuestions(d, flags, anomalies),
     guesses: guesses(d),

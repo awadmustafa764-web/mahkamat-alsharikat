@@ -1,0 +1,81 @@
+{
+  "meta": {
+    "id": "insurer", "nameAr": "مجموعة التأمين الوطنية", "nameEn": "National Insurance Company Group", "ticker": "NIC", "exchange": "PEX",
+    "sector": "insurance", "activityAr": "تأمين", "currency": "USD", "unit": "1", "consolidated": true,
+    "framework": "IFRS17", "years": [2025, 2024]
+  },
+  "priorPriorTotalAssets": { "v": 110937890, "src": { "page": 60, "doc": "NIC-FY2024", "note": "مجموع الموجودات 31/12/2023 (عمود المقارنة في التقرير السنوي 2024، النسخة العربية)" } },
+  "years": {
+    "2025": {
+      "bs": {
+        "cash": { "v": 7235365, "src": { "page": 9, "doc": "NIC-FY2025" } },
+        "totalAssets": { "v": 119911399, "src": { "page": 9, "doc": "NIC-FY2025" } },
+        "totalLiabilities": { "v": 71581734, "src": { "page": 9, "doc": "NIC-FY2025" } },
+        "totalEquity": { "v": 48329665, "src": { "page": 9, "doc": "NIC-FY2025" } },
+        "equityParent": { "v": 48329665, "src": { "page": 9, "doc": "NIC-FY2025" } },
+        "nci": { "v": 0, "src": { "page": 9, "doc": "NIC-FY2025" } }
+      },
+      "is": {
+        "insuranceRevenue": { "v": 52124741, "src": { "page": 10, "doc": "NIC-FY2025" } },
+        "insuranceServiceExpenses": { "v": 43278839, "src": { "page": 10, "doc": "NIC-FY2025" } },
+        "netReinsuranceResult": { "v": -8113634, "src": { "page": 10, "doc": "NIC-FY2025" } },
+        "insuranceServiceResult": { "v": 732268, "src": { "page": 10, "doc": "NIC-FY2025" } },
+        "investmentIncome": { "v": 2837623, "src": { "page": 10, "doc": "NIC-FY2025" } },
+        "pbt": { "v": 6071402, "src": { "page": 10, "doc": "NIC-FY2025" } },
+        "tax": { "v": 1031783, "src": { "page": 10, "doc": "NIC-FY2025" } },
+        "netIncome": { "v": 5039619, "src": { "page": 10, "doc": "NIC-FY2025" } },
+        "netIncomeParent": { "v": 5039619, "src": { "page": 12, "doc": "NIC-FY2025" } }
+      },
+      "cf": {
+        "cfo": { "v": 3165399, "src": { "page": 13, "doc": "NIC-FY2025" } },
+        "cfi": { "v": -4770536, "src": { "page": 13, "doc": "NIC-FY2025" } },
+        "cff": { "v": 1818807, "src": { "page": 13, "doc": "NIC-FY2025" } },
+        "capex": { "v": 604883, "src": { "page": 13, "doc": "NIC-FY2025" } },
+        "netChangeCash": { "v": 213670, "src": { "page": 13, "doc": "NIC-FY2025" } },
+        "cashBegin": { "v": 7113170, "src": { "page": 13, "doc": "NIC-FY2025" } },
+        "cashEnd": { "v": 7326840, "src": { "page": 13, "doc": "NIC-FY2025" } }
+      }
+    },
+    "2024": {
+      "bs": {
+        "cash": { "v": 7074327, "src": { "page": 9, "doc": "NIC-FY2025" } },
+        "totalAssets": { "v": 114980558, "src": { "page": 9, "doc": "NIC-FY2025" } },
+        "totalLiabilities": { "v": 72400383, "src": { "page": 9, "doc": "NIC-FY2025" } },
+        "totalEquity": { "v": 42580175, "src": { "page": 9, "doc": "NIC-FY2025" } },
+        "equityParent": { "v": 42580175, "src": { "page": 9, "doc": "NIC-FY2025" } },
+        "nci": { "v": 0, "src": { "page": 9, "doc": "NIC-FY2025" } }
+      },
+      "is": {
+        "insuranceRevenue": { "v": 51532209, "src": { "page": 10, "doc": "NIC-FY2025" } },
+        "insuranceServiceExpenses": { "v": 49768869, "src": { "page": 10, "doc": "NIC-FY2025" } },
+        "netReinsuranceResult": { "v": 3304381, "src": { "page": 10, "doc": "NIC-FY2025" } },
+        "insuranceServiceResult": { "v": 5067721, "src": { "page": 10, "doc": "NIC-FY2025" } },
+        "investmentIncome": { "v": 33301, "src": { "page": 10, "doc": "NIC-FY2025" } },
+        "pbt": { "v": 4204588, "src": { "page": 10, "doc": "NIC-FY2025" } },
+        "tax": { "v": 1201501, "src": { "page": 10, "doc": "NIC-FY2025" } },
+        "netIncome": { "v": 3003087, "src": { "page": 10, "doc": "NIC-FY2025" } },
+        "netIncomeParent": { "v": 3003087, "src": { "page": 12, "doc": "NIC-FY2025" } }
+      },
+      "cf": {
+        "cfo": { "v": 793744, "src": { "page": 13, "doc": "NIC-FY2025" } },
+        "cfi": { "v": 2310935, "src": { "page": 13, "doc": "NIC-FY2025" } },
+        "cff": { "v": -2402320, "src": { "page": 13, "doc": "NIC-FY2025" } },
+        "capex": { "v": 242669, "src": { "page": 13, "doc": "NIC-FY2025" } },
+        "dividendsPaid": { "v": 764789, "src": { "page": 13, "doc": "NIC-FY2025", "note": "بند 'Cash Dividends Declared' ضمن الأنشطة التمويلية (المعلن 858,896 في قائمة التغيرات في حقوق الملكية)" } },
+        "netChangeCash": { "v": 702359, "src": { "page": 13, "doc": "NIC-FY2025" } },
+        "cashBegin": { "v": 6410811, "src": { "page": 13, "doc": "NIC-FY2025" } },
+        "cashEnd": { "v": 7113170, "src": { "page": 13, "doc": "NIC-FY2025" } }
+      }
+    }
+  },
+  "disclosures": {
+    "auditor": {
+      "opinion": "unmodified", "firm": "HLB PS (Samir Sahhar, CPA)", "emphasis": null, "goingConcern": "none",
+      "kams": [
+        { "title": "Adequacy of Insurance Contract Liabilities Provisions", "quote": "As of December 31, 2025, insurance contracts liabilities amounted to USD 50 Million (USD 55 Million as of December 31, 2024) as stated in Note (12) of the consolidated financial statements.", "page": 5 },
+        { "title": "Valuation of Property Investments", "quote": "The group's property investments include plots and buildings valued at USD 31 Million as of December 31, 2025 (USD 26 million as of December 31, 2024) and are measured at fair value.", "page": 6 }
+      ]
+    },
+    "relatedParties": [], "contingencies": [], "subsequentEvents": [], "policyChanges": []
+  }
+}

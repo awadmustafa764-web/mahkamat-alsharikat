@@ -43,7 +43,9 @@ export function ratio(o) {
       if (o.guard === 'income' && den <= 0) return { ...base, value: null, reason: 'صافي الربح سالب أو صفر', flag: 'negativeIncome' };
       if (o.guard === 'positive' && den <= 0) return { ...base, value: null, reason: 'المقام سالب أو صفر' };
       if (den === 0) return { ...base, value: null, reason: 'المقام صفر' };
-      return { ...base, value: (num / den) * (o.mult ?? 1) };
+      // Amounts are stored in the published unit (e.g. thousands) but share counts are actual counts.
+      const unit = o.scaleByUnit ? Number(d.meta?.unit ?? 1) || 1 : 1;
+      return { ...base, value: ((num * unit) / den) * (o.mult ?? 1) };
     },
   };
 }

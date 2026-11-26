@@ -29,8 +29,12 @@ export function aggregate(evidence) {
   return { label: RATING_LABELS[idx], points, axes, downgrades };
 }
 
-/** Confidence in the result: data completeness and integrity. */
-export function confidence(integrityOk, completeness) {
+/** A verdict resting on fewer graded measures than this is reported with low confidence. */
+export const MIN_GRADED = 5;
+
+/** Confidence in the result: integrity, data completeness, and how many measures were graded. */
+export function confidence(integrityOk, completeness, gradedCount = Infinity) {
+  if (gradedCount < MIN_GRADED) return 'low';
   if (integrityOk && completeness >= 0.9) return 'high';
   if (integrityOk) return 'medium';
   return 'low';

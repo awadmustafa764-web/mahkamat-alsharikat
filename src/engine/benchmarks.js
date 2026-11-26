@@ -24,6 +24,16 @@ export const REFERENCE_BANDS = {
   nplRatio: { better: 'lower', cuts: [0.03, 0.05, 0.08, 0.12] },
   capitalAdequacy: { better: 'higher', cuts: [0.16, 0.14, 0.125, 0.105] },
   combinedRatio: { better: 'lower', cuts: [0.85, 0.92, 0.97, 1.0] },
+  insServiceMargin: { better: 'higher', cuts: [0.10, 0.05, 0.02, 0] },
+  insRoe: { better: 'higher', cuts: [0.15, 0.10, 0.05, 0] },
+  equityToAssets: { better: 'higher', cuts: [0.35, 0.25, 0.18, 0.12] },
+  bankRoe: { better: 'higher', cuts: [0.15, 0.10, 0.05, 0] },
+  bankRoa: { better: 'higher', cuts: [0.015, 0.010, 0.007, 0.003] },
+  costToIncome: { better: 'lower', cuts: [0.45, 0.55, 0.65, 0.75] },
+  nplCoverage: { better: 'higher', cuts: [1.0, 0.8, 0.6, 0.4] },
+  loanToDeposit: { better: 'lower', cuts: [0.70, 0.80, 0.90, 1.0] },
+  debtRatio: { better: 'lower', cuts: [0.35, 0.50, 0.65, 0.80] },
+  operatingMargin: { better: 'higher', cuts: [0.15, 0.10, 0.05, 0] },
 };
 
 export function median(xs) {
