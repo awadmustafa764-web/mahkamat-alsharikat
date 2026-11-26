@@ -1,0 +1,27 @@
+{
+  "meta": {
+    "id": "fixture-insurance", "nameAr": "تأمين الاختبار", "nameEn": "Fixture Insurance", "ticker": "FIXN", "exchange": "PEX",
+    "sector": "insurance", "activityAr": "تأمين", "currency": "USD", "unit": "1000", "consolidated": true,
+    "framework": "IFRS17", "years": [2024, 2023]
+  },
+  "years": {
+    "2024": {
+      "bs": { "totalInvestments": 400, "totalAssets": 900, "totalLiabilities": 650, "totalEquity": 250, "equityParent": 250 },
+      "is": { "insuranceRevenue": 500, "insuranceServiceExpenses": 430, "netReinsuranceResult": -30,
+              "insuranceServiceResult": 40, "investmentIncome": 24, "netIncome": 30, "netIncomeParent": 30 },
+      "cf": {},
+      "shares": 100
+    },
+    "2023": {
+      "bs": { "totalInvestments": 380, "totalAssets": 860, "totalLiabilities": 630, "totalEquity": 230, "equityParent": 230 },
+      "is": { "insuranceRevenue": 470, "insuranceServiceExpenses": 410, "netReinsuranceResult": -28,
+              "insuranceServiceResult": 32, "investmentIncome": 22, "netIncome": 25, "netIncomeParent": 25 },
+      "cf": {},
+      "shares": 100
+    }
+  },
+  "disclosures": {
+    "auditor": { "opinion": "unmodified", "firm": "مدقق الاختبار", "emphasis": null, "goingConcern": "none", "kams": [] },
+    "relatedParties": [], "contingencies": [], "subsequentEvents": [], "policyChanges": []
+  }
+}

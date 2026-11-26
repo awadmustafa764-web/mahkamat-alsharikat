@@ -1,0 +1,68 @@
+{
+  "meta": {
+    "id": "fixture-industrial",
+    "nameAr": "شركة الاختبار الصناعية",
+    "nameEn": "Fixture Industrial",
+    "ticker": "FIXI",
+    "exchange": "PEX",
+    "sector": "industrial",
+    "activityAr": "تصنيع",
+    "currency": "JOD",
+    "unit": "1000",
+    "consolidated": true,
+    "framework": "IFRS",
+    "years": [2024, 2023]
+  },
+  "years": {
+    "2024": {
+      "bs": {
+        "cash": 200, "receivables": 300, "inventory": 250, "otherCurrentAssets": 50, "totalCurrentAssets": 800,
+        "ppeNet": 1000, "otherNonCurrentAssets": 200, "totalAssets": 2000,
+        "payables": 150, "shortTermDebt": 100, "otherCurrentLiabilities": 50, "totalCurrentLiabilities": 300,
+        "longTermDebt": 400, "otherNonCurrentLiabilities": 100, "totalLiabilities": 800,
+        "equityParent": 1150, "nci": 50, "totalEquity": 1200, "retainedEarnings": 500
+      },
+      "is": {
+        "revenue": 2000, "cogs": 1400, "grossProfit": 600, "sga": 300, "operatingIncome": 300, "depreciation": 100,
+        "interestExpense": 40, "pbt": 260, "tax": 60, "netIncome": 200, "netIncomeParent": 190
+      },
+      "cf": {
+        "cfo": 150, "capex": 120, "cfi": -120, "cff": -50, "dividendsPaid": 50, "netChangeCash": -20,
+        "cashBegin": 220, "cashEnd": 200
+      },
+      "shares": 1000
+    },
+    "2023": {
+      "bs": {
+        "cash": 220, "receivables": 200, "inventory": 200, "otherCurrentAssets": 30, "totalCurrentAssets": 650,
+        "ppeNet": 980, "otherNonCurrentAssets": 170, "totalAssets": 1800,
+        "payables": 140, "shortTermDebt": 120, "otherCurrentLiabilities": 40, "totalCurrentLiabilities": 300,
+        "longTermDebt": 450, "otherNonCurrentLiabilities": 50, "totalLiabilities": 800,
+        "equityParent": 960, "nci": 40, "totalEquity": 1000, "retainedEarnings": 380
+      },
+      "is": {
+        "revenue": 1800, "cogs": 1300, "grossProfit": 500, "sga": 280, "operatingIncome": 220, "depreciation": 95,
+        "interestExpense": 45, "pbt": 175, "tax": 35, "netIncome": 140, "netIncomeParent": 133
+      },
+      "cf": {
+        "cfo": 210, "capex": 100, "cfi": -100, "cff": -90, "dividendsPaid": 40, "netChangeCash": 20,
+        "cashBegin": 200, "cashEnd": 220
+      },
+      "shares": 1000
+    }
+  },
+  "priorPriorTotalAssets": 1700,
+  "disclosures": {
+    "auditor": {
+      "opinion": "unmodified",
+      "firm": "مدقق الاختبار",
+      "emphasis": null,
+      "goingConcern": "none",
+      "kams": [{ "title": "تقييم المخزون", "quote": "يعد تقييم المخزون من الأمور الرئيسية بسبب حجمه والأحكام المتعلقة بصافي القيمة القابلة للتحقق.", "page": 12 }]
+    },
+    "relatedParties": [],
+    "contingencies": [],
+    "subsequentEvents": [],
+    "policyChanges": []
+  }
+}

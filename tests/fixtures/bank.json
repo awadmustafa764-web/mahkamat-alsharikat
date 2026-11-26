@@ -1,0 +1,31 @@
+{
+  "meta": {
+    "id": "fixture-bank", "nameAr": "بنك الاختبار", "nameEn": "Fixture Bank", "ticker": "FIXB", "exchange": "PEX",
+    "sector": "bank", "activityAr": "خدمات مصرفية", "currency": "USD", "unit": "1000", "consolidated": true,
+    "framework": "IFRS", "years": [2024, 2023]
+  },
+  "years": {
+    "2024": {
+      "bs": { "grossLoans": 640, "allowanceLoans": 40, "netLoans": 600, "npl": 40, "deposits": 800,
+              "totalAssets": 1000, "totalLiabilities": 880, "totalEquity": 120, "equityParent": 120 },
+      "is": { "netInterestIncome": 40, "nonInterestIncome": 15, "operatingExpenses": 30, "provisionExpense": 5,
+              "netIncome": 18, "netIncomeParent": 18 },
+      "cf": {},
+      "capitalAdequacy": 0.16,
+      "shares": 100
+    },
+    "2023": {
+      "bs": { "grossLoans": 600, "allowanceLoans": 36, "netLoans": 564, "npl": 30, "deposits": 760,
+              "totalAssets": 940, "totalLiabilities": 830, "totalEquity": 110, "equityParent": 110 },
+      "is": { "netInterestIncome": 37, "nonInterestIncome": 14, "operatingExpenses": 29, "provisionExpense": 4,
+              "netIncome": 16, "netIncomeParent": 16 },
+      "cf": {},
+      "capitalAdequacy": 0.155,
+      "shares": 100
+    }
+  },
+  "disclosures": {
+    "auditor": { "opinion": "unmodified", "firm": "مدقق الاختبار", "emphasis": null, "goingConcern": "none", "kams": [] },
+    "relatedParties": [], "contingencies": [], "subsequentEvents": [], "policyChanges": []
+  }
+}
