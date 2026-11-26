@@ -1,6 +1,7 @@
 export { analyze } from './analyze.js';
 export { judgeRating, aggregate as modelRating, allEvidence } from './rating.js';
 export { buildBenchmarks, gradeRatio, REFERENCE_BANDS, MIN_PEERS } from './benchmarks.js';
+export { benchmarksFromFile, rowsToCompanies } from './benchmarkRows.js';
 export { validateCompany } from './schema.js';
 export { runIntegrity } from './integrity.js';
 export { RATIOS } from './ratios/index.js';
