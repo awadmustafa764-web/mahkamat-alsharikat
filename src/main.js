@@ -9,17 +9,19 @@ import './styles/tokens.css';
 import './styles/base.css';
 import './styles/landing.css';
 import './styles/read.css';
+import './styles/reading.css';
 
 import { createStages } from './app/stages.js';
 import * as landing from './stages/landing.js';
 import * as intake from './stages/intake.js';
+import * as reading from './stages/reading.js';
 import { pageStage } from './stages/pages.js';
 
 const reducedMotion = matchMedia('(prefers-reduced-motion: reduce)').matches;
 const root = document.getElementById('app');
 
 const stages = createStages(root, {
-  landing, intake,
+  landing, reading, case: intake,
   method: pageStage('method'),
   limits: pageStage('limits'),
 }, { reducedMotion });

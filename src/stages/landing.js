@@ -23,7 +23,7 @@ export function mount(el, ctx) {
       <label class="intake-drop" for="file">
         <input id="file" type="file" accept="application/pdf,.pdf" class="visually-hidden" />
         <span class="drop-line drop-line--ink">ضع هنا ملف القوائم المالية</span>
-        <span class="drop-line drop-line--pencil">ملف PDF للتقرير السنوي أو القوائم المدققة مع الإيضاحات، بالعربية أو الإنجليزية</span>
+        <span class="drop-line drop-line--pencil">ملف PDF للقوائم المالية المدققة مع الإيضاحات وتقرير المدقق، بالعربية أو الإنجليزية. الملف الأصغر يُقرأ أسرع؛ التقرير السنوي الكامل قد يتعثر في أوقات الضغط.</span>
         <span class="drop-action">اختر الملف</span>
         <span class="close-rule" aria-hidden="true"></span>
       </label>
@@ -54,7 +54,7 @@ export function mount(el, ctx) {
     const b = ev.target.closest('.example');
     if (!b || leaving) return;
     leaving = true;
-    ctx.go('intake', { caseId: b.dataset.case });
+    ctx.go('reading', { caseId: b.dataset.case });
   });
 
   const drop = el.querySelector('.intake-drop');
@@ -66,7 +66,7 @@ export function mount(el, ctx) {
     if (file.size > 25 * 1024 * 1024) { status.textContent = 'الملف أكبر من 25 ميغابايت. ارفع ملف القوائم المالية والإيضاحات فقط.'; return; }
     if (leaving) return;
     leaving = true;
-    ctx.go('intake', { file });
+    ctx.go('reading', { file });
   };
   input.addEventListener('change', () => accept(input.files[0]));
   ['dragenter', 'dragover'].forEach((t) => drop.addEventListener(t, (e) => { e.preventDefault(); drop.classList.add('is-over'); }));

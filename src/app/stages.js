@@ -8,7 +8,10 @@ export function createStages(root, stages, ctx = {}) {
   async function go(name, payload = {}) {
     const def = stages[name];
     if (!def) throw new Error(`unknown stage: ${name}`);
-    if (current?.api?.transitionOut && !ctx.reducedMotion) await current.api.transitionOut(name, payload);
+    // An exit animation must never trap the visitor (throttled frames, background tab): cap it at 2.5s.
+    if (current?.api?.transitionOut && !ctx.reducedMotion && document.visibilityState === 'visible') {
+      await Promise.race([current.api.transitionOut(name, payload), new Promise((r) => setTimeout(r, 2500))]);
+    }
     current?.api?.unmount?.();
     current?.el.remove();
     const el = document.createElement('section');
