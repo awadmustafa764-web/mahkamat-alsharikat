@@ -44,3 +44,6 @@
 - Auditor's report text was read from rendered page images (the PDF's Arabic text layer is not extractable); numbers were also matched against the PDF text layer.
 - policyChanges left empty: new IFRS amendments effective 2025 are mentioned in the policies note but no impact was identified (page 47 text not legible via text extraction; not verified visually).
 - subsequentEvents: no subsequent-events note found in notes 1–34.
+
+## تحديث 2026-11-24
+- الإنفاق الرأسمالي (`capex`) صار = شراء ممتلكات وآلات ومعدات + مشاريع تحت التنفيذ: 2025 = 1,731,436 + 1,719,314 = 3,450,750؛ 2024 = 823,177 + 216,747 = 1,039,924 (ص 46). هذا يلغي الملاحظة السابقة "شراء ممتلكات فقط".

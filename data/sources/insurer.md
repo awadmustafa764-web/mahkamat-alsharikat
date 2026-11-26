@@ -37,3 +37,6 @@ Listing page: https://www.nic-pal.com/en/content/reports-and-financial-statement
 - `priorPriorTotalAssets` read via text extraction of the Arabic FY2024 PDF (page 60; figure appears on both total-assets and total liabilities+equity lines). Not visually verified.
 - The FY2025 PDF has no text layer; values were read from rendered page images and cross-checked arithmetically (all subtotals reconcile; 2024 comparatives match the FY2024 annual report).
 - Related parties, contingencies, subsequent events, policy changes: notes not included in the PDF → left empty (not "none confirmed").
+
+## ملاحظة من التدقيق المستقل (2026-11-24)
+- الميزانية تُظهر قروضاً بنكية في 2025 (500,000 متداولة + 1,500,000 غير متداولة). قالب شركات التأمين لا يحتوي حقول ديون، فلم تُسجَّل؛ لا تؤثر على أي نسبة مستخدمة.
