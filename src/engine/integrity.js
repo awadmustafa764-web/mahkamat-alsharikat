@@ -21,6 +21,11 @@ const CHECKS = [
     const gp = val(d, y, 'is', 'grossProfit'), r = val(d, y, 'is', 'revenue'), c = val(d, y, 'is', 'cogs');
     return gp === null || r === null || c === null ? null : [gp, r - c];
   }],
+  ['insuranceResult', 'نتيجة خدمة التأمين = إيرادات التأمين − مصاريف الخدمة + صافي نتيجة إعادة التأمين', (d, y) => {
+    const r = val(d, y, 'is', 'insuranceServiceResult'), rev = val(d, y, 'is', 'insuranceRevenue');
+    const e = val(d, y, 'is', 'insuranceServiceExpenses'), re = val(d, y, 'is', 'netReinsuranceResult');
+    return [r, rev, e, re].some((x) => x === null) ? null : [r, rev - e + re];
+  }],
   ['cashRoll', 'نقد آخر المدة − نقد أول المدة = صافي التغير في النقد', (d, y) => {
     const e = val(d, y, 'cf', 'cashEnd'), b = val(d, y, 'cf', 'cashBegin'), n = val(d, y, 'cf', 'netChangeCash');
     if (e === null || b === null || n === null) return null;
@@ -52,10 +57,15 @@ function need(d, y, expectedKeys, partKeys) {
 /**
  * @returns {{ok:boolean, checks:{id,year,ok,expected,actual,diff,labelAr,soft}[]}}
  */
+/** Banks and insurers present an unclassified balance sheet: no current/non-current subtotals to reconcile. */
+const UNCLASSIFIED = new Set(['currentAssetsSum', 'currentLiabilitiesSum', 'liabilitiesSum']);
+
 export function runIntegrity(d) {
   const checks = [];
+  const financial = d.meta.sector === 'bank' || d.meta.sector === 'insurance';
   for (const year of d.meta.years.slice(0, 2)) {
     for (const [id, labelAr, fn, soft = false] of CHECKS) {
+      if (financial && UNCLASSIFIED.has(id)) continue;
       const r = fn(d, year);
       if (!r) continue;
       const [expected, actual] = r;

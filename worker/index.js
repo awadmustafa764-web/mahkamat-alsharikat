@@ -41,20 +41,56 @@ async function uploadToGemini(env, bytes, name) {
   return file;
 }
 
+let candidates = null;
+let resolvedModel = null;
+
+/** Models to try, best first: GEMINI_MODEL if available, then stable "gemini-X-flash" models newest first. */
+async function modelCandidates(env) {
+  if (candidates) return candidates;
+  const r = await fetch(`${API}/v1beta/models?pageSize=200`, { headers: { 'x-goog-api-key': env.GEMINI_API_KEY } });
+  const { models = [] } = await r.json();
+  const usable = models.filter((m) => m.supportedGenerationMethods?.includes('generateContent')).map((m) => m.name.replace('models/', ''));
+  const flash = usable
+    .filter((n) => /^gemini-[\d.]+-flash(-\d{3})?$/.test(n))
+    .sort((a, b) => parseFloat(b.split('-')[1]) - parseFloat(a.split('-')[1]));
+  const wanted = env.GEMINI_MODEL && usable.includes(env.GEMINI_MODEL) ? [env.GEMINI_MODEL] : [];
+  candidates = [...new Set([...wanted, ...flash])].slice(0, 3);
+  return candidates;
+}
+
+const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
+
 async function extract(env, file) {
-  const model = env.GEMINI_MODEL || 'gemini-2.5-flash';
+  let last = 'no-model';
+  for (const model of await modelCandidates(env)) {
+    for (let attempt = 0; attempt < 2; attempt++) {
+      // Default thinking on purpose: a low-thinking test read 3 lines wrong and flipped the verdict (2026-11-25).
+      const res = await generate(env, file, model, false);
+      if (res.ok) { resolvedModel = model; return res.data; }
+      last = `generate ${res.status} ${model}`;
+      if (res.status !== 503 && res.status !== 429 && res.status !== 500) break; // not transient → next model
+      await sleep(2500 * (attempt + 1));
+    }
+  }
+  throw new Error(last);
+}
+
+async function generate(env, file, model, lowThinking) {
   const res = await fetch(`${API}/v1beta/models/${model}:generateContent`, {
     method: 'POST',
     headers: { 'x-goog-api-key': env.GEMINI_API_KEY, 'Content-Type': 'application/json' },
     body: JSON.stringify({
       contents: [{ role: 'user', parts: [{ file_data: { mime_type: 'application/pdf', file_uri: file.uri } }, { text: EXTRACTION_PROMPT }] }],
-      generationConfig: { temperature: 0, responseMimeType: 'application/json', responseSchema: EXTRACTION_SCHEMA },
+      generationConfig: {
+        temperature: 0, responseMimeType: 'application/json', responseSchema: EXTRACTION_SCHEMA,
+        ...(lowThinking ? { thinkingConfig: { thinkingLevel: 'low' } } : {}),
+      },
     }),
   });
-  if (!res.ok) throw new Error(`generate ${res.status}`);
+  if (!res.ok) return { ok: false, status: res.status };
   const out = await res.json();
   const text = out.candidates?.[0]?.content?.parts?.map((p) => p.text ?? '').join('') ?? '';
-  return JSON.parse(text);
+  return { ok: true, data: JSON.parse(text) };
 }
 
 export default {
@@ -75,7 +111,7 @@ export default {
     try {
       const file = await uploadToGemini(env, bytes, request.headers.get('X-File-Name') ?? 'statements.pdf');
       const data = await extract(env, file);
-      return json({ data, model: env.GEMINI_MODEL || 'gemini-2.5-flash' }, 200, headers);
+      return json({ data, model: resolvedModel }, 200, headers);
     } catch (e) {
       return json({ error: 'extraction-failed', detail: String(e.message).slice(0, 120) }, 502, headers);
     }
