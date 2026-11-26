@@ -1,14 +1,20 @@
-// Cloudflare Worker: receives a PDF, asks Gemini to extract the statements, returns JSON.
+// Cloudflare Worker: receives a PDF and asks Gemini either where its statements are (/locate) or what they say (/extract).
 // The Gemini key lives only in the Worker secret GEMINI_API_KEY (set with `npx wrangler secret put GEMINI_API_KEY`).
 import { EXTRACTION_SCHEMA, EXTRACTION_PROMPT } from './schema.js';
+import { LOCATE_SCHEMA, LOCATE_PROMPT } from './locate.js';
 
 const API = 'https://generativelanguage.googleapis.com';
-const MAX_BYTES = 25 * 1024 * 1024;
+// Gemini reads PDFs up to 50 MB; a whole annual report may come here once for the page finder.
+const MAX_BYTES = 50 * 1024 * 1024;
 // Bump when EXTRACTION_PROMPT or EXTRACTION_SCHEMA changes, so old stored readings are not reused.
 const CACHE_VERSION = 'v1';
 // Read-accuracy proven against verified figures, best first.
 // 3.8/3.7 are not listed until they pass the same test (their quota was spent on 2026-11-25 before they could be measured).
 const TESTED_MODELS = ['gemini-3.6-flash', 'gemini-3.5-flash'];
+// Page finding only (no figures are taken from it): fast models with their own, larger quotas, then a reader.
+// Measured 2026-11-26 on 9 reports with known pages (scans, scrambled fonts, a 253-page bank report): 3.1-lite 9/9,
+// 3.5-lite 6/6 (3 busy). A cut built from either answer contained every auditor and statement page.
+const LOCATE_MODELS = ['gemini-3.1-flash-lite', 'gemini-3.5-flash-lite', 'gemini-3.5-flash'];
 
 function cors(env, origin) {
   const allowed = (env.ALLOWED_ORIGINS ?? '').split(',').map((s) => s.trim()).filter(Boolean);
@@ -68,13 +74,13 @@ async function modelCandidates(env) {
 
 const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
 
-async function extract(env, file, only) {
+async function extract(env, file, only, models = null, schema, prompt) {
   const tried = [];
-  for (const model of only ? [only] : await modelCandidates(env)) {
+  for (const model of only ? [only] : models ?? await modelCandidates(env)) {
     // Free-tier flash models often answer 503 "overloaded" for a few seconds; waiting 3s, 6s, 12s usually gets through.
     for (let attempt = 0; attempt < 4; attempt++) {
       // Default thinking on purpose: a low-thinking test read 3 lines wrong and flipped the verdict (2026-11-25).
-      const res = await generate(env, file, model, false);
+      const res = await generate(env, file, model, false, schema, prompt);
       if (res.ok) { resolvedModel = model; return res.data; }
       tried.push(`${model}:${res.status}`);
       // 429 = quota for this model is used up: retrying only burns more quota, so move to the next model.
@@ -85,14 +91,14 @@ async function extract(env, file, only) {
   throw new Error(`generate ${tried.join(' ') || 'no-model'}`);
 }
 
-async function generate(env, file, model, lowThinking) {
+async function generate(env, file, model, lowThinking, schema = EXTRACTION_SCHEMA, prompt = EXTRACTION_PROMPT) {
   const res = await fetch(`${API}/v1beta/models/${model}:generateContent`, {
     method: 'POST',
     headers: { 'x-goog-api-key': env.GEMINI_API_KEY, 'Content-Type': 'application/json' },
     body: JSON.stringify({
-      contents: [{ role: 'user', parts: [{ file_data: { mime_type: 'application/pdf', file_uri: file.uri } }, { text: EXTRACTION_PROMPT }] }],
+      contents: [{ role: 'user', parts: [{ file_data: { mime_type: 'application/pdf', file_uri: file.uri } }, { text: prompt }] }],
       generationConfig: {
-        temperature: 0, responseMimeType: 'application/json', responseSchema: EXTRACTION_SCHEMA,
+        temperature: 0, responseMimeType: 'application/json', responseSchema: schema,
         ...(lowThinking ? { thinkingConfig: { thinkingLevel: 'low' } } : {}),
       },
     }),
@@ -113,7 +119,9 @@ export default {
       const c = await modelCandidates(env);
       return json({ candidates: c, ...(new URL(request.url).searchParams.has('all') ? { all: usableModels } : {}) }, 200, headers); // model names only; no secrets
     }
-    if (request.method !== 'POST' || new URL(request.url).pathname !== '/extract') return json({ error: 'not-found' }, 404, headers);
+    const path = new URL(request.url).pathname;
+    const locate = path === '/locate';
+    if (request.method !== 'POST' || !(locate || path === '/extract')) return json({ error: 'not-found' }, 404, headers);
     if (!env.GEMINI_API_KEY) return json({ error: 'missing-key' }, 500, headers);
 
     const len = Number(request.headers.get('Content-Length') || 0);
@@ -126,7 +134,7 @@ export default {
     const only = /^http:\/\/localhost:\d+$/.test(origin ?? '') ? request.headers.get('X-Model') : null;
     // A file read once is never sent to Gemini again: same bytes → same stored result, from any device.
     const hash = [...new Uint8Array(await crypto.subtle.digest('SHA-256', bytes))].map((b) => b.toString(16).padStart(2, '0')).join('');
-    const key = `${CACHE_VERSION}:${hash}`;
+    const key = locate ? `loc1:${hash}` : `${CACHE_VERSION}:${hash}`;
     if (env.EXTRACT_CACHE && !only) {
       const hit = await env.EXTRACT_CACHE.get(key, 'json').catch(() => null);
       if (hit) return json({ ...hit, cached: true }, 200, headers);
@@ -134,7 +142,9 @@ export default {
 
     try {
       const file = await uploadToGemini(env, bytes, request.headers.get('X-File-Name') ?? 'statements.pdf');
-      const data = await extract(env, file, only);
+      const data = locate
+        ? await extract(env, file, only, LOCATE_MODELS, LOCATE_SCHEMA, LOCATE_PROMPT)
+        : await extract(env, file, only);
       const result = { data, model: resolvedModel, readAt: new Date().toISOString() };
       if (env.EXTRACT_CACHE && !only) await env.EXTRACT_CACHE.put(key, JSON.stringify(result)).catch(() => {});
       return json(result, 200, headers);

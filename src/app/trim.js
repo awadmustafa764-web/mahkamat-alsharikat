@@ -84,17 +84,16 @@ export function pickPages(pageTexts) {
 }
 
 /**
- * Browser: return a smaller PDF holding only the financial section, or the original file when no cut is safe.
+ * Browser: page count and the text-rule guess at the financial section. Never throws.
  * @param {File} file
- * @returns {Promise<{file: File|Blob, cut: {from:number,to:number,total:number}|null}>}
+ * @returns {Promise<{total:number, guess:{from:number,to:number}|null}>}
  */
-export async function trimPdf(file) {
+export async function inspectPdf(file) {
   try {
-    const bytes = new Uint8Array(await file.arrayBuffer());
     const pdfjs = await import('pdfjs-dist');
     const { default: workerSrc } = await import('pdfjs-dist/build/pdf.worker.min.mjs?url');
     pdfjs.GlobalWorkerOptions.workerSrc = workerSrc;
-    const task = pdfjs.getDocument({ data: bytes.slice(), verbosity: 0 });
+    const task = pdfjs.getDocument({ data: new Uint8Array(await file.arrayBuffer()), verbosity: 0 });
     const doc = await task.promise;
     const pages = [];
     for (let i = 1; i <= doc.numPages; i++) {
@@ -103,19 +102,28 @@ export async function trimPdf(file) {
     }
     const total = doc.numPages;
     await task.destroy();
-    const range = pickPages(stripRunning(pages));
-    if (!range) return { file, cut: null };
-
-    const { PDFDocument } = await import('pdf-lib');
-    const src = await PDFDocument.load(bytes, { ignoreEncryption: true, updateMetadata: false });
-    const out = await PDFDocument.create({ updateMetadata: false }); // no timestamp: the same report always cuts to the same bytes, so the reader's store recognises it
-    const idx = Array.from({ length: range.to - range.from + 1 }, (_, k) => range.from - 1 + k);
-    (await out.copyPages(src, idx)).forEach((p) => out.addPage(p));
-    const blob = new Blob([await out.save()], { type: 'application/pdf' });
-    return { file: blob, cut: { ...range, total } };
+    return { total, guess: pickPages(stripRunning(pages)) };
   } catch (e) {
-    console.warn('trimPdf: sending the whole file', e);
-    return { file, cut: null }; // any parsing trouble: send the original, never block the upload
+    console.warn('inspectPdf: could not read the PDF in the browser', e);
+    return { total: 0, guess: null };
+  }
+}
+
+/**
+ * Browser: a PDF holding only pages from..to (1-based, inclusive). Byte-identical for the same input, so the reader's
+ * store recognises a report cut before. Returns null when the PDF cannot be rebuilt (the caller sends the whole file).
+ */
+export async function cutPdf(file, { from, to }) {
+  try {
+    const { PDFDocument } = await import('pdf-lib');
+    const src = await PDFDocument.load(new Uint8Array(await file.arrayBuffer()), { ignoreEncryption: true, updateMetadata: false });
+    const out = await PDFDocument.create({ updateMetadata: false }); // no timestamp, so the bytes never change
+    const idx = Array.from({ length: to - from + 1 }, (_, k) => from - 1 + k);
+    (await out.copyPages(src, idx)).forEach((p) => out.addPage(p));
+    return new Blob([await out.save()], { type: 'application/pdf' });
+  } catch (e) {
+    console.warn('cutPdf: sending the whole file', e);
+    return null;
   }
 }
 

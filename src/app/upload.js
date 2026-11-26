@@ -1,9 +1,12 @@
 import { EXTRACT_URL } from './config.js';
 import { toCompanyData } from './extracted.js';
-import { trimPdf, shiftPages } from './trim.js';
+import { inspectPdf, cutPdf, shiftPages } from './trim.js';
+import { keepRange } from '../../worker/locate.js';
 import { validateCompany, runIntegrity, analyze } from '../engine/index.js';
 import { benchmarks, docket } from './cases.js';
 import KNOWN from '../../data/known-files.json';
+// The page finder lives beside the reader on the same Worker.
+const LOCATE_URL = EXTRACT_URL.replace(/extract$/, 'locate');
 
 async function knownCase(file) {
   try {
@@ -39,10 +42,12 @@ export async function analyzeUpload(file, onStep = () => {}) {
   }
   // Long annual reports stall the free reader: send only the auditor's report, statements and notes.
   onStep('trim');
-  const { file: toSend, cut } = await trimPdf(file);
-  onStep('trim', cut ? `الصفحات ${cut.from}–${cut.to} من ${cut.total}` : 'يُرسل الملف كاملاً');
+  const { range, how, total } = await planCut(file);
+  const blob = range ? await cutPdf(file, range) : null;
+  const cut = blob ? { ...range, total } : null;
+  onStep('trim', cut ? `الصفحات ${cut.from}–${cut.to} من ${total}${how === 'finder' ? '' : ' (بالقواعد النصية)'}` : 'يُرسل الملف كاملاً');
   onStep('send');
-  let body = await read(toSend, file.name, onStep);
+  let body = await read(cut ? blob : file, file.name, onStep);
   let offset = cut ? cut.from - 1 : 0;
 
   onStep('check');
@@ -72,6 +77,27 @@ export async function analyzeUpload(file, onStep = () => {}) {
 }
 
 const MISSING_CORE = 'لم نتمكن من قراءة البنود الأساسية في هذا الملف (مثل مجموع الأصول وحقوق الملكية وصافي الربح)، فلن نصدر حكماً على أرقام ناقصة. تأكد أن الملف يحتوي القوائم المالية السنوية المدققة، أو ارفع ملف القوائم المالية وحده.';
+
+/**
+ * Which pages to send. 1) The page finder: a fast model looks at the whole report, scans included, and says where
+ * the auditor's report, statements and notes are. 2) If it fails, the text rules. 3) Otherwise the whole file.
+ * Small files (30 pages or fewer) always go whole.
+ */
+async function planCut(file) {
+  const { total, guess } = await inspectPdf(file);
+  if (total <= 30) return { range: null, total };
+  const worth = (r) => r && r.to - r.from + 1 <= total * 0.8; // a cut that barely helps is not worth the risk
+  try {
+    const res = await fetch(LOCATE_URL, { method: 'POST', headers: { 'Content-Type': 'application/pdf', 'X-File-Name': encodeURIComponent(file.name) }, body: file });
+    if (res.ok) {
+      const loc = (await res.json()).data;
+      // The finder must have seen the same file: a page count that disagrees means its answer cannot be trusted.
+      const range = loc?.totalPages === total ? keepRange(loc, total) : null;
+      if (range) return { range: worth(range) ? range : null, how: 'finder', total };
+    }
+  } catch { /* the page finder is an optimisation; fall through to the text rules */ }
+  return { range: worth(guess) ? guess : null, how: 'rules', total };
+}
 
 /** One request carries the upload and the reading; the upload is done within seconds, the rest is the reader working. */
 async function read(blob, name, onStep) {
